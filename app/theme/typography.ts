@@ -44,6 +44,11 @@ export const typography = {
     fontWeight: "600",
   } as TextStyle,
 
+  button: {
+    fontFamily,
+    fontSize: 15,
+  } as TextStyle,
+
   text: {
     fontFamily,
     fontSize: 14,

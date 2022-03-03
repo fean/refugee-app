@@ -3,8 +3,8 @@ import { Text, StyleProp, TextStyle } from "react-native"
 import { color, typography } from "../../../theme"
 
 interface TypographyProps {
-  variant: "title" | "header" | "text" | "chip"
-  color?: "text" | "disabled" | "placeholder" | "shade" | "warn" | "accepted" | "europe"
+  variant: "title" | "header" | "text" | "chip" | "button"
+  color?: "text" | "disabled" | "placeholder" | "shade" | "warn" | "accepted" | "europe" | "white"
   style?: StyleProp<TextStyle>
 }
 
@@ -16,6 +16,7 @@ const COLORS = {
   warn: color.palette.warn,
   accepted: color.palette.accept,
   europe: color.palette.europe,
+  white: color.palette.white,
 }
 
 export const Typography: React.FC<TypographyProps> = ({
