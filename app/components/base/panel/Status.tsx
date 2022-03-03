@@ -1,5 +1,5 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, TextStyle } from "react-native"
+import { StyleProp, ViewStyle, StyleSheet } from "react-native"
 
 import { formatDistance } from "../../../utils/date"
 import { translate } from "../../../i18n"
@@ -14,33 +14,32 @@ interface StatusPanelProps {
   status: "approved" | "pending"
 }
 
-const PANEL: ViewStyle = {
-  padding: 16,
-  paddingTop: 40,
-}
-
-const STATUS: ViewStyle = {
-  position: "absolute",
-  top: 0,
-  left: 16,
-}
-
-const STATUSTEXT: TextStyle = {
-  position: "absolute",
-  top: 16,
-  left: 16,
-}
-
-const AGOTEXT: TextStyle = {
-  position: "absolute",
-  top: 16,
-  right: 16,
-}
-
 const STATUSCOLORS = {
   approved: "accepted",
   pending: "warn",
 }
+
+const styles = StyleSheet.create({
+  agoText: {
+    position: "absolute",
+    right: 16,
+    top: 16,
+  },
+  panel: {
+    padding: 16,
+    paddingTop: 40,
+  },
+  status: {
+    left: 16,
+    position: "absolute",
+    top: 0,
+  },
+  statusText: {
+    left: 16,
+    position: "absolute",
+    top: 16,
+  },
+})
 
 export const StatusPanel: React.FC<StatusPanelProps> = ({ panelStyle, status, date, children }) => {
   const timeAgo = React.useMemo(
@@ -49,14 +48,14 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({ panelStyle, status, da
   )
 
   return (
-    <Panel style={[PANEL, panelStyle]}>
-      <StatusBar status={status} style={STATUS} />
-      <Typography style={STATUSTEXT} variant="chip" color={STATUSCOLORS[status] as any}>
+    <Panel style={[styles.panel, panelStyle]}>
+      <StatusBar status={status} style={styles.status} />
+      <Typography style={styles.statusText} variant="chip" color={STATUSCOLORS[status] as any}>
         {translate(`approvalState.${status}`)}
       </Typography>
 
       {date && (
-        <Typography style={AGOTEXT} variant="chip" color="placeholder">
+        <Typography style={styles.agoText} variant="chip" color="placeholder">
           {timeAgo}
         </Typography>
       )}

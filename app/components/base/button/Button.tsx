@@ -1,5 +1,5 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, TouchableOpacity, View } from "react-native"
+import { StyleProp, ViewStyle, TouchableOpacity, View, StyleSheet } from "react-native"
 
 import { color } from "../../../theme"
 import { translate } from "../../../i18n"
@@ -15,17 +15,18 @@ interface SimpleButtonProps {
   onPress?: () => void
 }
 
-const BUTTONBASE: ViewStyle = {
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "row",
-  borderRadius: 5,
-  height: 32,
-}
-
-const ICON: ViewStyle = {
-  marginEnd: 8,
-}
+const styles = StyleSheet.create({
+  base: {
+    alignItems: "center",
+    borderRadius: 5,
+    flexDirection: "row",
+    height: 32,
+    justifyContent: "center",
+  },
+  icon: {
+    marginEnd: 8,
+  },
+})
 
 export const Button: React.FC<SimpleButtonProps> = ({
   disabled,
@@ -48,10 +49,10 @@ export const Button: React.FC<SimpleButtonProps> = ({
   return (
     <TouchableOpacity
       disabled={disabled}
-      style={[BUTTONBASE, colorStyles, styleOverride]}
+      style={[styles.base, colorStyles, styleOverride]}
       onPress={onPress}
     >
-      {icon && <View style={text && ICON}>{icon}</View>}
+      {icon && <View style={text && styles.icon}>{icon}</View>}
       {btnText && (
         <Typography variant="button" color={textColor}>
           {btnText}

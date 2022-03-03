@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle } from "react-native"
+import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 import { color } from "../../../theme"
 import { shadows } from "../../../theme/shadows"
 
@@ -8,12 +8,14 @@ interface PanelProps {
   status: "approved" | "pending"
 }
 
-const styles: ViewStyle = {
-  width: 24,
-  height: 2,
-  borderRadius: 2,
-  ...shadows.glow,
-}
+const styles = StyleSheet.create({
+  base: {
+    borderRadius: 2,
+    height: 2,
+    width: 24,
+    ...shadows.glow,
+  },
+})
 
 export const StatusBar: React.FC<PanelProps> = ({ style: styleOverride, status }) => {
   const statusStyles: ViewStyle = React.useMemo(() => {
@@ -24,5 +26,5 @@ export const StatusBar: React.FC<PanelProps> = ({ style: styleOverride, status }
     }
   }, [status])
 
-  return <View style={[styles, statusStyles, styleOverride]} />
+  return <View style={[styles.base, statusStyles, styleOverride]} />
 }

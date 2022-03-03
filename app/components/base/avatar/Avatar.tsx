@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle } from "react-native"
+import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 
 import { color } from "../../../theme"
 import { Typography } from "../typography/Typography"
@@ -9,17 +9,19 @@ interface PanelProps {
   text: string
 }
 
-const AVATAR: ViewStyle = {
-  backgroundColor: color.palette.europeShade,
-  borderRadius: 5,
-  width: 48,
-  height: 48,
-  justifyContent: "center",
-  alignItems: "center",
-}
+const styles = StyleSheet.create({
+  avatar: {
+    alignItems: "center",
+    backgroundColor: color.palette.europeShade,
+    borderRadius: 5,
+    height: 48,
+    justifyContent: "center",
+    width: 48,
+  },
+})
 
 export const Avatar: React.FC<PanelProps> = ({ style: styleOverride, text }) => (
-  <View style={[AVATAR, styleOverride]}>
+  <View style={[styles.avatar, styleOverride]}>
     <Typography variant="header" color="europe">
       {text}
     </Typography>

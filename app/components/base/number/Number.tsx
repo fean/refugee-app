@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle } from "react-native"
+import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
 import { color } from "../../../theme"
@@ -10,13 +10,15 @@ interface PanelProps {
   option: "1" | "2" | "3" | "4" | "complete"
 }
 
-const NUMBER: ViewStyle = {
-  borderRadius: 16,
-  width: 32,
-  height: 32,
-  justifyContent: "center",
-  alignItems: "center",
-}
+const styles = StyleSheet.create({
+  number: {
+    alignItems: "center",
+    borderRadius: 16,
+    height: 32,
+    justifyContent: "center",
+    width: 32,
+  },
+})
 
 export const Number: React.FC<PanelProps> = ({ style: styleOverride, option }) => {
   const colorOverride = React.useMemo(
@@ -27,7 +29,7 @@ export const Number: React.FC<PanelProps> = ({ style: styleOverride, option }) =
   )
 
   return (
-    <View style={[NUMBER, colorOverride, styleOverride]}>
+    <View style={[styles.number, colorOverride, styleOverride]}>
       {option !== "complete" ? (
         <Typography variant="header" color="europe">
           {option}
