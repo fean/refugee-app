@@ -32,7 +32,7 @@ ignite-project
 │   ├── app.tsx
 ├── storybook
 │   ├── views
-│   ├── index.ts
+│   ├── Basic.tsx
 │   ├── storybook-registry.ts
 │   ├── storybook.ts
 │   ├── toggle-storybook.tsx

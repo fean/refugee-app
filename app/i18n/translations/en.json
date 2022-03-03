@@ -36,5 +36,9 @@
   "storybook": {
     "placeholder": "Placeholder",
     "field": "Field"
+  },
+  "approvalState": {
+    "approved": "Approved",
+    "pending": "Pending"
   }
 }

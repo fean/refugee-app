@@ -1,4 +1,4 @@
-import { Platform } from "react-native"
+import { Platform, TextStyle } from "react-native"
 
 /**
  * You can find a list of available fonts on both iOS and Android here:
@@ -13,11 +13,14 @@ import { Platform } from "react-native"
  *
  * The various styles of fonts are defined in the <Text /> component.
  */
+
+const fontFamily = Platform.select({ ios: "System", android: "normal" })
+
 export const typography = {
   /**
    * The primary font.  Used in most places.
    */
-  primary: Platform.select({ ios: "Helvetica", android: "normal" }),
+  primary: Platform.select({ ios: "System", android: "normal" }),
 
   /**
    * An alternate font used for perhaps titles and stuff.
@@ -28,4 +31,28 @@ export const typography = {
    * Lets get fancy with a monospace font!
    */
   code: Platform.select({ ios: "Courier", android: "monospace" }),
+
+  title: {
+    fontFamily,
+    fontSize: 18,
+    fontWeight: "600",
+  } as TextStyle,
+
+  header: {
+    fontFamily,
+    fontSize: 16,
+    fontWeight: "600",
+  } as TextStyle,
+
+  text: {
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "600",
+  } as TextStyle,
+
+  chip: {
+    fontFamily,
+    fontSize: 10,
+    fontWeight: "normal",
+  } as TextStyle,
 }

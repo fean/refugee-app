@@ -1,4 +1,4 @@
-const en = require("../app/i18n/en.json")
+const en = require("../app/i18n/translations/en.json")
 const { exec } = require("child_process")
 
 // Use this array for keys that for whatever reason aren't greppable so they
