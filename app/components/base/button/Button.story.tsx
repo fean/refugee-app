@@ -7,6 +7,7 @@ import { StoryScreen, Story, UseCase } from "../../../../storybook/views"
 import { color } from "../../../theme"
 
 import { Button } from "./Button"
+import { TextButton } from "./TextButton"
 
 declare let module
 
@@ -47,6 +48,23 @@ storiesOf("Buttons", module)
           style={BUTTON}
           disabled
           icon={<Icon name="link" size={16} color={color.palette.white} />}
+          onPress={() => Alert.alert("pressed")}
+        />
+      </UseCase>
+    </Story>
+  ))
+  .add("Text button", () => (
+    <Story>
+      <UseCase text="Simple" usage="A simple text based button">
+        <TextButton
+          icon={<Icon name="arrow-back" size={16} color={color.palette.text} />}
+          text="Back"
+          onPress={() => Alert.alert("pressed")}
+        />
+        <TextButton
+          disabled
+          icon={<Icon name="arrow-back" size={16} color={color.palette.textDisabled} text="Back" />}
+          text="Back"
           onPress={() => Alert.alert("pressed")}
         />
       </UseCase>
