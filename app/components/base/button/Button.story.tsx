@@ -8,6 +8,7 @@ import { color } from "../../../theme"
 
 import { Button } from "./Button"
 import { TextButton } from "./TextButton"
+import { IconButton } from "./IconButton"
 
 declare let module
 
@@ -63,8 +64,18 @@ storiesOf("Buttons", module)
         />
         <TextButton
           disabled
-          icon={<Icon name="arrow-back" size={16} color={color.palette.textDisabled} text="Back" />}
+          icon={<Icon name="arrow-back" size={16} color={color.palette.textDisabled} />}
           text="Back"
+          onPress={() => Alert.alert("pressed")}
+        />
+      </UseCase>
+    </Story>
+  ))
+  .add("Icon button", () => (
+    <Story>
+      <UseCase text="Icon button" usage="A simple icon button">
+        <IconButton
+          icon={<Icon name="close-outline" size={16} color={color.palette.text} />}
           onPress={() => Alert.alert("pressed")}
         />
       </UseCase>
