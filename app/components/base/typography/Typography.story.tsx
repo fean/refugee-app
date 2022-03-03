@@ -1,7 +1,7 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react-native"
 
-import { StoryScreen, Story, UseCase } from "../../../storybook/views"
+import { StoryScreen, Story, UseCase } from "../../../../storybook/views"
 import { Typography } from "./Typography"
 
 declare let module

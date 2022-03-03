@@ -1,10 +1,10 @@
 import * as React from "react"
 import { Text, StyleProp, TextStyle } from "react-native"
-import { color, typography } from "../../theme"
+import { color, typography } from "../../../theme"
 
 interface TypographyProps {
   variant: "title" | "header" | "text" | "chip"
-  color?: "text" | "disabled" | "placeholder" | "shade" | "warn" | "accepted"
+  color?: "text" | "disabled" | "placeholder" | "shade" | "warn" | "accepted" | "europe"
   style?: StyleProp<TextStyle>
 }
 
@@ -15,6 +15,7 @@ const COLORS = {
   shade: color.palette.textShade,
   warn: color.palette.warn,
   accepted: color.palette.accept,
+  europe: color.palette.europe,
 }
 
 export const Typography: React.FC<TypographyProps> = ({

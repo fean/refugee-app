@@ -1,7 +1,7 @@
 import * as React from "react"
 import { View, StyleProp, ViewStyle } from "react-native"
-import { color } from "../../theme"
-import { shadows } from "../../theme/shadows"
+import { color } from "../../../theme"
+import { shadows } from "../../../theme/shadows"
 
 interface PanelProps {
   style?: StyleProp<ViewStyle>

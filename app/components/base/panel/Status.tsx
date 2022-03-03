@@ -1,8 +1,8 @@
 import * as React from "react"
 import { StyleProp, ViewStyle, TextStyle } from "react-native"
 
-import { formatDistance } from "../../utils/date"
-import { translate } from "../../i18n"
+import { formatDistance } from "../../../utils/date"
+import { translate } from "../../../i18n"
 import { Typography } from "../typography/Typography"
 
 import { Panel } from "./Basic"

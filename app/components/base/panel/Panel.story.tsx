@@ -3,7 +3,7 @@ import { ViewStyle } from "react-native"
 import { storiesOf } from "@storybook/react-native"
 import sub from "date-fns/sub"
 
-import { StoryScreen, Story, UseCase } from "../../../storybook/views"
+import { StoryScreen, Story, UseCase } from "../../../../storybook/views"
 
 import { Panel } from "./Basic"
 import { StatusPanel } from "./Status"
