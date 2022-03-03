@@ -86,7 +86,7 @@ export const Modal: React.FC<ModalProps> = ({
           <View style={styles.textContainer}>
             <Typography variant="header">{title}</Typography>
             <IconButton
-              icon={<Icon name="close-outline" size={16} color={color.palette.text} />}
+              icon={<Icon name="close-outline" size={20} color={color.palette.text} />}
               onPress={onClose}
             />
           </View>

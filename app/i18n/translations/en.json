@@ -40,5 +40,9 @@
   "approvalState": {
     "approved": "Approved",
     "pending": "Pending"
+  },
+  "countries": {
+    "nl": "The Netherlands",
+    "de": "Germany"
   }
 }
