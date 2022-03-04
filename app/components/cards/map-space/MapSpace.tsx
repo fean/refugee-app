@@ -1,17 +1,17 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, StyleSheet, TouchableOpacity } from "react-native"
+import { StyleProp, ViewStyle, StyleSheet, View } from "react-native"
+import Icon from "react-native-vector-icons/Ionicons"
 
 import { Typography } from "../../base/typography/Typography"
-import { StatusPanel } from "../../base/panel"
+import { Panel } from "../../base/panel"
+import { Button } from "../../base/button"
+import { color } from "../../../theme"
 
 interface PanelProps {
   style?: StyleProp<ViewStyle>
   id: string
-  state: "approved" | "pending"
-  date: Date
   name: string
   address: string
-  postal: string
   city: string
   onPress: (selectedId: string) => void
 }
@@ -20,30 +20,37 @@ const styles = StyleSheet.create({
   address: {
     flex: 1,
   },
+  button: {
+    height: 40,
+    width: 40,
+  },
   name: {
     marginBottom: 8,
   },
   panel: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 16,
+  },
+  textContainer: {
     flexDirection: "column",
   },
 })
 
-export const PartnerContact: React.FC<PanelProps> = ({
+export const MapSpace: React.FC<PanelProps> = ({
   style: styleOverride,
   id,
   name,
-  state,
-  date,
   address,
-  postal,
   city,
   onPress,
 }) => {
   const handlePress = React.useCallback(() => onPress(id), [id, onPress])
 
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <StatusPanel panelStyle={[styles.panel, styleOverride]} status={state} date={date}>
+    <Panel style={[styles.panel, styleOverride]}>
+      <View style={styles.textContainer}>
         <Typography variant="header" style={styles.name}>
           {name}
         </Typography>
@@ -52,9 +59,15 @@ export const PartnerContact: React.FC<PanelProps> = ({
           {address}
         </Typography>
         <Typography variant="text" color="shade" style={styles.address}>
-          {`${postal} ${city}`}
+          {city}
         </Typography>
-      </StatusPanel>
-    </TouchableOpacity>
+      </View>
+
+      <Button
+        style={styles.button}
+        icon={<Icon name="link" size={16} color={color.palette.white} />}
+        onPress={handlePress}
+      />
+    </Panel>
   )
 }

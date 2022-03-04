@@ -8,6 +8,7 @@ import { StoryScreen, Story, UseCase } from "../../../storybook/views"
 import { CountryCard } from "./country-card/CountryCard"
 import { ContactRequest } from "./contact-request/ContactRequest"
 import { PartnerContact } from "./partner-contact/PartnerContact"
+import { MapSpace } from "./map-space/MapSpace"
 
 declare let module
 
@@ -93,6 +94,19 @@ storiesOf("Cards", module)
           postal="1016 NZ"
           city="Amsterdam"
           onPress={(id) => Alert.alert(`Pressed contact ${id}`)}
+        />
+      </UseCase>
+    </Story>
+  ))
+  .add("Map space card", () => (
+    <Story>
+      <UseCase text="Basic">
+        <MapSpace
+          id="456324"
+          name="Space for 1 person"
+          address="Kerkstraat 431-383"
+          city="Amsterdam"
+          onPress={(id) => Alert.alert(`Pressed space ${id}`)}
         />
       </UseCase>
     </Story>
