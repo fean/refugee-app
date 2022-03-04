@@ -28,6 +28,9 @@ const styles = StyleSheet.create({
   active: {
     backgroundColor: color.palette.control,
   },
+  icon: {
+    marginLeft: 8,
+  },
   inner: {
     alignItems: "center",
     borderRadius: 5,
@@ -36,9 +39,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingLeft: 8,
     paddingRight: 8,
-  },
-  icon: {
-    marginLeft: 8,
   },
 })
 

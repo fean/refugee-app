@@ -49,9 +49,19 @@
       "email": "Email",
       "emailPlaceholder": "Your email address",
       "country": "Country",
-      "countryPlaceholder": "Your country",
+      "countryPlaceholder": "Your phone country",
       "phone": "Phone",
       "phonePlaceholder": "Your phone number"
+    },
+    "ho-location": {
+      "address": "Address",
+      "addressPlaceholder": "Your street & house",
+      "postal": "Postal",
+      "postalPlaceholder": "Your postal/zip code",
+      "city": "City",
+      "cityPlaceholder": "Your city",
+      "country": "Country",
+      "countryPlaceholder": "Your country"
     }
   },
   "approvalState": {
