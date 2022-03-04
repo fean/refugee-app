@@ -1,12 +1,13 @@
 import * as React from "react"
 import { storiesOf } from "@storybook/react-native"
+import { Alert, ViewStyle } from "react-native"
 import sub from "date-fns/sub"
 
 import { StoryScreen, Story, UseCase } from "../../../storybook/views"
 
 import { CountryCard } from "./country-card/CountryCard"
-import { Alert, ViewStyle } from "react-native"
 import { ContactRequest } from "./contact-request/ContactRequest"
+import { PartnerContact } from "./partner-contact/PartnerContact"
 
 declare let module
 
@@ -61,6 +62,36 @@ storiesOf("Cards", module)
           date={ago}
           name="Awesome NGO"
           mission="We are an awesome NGO that helps find refugees a place in Europe to temporarily stay."
+          onPress={(id) => Alert.alert(`Pressed contact ${id}`)}
+        />
+      </UseCase>
+    </Story>
+  ))
+  .add("Partner contact card", () => (
+    <Story>
+      <UseCase text="Approved contact">
+        <PartnerContact
+          style={CARD}
+          id="5465464676"
+          state="approved"
+          name="Johnny Samaritan"
+          date={ago}
+          address="Rozenstraat 112-III"
+          postal="1016 NZ"
+          city="Amsterdam"
+          onPress={(id) => Alert.alert(`Pressed contact ${id}`)}
+        />
+      </UseCase>
+      <UseCase text="Pending contact">
+        <PartnerContact
+          style={CARD}
+          id="5465464676"
+          state="pending"
+          name="Space for 1 person"
+          date={ago}
+          address="Rozenstraat 112-III"
+          postal="1016 NZ"
+          city="Amsterdam"
           onPress={(id) => Alert.alert(`Pressed contact ${id}`)}
         />
       </UseCase>
