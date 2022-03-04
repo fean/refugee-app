@@ -19,6 +19,7 @@ import { Divider } from "../divider/Divider"
 
 interface ModalProps {
   style?: StyleProp<ViewStyle>
+  headerStyle?: StyleProp<ViewStyle>
   open?: boolean
   title: string
   onClose?: () => void
@@ -28,7 +29,6 @@ const screen = Dimensions.get("screen")
 
 const styles = StyleSheet.create({
   divider: {
-    marginBottom: 16,
     marginTop: 16,
   },
   modal: {
@@ -55,11 +55,13 @@ const styles = StyleSheet.create({
   },
   title: {
     flexDirection: "column",
+    marginBottom: 16,
   },
 })
 
 export const Modal: React.FC<ModalProps> = ({
-  style: overrideStyles,
+  style: overrideStyle,
+  headerStyle: headerOverrideStyle,
   open,
   title,
   children,
@@ -72,8 +74,8 @@ export const Modal: React.FC<ModalProps> = ({
     visible={open}
     onRequestClose={onClose}
   >
-    <View style={[styles.modal, overrideStyles]}>
-      <View style={styles.title}>
+    <View style={[styles.modal, overrideStyle]}>
+      <View style={[styles.title, headerOverrideStyle]}>
         <View style={styles.textContainer}>
           <Typography variant="header">{title}</Typography>
           <IconButton
@@ -84,6 +86,7 @@ export const Modal: React.FC<ModalProps> = ({
 
         <Divider style={styles.divider} />
       </View>
+
       {children}
     </View>
   </ModalEx>

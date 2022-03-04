@@ -37,6 +37,11 @@
     "placeholder": "Placeholder",
     "field": "Field"
   },
+  "modals": {
+    "country": {
+      "title": "Select your country"
+    }
+  },
   "approvalState": {
     "approved": "Approved",
     "pending": "Pending"
@@ -62,7 +67,8 @@
     "ie": "Ireland",
     "it": "Italy",
     "lv": "Latvia",
-    "li": "Lithuania",
+    "li": "Liechtenstein",
+    "lt": "Lithuania",
     "lu": "Luxembourg",
     "mt": "Malta",
     "md": "Moldova",
