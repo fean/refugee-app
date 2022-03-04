@@ -1,10 +1,12 @@
 import * as React from "react"
-import { Text, StyleProp, TextStyle } from "react-native"
+import { Text, StyleProp, TextStyle, TextProps } from "react-native"
 import { color, typography } from "../../../theme"
 
 interface TypographyProps {
   variant: "title" | "header" | "text" | "chip" | "button"
   color?: "text" | "disabled" | "placeholder" | "shade" | "warn" | "accepted" | "europe" | "white"
+  ellipsizeMode?: TextProps["ellipsizeMode"]
+  numberOfLines?: TextProps["numberOfLines"]
   style?: StyleProp<TextStyle>
 }
 
@@ -22,6 +24,8 @@ const COLORS = {
 export const Typography: React.FC<TypographyProps> = ({
   variant,
   color = "text",
+  ellipsizeMode,
+  numberOfLines,
   style,
   children,
 }) => {
@@ -33,5 +37,9 @@ export const Typography: React.FC<TypographyProps> = ({
     [variant, color],
   )
 
-  return <Text style={[propStyles, style]}>{children}</Text>
+  return (
+    <Text style={[propStyles, style]} ellipsizeMode={ellipsizeMode} numberOfLines={numberOfLines}>
+      {children}
+    </Text>
+  )
 }

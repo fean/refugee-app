@@ -4,7 +4,7 @@ import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 import { color } from "../../../theme"
 import { Typography } from "../typography/Typography"
 
-interface PanelProps {
+interface AvatarProps {
   style?: StyleProp<ViewStyle>
   text: string
 }
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export const Avatar: React.FC<PanelProps> = ({ style: styleOverride, text }) => (
+export const Avatar: React.FC<AvatarProps> = ({ style: styleOverride, text }) => (
   <View style={[styles.avatar, styleOverride]}>
     <Typography variant="header" color="europe">
       {text}

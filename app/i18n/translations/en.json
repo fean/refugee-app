@@ -42,6 +42,18 @@
       "title": "Select your country"
     }
   },
+  "blocks": {
+    "ho-details": {
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "email": "Email",
+      "emailPlaceholder": "Your email address",
+      "country": "Country",
+      "countryPlaceholder": "Your country",
+      "phone": "Phone",
+      "phonePlaceholder": "Your phone number"
+    }
+  },
   "approvalState": {
     "approved": "Approved",
     "pending": "Pending"

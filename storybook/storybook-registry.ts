@@ -1,3 +1,5 @@
 require("../app/components/base/base.story")
 require("../app/components/cards/cards.story")
 require("../app/components/modals/modals.story")
+require("../app/components/blocks/blocks.story")
+require("../app/components/inputs/inputs.story")

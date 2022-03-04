@@ -17,6 +17,7 @@ export * from "./base/avatar/Avatar"
 export * from "./base/button"
 export * from "./base/divider/Divider"
 export * from "./base/input/Input"
+export * from "./base/input/formik"
 export * from "./base/modal/Modal"
 export * from "./base/number/Number"
 

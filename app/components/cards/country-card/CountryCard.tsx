@@ -49,7 +49,7 @@ export const CountryCard: React.FC<PanelProps> = ({
       <Panel style={[styles.panel, styleOverride]}>
         <View style={styles.titleFlagContainer}>
           <Text style={styles.flag}>{country.flag}</Text>
-          <Typography variant="text" style={styles.title}>
+          <Typography variant="text" style={styles.title} ellipsizeMode="tail" numberOfLines={1}>
             {translate(`countries.${code}`)}
           </Typography>
         </View>
