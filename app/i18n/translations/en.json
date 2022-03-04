@@ -70,6 +70,20 @@
       "leaseWarning": "If you have a lease agreement. Please check your agreement on whether you're allowed to share your spare room. Your landlord might make an exception if you explain the situation.",
       "beds": "Beds",
       "bedsPlaceholder": "Your bed space"
+    },
+    "pa-details": {
+      "contact": "Contact",
+      "contactPlaceholder": "Contact person",
+      "orgName": "Name",
+      "orgNamePlaceholder": "Organization name",
+      "email": "Email",
+      "emailPlaceholder": "Organization email",
+      "country": "Country",
+      "countryPlaceholder": "Phone country",
+      "phone": "Phone",
+      "phonePlaceholder": "Organization phone",
+      "website": "Website",
+      "websitePlaceholder": "Organization website"
     }
   },
   "approvalState": {

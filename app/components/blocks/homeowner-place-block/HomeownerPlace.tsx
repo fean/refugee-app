@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle, StyleSheet, Animated } from "react-native"
+import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
 import { color } from "../../../theme"
@@ -69,11 +69,11 @@ export const HomeownerPlace: React.FC<HomeownerDetailsProps> = ({
       <FormikValueSelector name={`${blockName}.type`} values={typeValues} />
     </View>
 
-    <Animated.View style={styles.warning}>
+    <View style={styles.warning}>
       <Typography variant="text" color="shade">
         {translate("blocks.ho-space.leaseWarning")}
       </Typography>
-    </Animated.View>
+    </View>
 
     <View style={styles.containerLabels}>
       <Icon name="reader" size={16} color={color.palette.textShade} />
