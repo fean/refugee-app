@@ -52,7 +52,7 @@ export const typography = {
   text: {
     fontFamily,
     fontSize: 14,
-    fontWeight: "600",
+    fontWeight: "normal",
   } as TextStyle,
 
   chip: {
