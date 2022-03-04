@@ -62,6 +62,14 @@
       "cityPlaceholder": "Your city",
       "country": "Country",
       "countryPlaceholder": "Your country"
+    },
+    "ho-space": {
+      "owned": "Owned",
+      "leased": "Leased",
+      "type": "Type",
+      "leaseWarning": "If you have a lease agreement. Please check your agreement on whether you're allowed to share your spare room. Your landlord might make an exception if you explain the situation.",
+      "beds": "Beds",
+      "bedsPlaceholder": "Your bed space"
     }
   },
   "approvalState": {

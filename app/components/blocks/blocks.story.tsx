@@ -8,6 +8,7 @@ import { StoryScreen, Story, UseCase } from "../../../storybook/views"
 import { HomeownerDetails } from "./homeowner-details-block/HomeownerDetails"
 import { HomeownerLocation } from "./homeowner-location-block/HomeownerLocation"
 import { NumericHeader } from "./numeric-header-block/NumericHeader"
+import { HomeownerPlace } from "./homeowner-place-block/HomeownerPlace"
 
 declare let module
 
@@ -62,6 +63,18 @@ storiesOf("Blocks", module)
           title="We publish your space"
           text="We publish your space to our hand-approved partners without your personal details. Your details are yours. "
         />
+      </UseCase>
+    </Story>
+  ))
+  .add("Homeowner space", () => (
+    <Story>
+      <UseCase
+        text="Homeowner space block"
+        usage="A block in which the homeowner can supply their space details."
+      >
+        <Formik initialValues={{ place: { type: "", beds: "" } }} onSubmit={() => {}}>
+          <HomeownerPlace blockName="place" />
+        </Formik>
       </UseCase>
     </Story>
   ))
