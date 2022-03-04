@@ -14,9 +14,9 @@ const CountryModalWrapper = () => {
 
   const handleToggleModal = () => setOpen((open) => !open)
   const handleClose = (country) => {
-    Alert.alert(
-      country ? `Selected ${country.flag} with phone code ${country.phone}` : "No country selected",
-    )
+    if (country) {
+      Alert.alert(`Selected ${country.flag} with phone code ${country.phone}`)
+    }
     handleToggleModal()
   }
 

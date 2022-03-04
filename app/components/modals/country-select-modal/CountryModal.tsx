@@ -16,6 +16,9 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 8,
   },
+  lastCard: {
+    marginBottom: 16,
+  },
   list: {
     height: "100%",
     paddingLeft: 32,
@@ -48,8 +51,12 @@ export const CountryModal: React.FC<PanelProps> = ({ open, style: styleOverride,
       <FlatList
         style={styles.list}
         data={supportedCountries}
-        renderItem={({ item: countryCode }) => (
-          <CountryCard style={styles.card} country={countryCode} onPress={onClose} />
+        renderItem={({ index, item: countryCode }) => (
+          <CountryCard
+            style={[styles.card, supportedCountries.length - 1 === index && styles.lastCard]}
+            country={countryCode}
+            onPress={onClose}
+          />
         )}
       />
     </Modal>
