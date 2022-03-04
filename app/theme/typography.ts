@@ -35,18 +35,24 @@ export const typography = {
   title: {
     fontFamily,
     fontSize: 18,
-    fontWeight: "600",
+    fontWeight: "500",
   } as TextStyle,
 
   header: {
     fontFamily,
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "500",
   } as TextStyle,
 
   button: {
     fontFamily,
     fontSize: 15,
+  } as TextStyle,
+
+  subheader: {
+    fontFamily,
+    fontSize: 14,
+    fontWeight: "500",
   } as TextStyle,
 
   text: {

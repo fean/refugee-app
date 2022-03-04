@@ -10,7 +10,7 @@ import { color } from "../../theme"
 
 import { Avatar } from "./avatar/Avatar"
 import { Divider } from "./divider/Divider"
-import { Button, IconButton, TextButton } from "./button"
+import { Button, IconButton, PanelButton, TextButton } from "./button"
 import { Input } from "./input/Input"
 import { Modal } from "./modal/Modal"
 import { Typography } from "./typography/Typography"
@@ -131,6 +131,13 @@ storiesOf("Base", module)
           icon={<Icon name="close-outline" size={16} color={color.palette.text} />}
           onPress={() => Alert.alert("pressed")}
         />
+      </UseCase>
+    </Story>
+  ))
+  .add("Panel button", () => (
+    <Story>
+      <UseCase text="Panel button" usage="A simple panel button with emoji icon.">
+        <PanelButton text="I'm a homeowner" emojiIcon="🏠" onPress={() => Alert.alert("pressed")} />
       </UseCase>
     </Story>
   ))

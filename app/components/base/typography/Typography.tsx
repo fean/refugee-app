@@ -3,10 +3,11 @@ import { Text, StyleProp, TextStyle, TextProps } from "react-native"
 import { color, typography } from "../../../theme"
 
 interface TypographyProps {
-  variant: "title" | "header" | "text" | "chip" | "button"
+  variant: "title" | "header" | "subheader" | "text" | "chip" | "button"
   color?: "text" | "disabled" | "placeholder" | "shade" | "warn" | "accepted" | "europe" | "white"
   ellipsizeMode?: TextProps["ellipsizeMode"]
   numberOfLines?: TextProps["numberOfLines"]
+  align?: "left" | "center" | "right" | "justify"
   style?: StyleProp<TextStyle>
 }
 
@@ -24,6 +25,7 @@ const COLORS = {
 export const Typography: React.FC<TypographyProps> = ({
   variant,
   color = "text",
+  align,
   ellipsizeMode,
   numberOfLines,
   style,
@@ -32,9 +34,10 @@ export const Typography: React.FC<TypographyProps> = ({
   const propStyles: TextStyle = React.useMemo(
     () => ({
       ...typography[variant],
+      textAlign: align,
       color: COLORS[color],
     }),
-    [variant, color],
+    [variant, color, align],
   )
 
   return (
