@@ -31,25 +31,22 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 16,
   },
-  modalAndroid: {
+  modal: {
     backgroundColor: color.palette.white,
     borderRadius: 12,
     bottom: 0,
     height: screen.height * 0.6,
     left: 0,
-    paddingBottom: 16,
+    paddingBottom: Platform.select({
+      ios: 34 + 8,
+      android: 16,
+    }),
     paddingLeft: 32,
     paddingRight: 32,
     paddingTop: 16,
     position: "absolute",
     width: screen.width,
     ...shadows.cover,
-  },
-  modalIOS: {
-    paddingBottom: 34 + 8,
-    paddingLeft: 32,
-    paddingRight: 32,
-    paddingTop: 16, // Safe zone + 8,
   },
   textContainer: {
     alignItems: "center",
@@ -67,34 +64,27 @@ export const Modal: React.FC<ModalProps> = ({
   title,
   children,
   onClose,
-}) => {
-  const modalStyle = React.useMemo(
-    () => Platform.select({ ios: styles.modalIOS as ViewStyle, android: styles.modalAndroid }),
-    [],
-  )
-
-  return (
-    <ModalEx
-      transparent={Platform.OS !== "ios"}
-      presentationStyle="pageSheet"
-      animationType="slide"
-      visible={open}
-      onRequestClose={onClose}
-    >
-      <View style={[modalStyle, overrideStyles]}>
-        <View style={styles.title}>
-          <View style={styles.textContainer}>
-            <Typography variant="header">{title}</Typography>
-            <IconButton
-              icon={<Icon name="close-outline" size={20} color={color.palette.text} />}
-              onPress={onClose}
-            />
-          </View>
-
-          <Divider style={styles.divider} />
+}) => (
+  <ModalEx
+    transparent
+    presentationStyle="overFullScreen"
+    animationType="slide"
+    visible={open}
+    onRequestClose={onClose}
+  >
+    <View style={[styles.modal, overrideStyles]}>
+      <View style={styles.title}>
+        <View style={styles.textContainer}>
+          <Typography variant="header">{title}</Typography>
+          <IconButton
+            icon={<Icon name="close-outline" size={20} color={color.palette.text} />}
+            onPress={onClose}
+          />
         </View>
-        {children}
+
+        <Divider style={styles.divider} />
       </View>
-    </ModalEx>
-  )
-}
+      {children}
+    </View>
+  </ModalEx>
+)

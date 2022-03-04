@@ -29,7 +29,7 @@ const ModalWrapper = () => {
       <UseCase text="Basic Modal">
         <Button onPress={toggleOpen} text="Open me!" />
 
-        <Modal title="Select a country" open={isOpen} onClose={toggleOpen}>
+        <Modal title="Select your country" open={isOpen} onClose={toggleOpen}>
           <Typography variant="text">It's working!</Typography>
         </Modal>
       </UseCase>

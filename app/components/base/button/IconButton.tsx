@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: color.palette.europeShade,
     borderRadius: 16,
-    height: 32,
+    height: 24,
     justifyContent: "center",
-    width: 32,
+    width: 24,
   },
 })
 
