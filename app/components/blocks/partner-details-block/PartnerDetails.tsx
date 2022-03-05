@@ -100,6 +100,8 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
         />
         <FormikInput
           ref={nameRef}
+          nextRef={emailRef}
+          textContentType="organizationName"
           returnKeyType="next"
           name={`${blockName}.orgName`}
           style={styles.inputNLabelSpacing}
@@ -108,6 +110,7 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
         <FormikInput
           ref={emailRef}
           textContentType="emailAddress"
+          keyboardType="email-address"
           returnKeyType="next"
           name={`${blockName}.email`}
           placeholder={translate("blocks.pa-details.emailPlaceholder")}
@@ -122,15 +125,17 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
           ref={phoneRef}
           nextRef={webRef}
           textContentType="telephoneNumber"
+          keyboardType="phone-pad"
           returnKeyType="next"
           name={`${blockName}.phone`}
           placeholder={translate("blocks.pa-details.phonePlaceholder")}
         />
         <FormikInput
           ref={webRef}
-          textContentType="telephoneNumber"
+          textContentType="URL"
+          keyboardType="url"
           returnKeyType="next"
-          name={`${blockName}.phone`}
+          name={`${blockName}.website`}
           placeholder={translate("blocks.pa-details.websitePlaceholder")}
         />
       </View>

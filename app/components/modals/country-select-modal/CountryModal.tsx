@@ -15,14 +15,14 @@ interface PanelProps {
 const styles = StyleSheet.create({
   card: {
     marginBottom: 8,
+    marginLeft: 32,
+    marginRight: 32,
   },
   lastCard: {
     marginBottom: 16,
   },
   list: {
     height: "100%",
-    paddingLeft: 32,
-    paddingRight: 32,
     paddingTop: 16,
     width: "100%",
   },

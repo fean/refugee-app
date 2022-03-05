@@ -6,6 +6,7 @@ import {
   TouchableNativeFeedback,
   View,
   TextInput,
+  Image,
 } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
@@ -28,6 +29,11 @@ const styles = StyleSheet.create({
   active: {
     backgroundColor: color.palette.control,
   },
+  flag: {
+    height: 20,
+    marginRight: 8,
+    width: 20,
+  },
   icon: {
     marginLeft: 8,
   },
@@ -39,6 +45,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingLeft: 8,
     paddingRight: 8,
+  },
+  valueContainer: {
+    alignItems: "center",
+    flexDirection: "row",
   },
 })
 
@@ -71,14 +81,18 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
     <>
       <TouchableNativeFeedback onPress={handleOpen}>
         <View style={[styles.inner, isOpen && styles.active, styleOverride]}>
-          <Typography
-            variant="text"
-            color={country ? "text" : "placeholder"}
-            ellipsizeMode="tail"
-            numberOfLines={1}
-          >
-            {country ? `${country.flag}  ${translate(`countries.${country.code}`)}` : placeholder}
-          </Typography>
+          <View style={styles.valueContainer}>
+            {country?.flag && <Image style={styles.flag} source={{ uri: country.flag }} />}
+            <Typography
+              variant="text"
+              color={country ? "text" : "placeholder"}
+              ellipsizeMode="tail"
+              numberOfLines={1}
+            >
+              {country ? translate(`countries.${country.code}`) : placeholder}
+            </Typography>
+          </View>
+
           <Icon
             style={styles.icon}
             name={isOpen ? "chevron-up" : "chevron-down"}

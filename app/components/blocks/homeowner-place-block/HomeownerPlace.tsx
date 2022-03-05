@@ -76,14 +76,14 @@ export const HomeownerPlace: React.FC<HomeownerDetailsProps> = ({
     </View>
 
     <View style={styles.containerLabels}>
-      <Icon name="reader" size={16} color={color.palette.textShade} />
+      <Icon name="bed" size={16} color={color.palette.textShade} />
       <Typography variant="text" color="text" style={styles.labelText}>
         {translate("blocks.ho-space.beds")}
       </Typography>
 
       <FormikInput
         style={styles.input}
-        textContentType="oneTimeCode"
+        keyboardType="numeric"
         name={`${blockName}.beds`}
         placeholder={translate("blocks.ho-space.bedsPlaceholder")}
       />

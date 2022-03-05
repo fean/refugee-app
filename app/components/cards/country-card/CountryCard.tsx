@@ -1,5 +1,5 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle, StyleSheet, TouchableOpacity, Text } from "react-native"
+import { View, StyleProp, ViewStyle, StyleSheet, Image, TouchableOpacity } from "react-native"
 
 import { translate } from "../../../i18n"
 
@@ -16,7 +16,8 @@ interface PanelProps {
 
 const styles = StyleSheet.create({
   flag: {
-    fontSize: 32,
+    height: 32,
+    width: 32,
   },
   panel: {
     alignItems: "center",
@@ -48,7 +49,7 @@ export const CountryCard: React.FC<PanelProps> = ({
     <TouchableOpacity onPress={handlePress}>
       <Panel style={[styles.panel, styleOverride]}>
         <View style={styles.titleFlagContainer}>
-          <Text style={styles.flag}>{country.flag}</Text>
+          <Image style={styles.flag} source={{ uri: country.flag }} />
           <Typography variant="text" style={styles.title} ellipsizeMode="tail" numberOfLines={1}>
             {translate(`countries.${code}`)}
           </Typography>

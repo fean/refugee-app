@@ -78,7 +78,7 @@ export const HomeownerLocation: React.FC<HomeownerDetailsProps> = ({
       <View style={styles.containerInputs}>
         <FormikInput
           nextRef={postalRef}
-          textContentType="fullStreetAddress"
+          textContentType="streetAddressLine1"
           returnKeyType="next"
           name={`${blockName}.addressLine`}
           placeholder={translate("blocks.ho-location.addressPlaceholder")}

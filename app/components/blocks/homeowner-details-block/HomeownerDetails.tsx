@@ -87,6 +87,7 @@ export const HomeownerDetails: React.FC<HomeownerDetailsProps> = ({
         <FormikInput
           ref={emailRef}
           textContentType="emailAddress"
+          keyboardType="email-address"
           returnKeyType="next"
           name={`${blockName}.email`}
           style={styles.inputNLabelSpacing}
@@ -101,6 +102,7 @@ export const HomeownerDetails: React.FC<HomeownerDetailsProps> = ({
         <FormikInput
           ref={phoneRef}
           textContentType="telephoneNumber"
+          keyboardType="phone-pad"
           returnKeyType="next"
           name={`${blockName}.phone`}
           placeholder={translate("blocks.ho-details.phonePlaceholder")}
