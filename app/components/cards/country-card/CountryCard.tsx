@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     height: 32,
     width: 32,
   },
-  panel: {
+  bar: {
     alignItems: "center",
     flexDirection: "row",
     height: 48,
@@ -47,7 +47,7 @@ export const CountryCard: React.FC<PanelProps> = ({
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <Panel style={[styles.panel, styleOverride]}>
+      <Panel style={[styles.bar, styleOverride]}>
         <View style={styles.titleFlagContainer}>
           <Image style={styles.flag} source={{ uri: country.flag }} />
           <Typography variant="text" style={styles.title} ellipsizeMode="tail" numberOfLines={1}>

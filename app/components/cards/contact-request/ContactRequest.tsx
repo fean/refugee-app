@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   mission: {
     flex: 1,
   },
-  panel: {
+  bar: {
     flexDirection: "column",
   },
 })
@@ -47,7 +47,7 @@ export const ContactRequest: React.FC<PanelProps> = ({
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <StatusPanel panelStyle={[styles.panel, styleOverride]} status={state} date={date}>
+      <StatusPanel panelStyle={[styles.bar, styleOverride]} status={state} date={date}>
         <Typography variant="header">{name}</Typography>
 
         <View style={styles.content}>

@@ -16,6 +16,8 @@ import { Modal } from "./modal/Modal"
 import { Typography } from "./typography/Typography"
 import { Number } from "./number/Number"
 import { Panel, StatusPanel } from "./panel"
+import { Toolbar } from "./toolbar/Toolbar"
+import { TextArea } from "./text-area/TextArea"
 
 declare let module
 
@@ -137,7 +139,7 @@ storiesOf("Base", module)
   .add("Panel button", () => (
     <Story>
       <UseCase text="Panel button" usage="A simple panel button with emoji icon.">
-        <PanelButton text="I'm a homeowner" emojiIcon="🏠" onPress={() => Alert.alert("pressed")} />
+        <PanelButton text="I'm a homeowner" icon="home" onPress={() => Alert.alert("pressed")} />
       </UseCase>
     </Story>
   ))
@@ -155,6 +157,22 @@ storiesOf("Base", module)
       </UseCase>
       <UseCase text="With text">
         <Input value="This is something I wrote" />
+      </UseCase>
+    </Story>
+  ))
+  .add("Text area", () => (
+    <Story>
+      <UseCase text="Placeholder">
+        <TextArea numberOfLines={5} placeholder="This is a placeholder" />
+      </UseCase>
+      <UseCase text="With text">
+        <TextArea numberOfLines={3} value="This is something I wrote" />
+      </UseCase>
+      <UseCase text="With max character count">
+        <TextArea numberOfLines={3} value="This is something I wrote" maxCharacters={90} />
+      </UseCase>
+      <UseCase text="With max characters exceeded">
+        <TextArea numberOfLines={3} value="This is something I wrote" maxCharacters={25} />
       </UseCase>
     </Story>
   ))
@@ -193,6 +211,15 @@ storiesOf("Base", module)
         <StatusPanel status="pending" panelStyle={PANEL} date={ago}>
           <Typography variant="header">This is great!</Typography>
         </StatusPanel>
+      </UseCase>
+    </Story>
+  ))
+  .add("Toolbar", () => (
+    <Story>
+      <UseCase text="Status Approved" usage="A panel that has a status symbol">
+        <Toolbar>
+          <Typography variant="text">It works!</Typography>
+        </Toolbar>
       </UseCase>
     </Story>
   ))

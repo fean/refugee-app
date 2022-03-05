@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   name: {
     marginBottom: 8,
   },
-  panel: {
+  bar: {
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -49,7 +49,7 @@ export const MapSpace: React.FC<PanelProps> = ({
   const handlePress = React.useCallback(() => onPress(id), [id, onPress])
 
   return (
-    <Panel style={[styles.panel, styleOverride]}>
+    <Panel style={[styles.bar, styleOverride]}>
       <View style={styles.textContainer}>
         <Typography variant="header" style={styles.name}>
           {name}

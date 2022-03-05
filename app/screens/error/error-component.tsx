@@ -1,7 +1,8 @@
 import React, { ErrorInfo } from "react"
-import { TextStyle, View, ViewStyle, ScrollView, ImageStyle } from "react-native"
+import { TextStyle, View, ViewStyle, ScrollView } from "react-native"
 import { color } from "../../theme"
-import { Button, Icon, Text } from "../../components"
+import { Button, Typography } from "../../components"
+import { translate } from "../../i18n"
 
 const CONTAINER: ViewStyle = {
   alignItems: "center",
@@ -29,8 +30,6 @@ const BTN_RESET: ViewStyle = {
 
 const TITLE_ERROR: TextStyle = {
   color: color.error,
-  fontWeight: "bold",
-  paddingVertical: 15,
 }
 
 const FRIENDLY_SUBTITLE: TextStyle = {
@@ -45,18 +44,6 @@ const CONTENT_ERROR: TextStyle = {
   paddingVertical: 15,
 }
 
-// Uncomment this and the Text component in the ErrorComponent if
-// you want to see a backtrace in your error reporting screen.
-// const CONTENT_BACKTRACE: TextStyle = {
-//   color: color.dim,
-// }
-
-const ICON: ImageStyle = {
-  marginTop: 30,
-  width: 64,
-  height: 64,
-}
-
 export interface ErrorComponentProps {
   error: Error
   errorInfo: ErrorInfo
@@ -69,15 +56,20 @@ export interface ErrorComponentProps {
 export const ErrorComponent = (props: ErrorComponentProps) => {
   return (
     <View style={CONTAINER}>
-      <Icon style={ICON} icon="bug" />
-      <Text style={TITLE_ERROR} tx={"errorScreen.title"} />
-      <Text style={FRIENDLY_SUBTITLE} tx={"errorScreen.friendlySubtitle"} />
+      <Typography variant="header" style={TITLE_ERROR}>
+        {translate("errorScreen.title")}
+      </Typography>
+      <Typography variant="header" style={FRIENDLY_SUBTITLE}>
+        {translate("errorScreen.friendlySubtitle")}
+      </Typography>
       <View style={ERROR_DETAILS_CONTAINER}>
         <ScrollView>
-          <Text selectable style={CONTENT_ERROR} text={`${props.error}`} />
-          {/* <Text selectable style={CONTENT_BACKTRACE} text={`${props.errorInfo.componentStack}`} /> */}
+          <Typography style={CONTENT_ERROR} variant="text">
+            {props.error}
+          </Typography>
         </ScrollView>
       </View>
+
       <Button style={BTN_RESET} onPress={props.onReset} tx="errorScreen.reset" />
     </View>
   )

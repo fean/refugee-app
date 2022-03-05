@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
   },
-  panel: {
+  bar: {
     flexDirection: "row",
     padding: 16,
   },
@@ -49,7 +49,7 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
   const webRef = React.createRef<TextInput>()
 
   return (
-    <Panel style={[styles.panel, styleOverride]}>
+    <Panel style={[styles.bar, styleOverride]}>
       <View style={styles.containerLabels}>
         <View style={[styles.label, styles.inputNLabelSpacing]}>
           <Icon name="person" size={16} color={color.palette.textShade} />

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
   },
-  panel: {
+  bar: {
     flexDirection: "column",
     padding: 16,
   },
@@ -59,7 +59,7 @@ export const HomeownerPlace: React.FC<HomeownerDetailsProps> = ({
   style: styleOverride,
   blockName,
 }) => (
-  <Panel style={[styles.panel, styleOverride]}>
+  <Panel style={[styles.bar, styleOverride]}>
     <View style={styles.containerLabels}>
       <Icon name="reader" size={16} color={color.palette.textShade} />
       <Typography variant="text" color="text" style={[styles.labelText, styles.typeLabelText]}>

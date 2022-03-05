@@ -35,7 +35,7 @@ export const typography = {
   title: {
     fontFamily,
     fontSize: 18,
-    fontWeight: "500",
+    fontWeight: "bold",
   } as TextStyle,
 
   header: {

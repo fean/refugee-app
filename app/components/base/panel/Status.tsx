@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     right: 16,
     top: 16,
   },
-  panel: {
+  bar: {
     padding: 16,
     paddingTop: 40,
   },
@@ -48,7 +48,7 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({ panelStyle, status, da
   )
 
   return (
-    <Panel style={[styles.panel, panelStyle]}>
+    <Panel style={[styles.bar, panelStyle]}>
       <StatusBar status={status} style={styles.status} />
       <Typography style={styles.statusText} variant="chip" color={STATUSCOLORS[status] as any}>
         {translate(`approvalState.${status}`)}

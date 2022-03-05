@@ -1,14 +1,16 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, TouchableOpacity, View, StyleSheet, Text } from "react-native"
+import { StyleProp, ViewStyle, TouchableOpacity, StyleSheet } from "react-native"
+import Icon from "react-native-vector-icons/Ionicons"
 
 import { translate } from "../../../i18n"
 
 import { Typography } from "../typography/Typography"
 import { Panel } from "../panel"
+import { color } from "../../../theme"
 
 interface SimpleButtonProps {
   style?: StyleProp<ViewStyle>
-  emojiIcon?: string
+  icon?: string
   text?: string
   tx?: string
   onPress?: () => void
@@ -16,24 +18,20 @@ interface SimpleButtonProps {
 
 const styles = StyleSheet.create({
   icon: {
-    fontSize: 48,
-    marginBottom: 16,
-    textAlign: "center",
+    marginRight: 16,
   },
-  inner: {
-    justifyContent: "center",
-  },
-  panel: {
+  bar: {
     alignItems: "center",
     flexDirection: "row",
-    height: 152,
-    justifyContent: "center",
-    width: 152,
+    padding: 16,
+  },
+  text: {
+    flex: 1,
   },
 })
 
 export const PanelButton: React.FC<SimpleButtonProps> = ({
-  emojiIcon,
+  icon,
   text,
   tx,
   style: styleOverride,
@@ -42,12 +40,14 @@ export const PanelButton: React.FC<SimpleButtonProps> = ({
   const btnText = text || (tx ? translate(tx) : null)
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Panel style={styles.panel}>
-        <View style={styles.inner}>
-          <Text style={styles.icon}>{emojiIcon}</Text>
-          <Typography variant="subheader">{btnText}</Typography>
-        </View>
+    <TouchableOpacity style={styleOverride} onPress={onPress}>
+      <Panel style={styles.bar}>
+        <Icon name={icon} size={32} color={color.palette.textShade} style={styles.icon} />
+        <Typography variant="subheader" style={styles.text}>
+          {btnText}
+        </Typography>
+
+        <Icon name="chevron-forward-outline" size={24} color={color.palette.textDisabled} />
       </Panel>
     </TouchableOpacity>
   )

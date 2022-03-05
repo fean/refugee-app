@@ -26,6 +26,13 @@ interface ValueSelectorProps {
 }
 
 const styles = StyleSheet.create({
+  bar: {
+    backgroundColor: color.palette.control,
+    borderRadius: 5,
+    flex: 1,
+    height: 32,
+    overflow: "hidden",
+  },
   choice: {
     flex: 1,
     flexDirection: "row",
@@ -35,13 +42,6 @@ const styles = StyleSheet.create({
   choiceText: {
     flex: 1,
     flexGrow: 1,
-  },
-  panel: {
-    backgroundColor: color.palette.control,
-    borderRadius: 5,
-    flex: 1,
-    height: 32,
-    overflow: "hidden",
   },
   selectedBox: {
     backgroundColor: color.palette.white,
@@ -89,7 +89,7 @@ export const ValueSelector: React.FC<ValueSelectorProps> = ({
   React.useEffect(calculatePosition, [currentValue])
 
   return (
-    <View style={[styles.panel, styleOverride]}>
+    <View style={[styles.bar, styleOverride]}>
       <Animated.View
         style={[
           styles.selectedBox,

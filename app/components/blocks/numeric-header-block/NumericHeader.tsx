@@ -11,7 +11,7 @@ interface NumericHeaderProps {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollContainer: {
     flexDirection: "row",
   },
   inner: {
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
+    marginTop: 2,
   },
 })
 
@@ -30,7 +31,7 @@ export const NumericHeader: React.FC<NumericHeaderProps> = ({
   title,
   text,
 }) => (
-  <View style={[styles.container, styleOverride]}>
+  <View style={[styles.scrollContainer, styleOverride]}>
     <Number option={option} />
 
     <View style={styles.inner}>

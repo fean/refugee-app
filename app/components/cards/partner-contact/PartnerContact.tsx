@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   name: {
     marginBottom: 8,
   },
-  panel: {
+  bar: {
     flexDirection: "column",
   },
 })
@@ -43,7 +43,7 @@ export const PartnerContact: React.FC<PanelProps> = ({
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <StatusPanel panelStyle={[styles.panel, styleOverride]} status={state} date={date}>
+      <StatusPanel panelStyle={[styles.bar, styleOverride]} status={state} date={date}>
         <Typography variant="header" style={styles.name}>
           {name}
         </Typography>

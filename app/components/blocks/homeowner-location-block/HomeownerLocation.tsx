@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   noIcon: {
     paddingLeft: 16,
   },
-  panel: {
+  bar: {
     flexDirection: "row",
     padding: 16,
   },
@@ -49,7 +49,7 @@ export const HomeownerLocation: React.FC<HomeownerDetailsProps> = ({
   const cityRef = React.createRef<TextInput>()
 
   return (
-    <Panel style={[styles.panel, styleOverride]}>
+    <Panel style={[styles.bar, styleOverride]}>
       <View style={styles.containerLabels}>
         <View style={styles.label}>
           <Icon name="home" size={16} color={color.palette.textShade} />

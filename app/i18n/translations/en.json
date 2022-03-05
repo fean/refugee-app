@@ -2,7 +2,8 @@
   "common": {
     "ok": "OK!",
     "cancel": "Cancel",
-    "back": "Back"
+    "back": "Back",
+    "next": "Next"
   },
   "errors": {
     "invalidEmail": "Invalid email address."
@@ -84,6 +85,44 @@
       "phonePlaceholder": "Organization phone",
       "website": "Website",
       "websitePlaceholder": "Organization website"
+    },
+    "pa-motivation": {
+      "mission": "Mission statement",
+      "missionPlaceholder": "Type a publicly visible statement",
+      "motivation": "Motivation",
+      "motivationPlaceholder": "Type your approval motivation"
+    }
+  },
+  "screens": {
+    "intro": {
+      "how-it-works": "How Samaritan works:",
+      "option-1-title": "Share your space",
+      "option-1-text": "By sharing what spare space you have, you can help us give a refugee a safe place.",
+      "option-2-title": "We publish your space",
+      "option-2-text": "We publish your space to our hand-approved partners without your personal details. Your details are yours. ",
+      "option-3-title": "A partner shows interest",
+      "option-3-text": "Once a partner finds you, they can show their interest to connect with you.",
+      "option-4-title": "You decide to share details",
+      "option-4-text": "After receiving a connection request, you can decide to share your details. Only then will our partner see them.",
+      "get-started": "Awesome, let’s get you set up!",
+      "homeowner": "I have spare room to share",
+      "partner": "I'm a non-profit, governmental agency or other partner"
+    },
+    "ho-setup": {
+      "1-title": "Your details",
+      "1-text": "These details let us connect with you.",
+      "2-title": "Your location",
+      "2-text": "Tell us about where you are located.",
+      "3-title": "Your place",
+      "3-text": "Tell us a little bit about your place."
+    },
+    "pa-setup": {
+      "1-title": "Your details",
+      "1-text": "These details let us connect with you.",
+      "2-title": "Your location",
+      "2-text": "Tell us about where you are located.",
+      "3-title": "Your motivation",
+      "3-text": "Tell us why we should approve you."
     }
   },
   "approvalState": {

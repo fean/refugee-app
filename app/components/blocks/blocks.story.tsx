@@ -10,6 +10,7 @@ import { HomeownerLocation } from "./homeowner-location-block/HomeownerLocation"
 import { NumericHeader } from "./numeric-header-block/NumericHeader"
 import { HomeownerPlace } from "./homeowner-place-block/HomeownerPlace"
 import { PartnerDetails } from "./partner-details-block/PartnerDetails"
+import { PartnerMotivation } from "./partner-motivation-block/PartnerMotivation"
 
 declare let module
 
@@ -87,6 +88,18 @@ storiesOf("Blocks", module)
       >
         <Formik initialValues={{ place: { type: "", beds: "" } }} onSubmit={() => {}}>
           <PartnerDetails blockName="place" />
+        </Formik>
+      </UseCase>
+    </Story>
+  ))
+  .add("Partner motivation", () => (
+    <Story>
+      <UseCase
+        text="Partner motivation block"
+        usage="A block in which the partner can supply their motivation for joining."
+      >
+        <Formik initialValues={{ motivation: { mission: "", motivation: "" } }} onSubmit={() => {}}>
+          <PartnerMotivation blockName="motivation" />
         </Formik>
       </UseCase>
     </Story>
