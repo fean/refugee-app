@@ -71,6 +71,10 @@ const dividerColor = Platform.select({
 })
 
 const PartnerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
+  const handleCreate = React.useCallback(() => {
+    navigation.navigate("partner")
+  }, [navigation])
+
   return (
     <SafeAreaView>
       <KeyboardAvoidingView behavior="padding">
@@ -110,7 +114,7 @@ const PartnerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
           <PartnerMotivation style={styles.lastBlock} blockName="motivation" />
 
-          <Button tx="common.next" style={styles.btn} />
+          <Button tx="common.next" style={styles.btn} onPress={handleCreate} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

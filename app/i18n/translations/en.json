@@ -149,6 +149,18 @@
       "title": "Your profile",
       "addressDetails": "Address details",
       "accomodates": "Accommodates"
+    },
+    "pa-search": {
+
+    },
+    "pa-contact-overview": {
+      "title": "Your contacts"
+    },
+    "pa-contact-details": {
+      "title": "Contact details"
+    },
+    "pa-profile": {
+      "title": "Your profile"
     }
   },
   "approvalState": {

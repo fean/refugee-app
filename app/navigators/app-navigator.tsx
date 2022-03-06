@@ -12,6 +12,7 @@ import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import { translate } from "../i18n"
 
 import { HomeownerTabsNavigator } from "./homeowner-tabs-navigator"
+import { PartnerTabsNavigator } from "./partner-tabs-navigator"
 
 export type NavigatorParamList = {
   intro: undefined
@@ -19,6 +20,7 @@ export type NavigatorParamList = {
   "pa-setup": undefined
   login: undefined
   homeowner: undefined
+  partner: undefined
 }
 
 const Stack = createNativeStackNavigator<NavigatorParamList>()
@@ -45,6 +47,7 @@ const AppStack = () => {
       />
 
       <Stack.Screen name="homeowner" component={HomeownerTabsNavigator} />
+      <Stack.Screen name="partner" component={PartnerTabsNavigator} />
     </Stack.Navigator>
   )
 }
