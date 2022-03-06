@@ -6,6 +6,7 @@ import { translate } from "../i18n"
 
 import { TabBarIcon } from "../components"
 import { PartnerContactsNavigator } from "./partner-contacts-navigator"
+import { PartnerProfileScreen, PartnerSearchScreen } from "../screens"
 
 export type PartnerTabsTabsNavigatorParamList = {
   search: undefined
@@ -21,8 +22,6 @@ const tabIcons = {
   profile: "reader-outline",
 }
 
-const TempComp = () => null
-
 export const PartnerTabsNavigator = () => (
   <Tab.Navigator
     screenOptions={({ route }) => ({
@@ -35,11 +34,11 @@ export const PartnerTabsNavigator = () => (
       tabBarInactiveTintColor: color.palette.europeShade,
     })}
   >
-    <Tab.Screen name="search" component={TempComp} />
+    <Tab.Screen name="search" component={PartnerSearchScreen} />
     <Tab.Screen name="contacts" component={PartnerContactsNavigator} />
     <Tab.Screen
       name="profile"
-      component={TempComp}
+      component={PartnerProfileScreen}
       options={{ headerShown: true, title: translate("screens.pa-profile.title") }}
     />
   </Tab.Navigator>

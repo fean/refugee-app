@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { FlatList, StyleSheet } from "react-native"
+import { FlatList, StatusBar, StyleSheet } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import sub from "date-fns/sub"
 
@@ -58,12 +58,16 @@ export const ContactRequestOverviewScreen: React.FC<
   )
 
   return (
-    <FlatList
-      style={styles.list}
-      data={requests}
-      renderItem={({ item, index }) => (
-        <ContactRequest style={styles.card} {...item} onPress={handleDetailNav} />
-      )}
-    />
+    <>
+      <StatusBar barStyle="dark-content" />
+
+      <FlatList
+        style={styles.list}
+        data={requests}
+        renderItem={({ item, index }) => (
+          <ContactRequest style={styles.card} {...item} onPress={handleDetailNav} />
+        )}
+      />
+    </>
   )
 }

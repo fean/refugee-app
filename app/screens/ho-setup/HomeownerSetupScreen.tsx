@@ -13,11 +13,14 @@ import { withFormik } from "formik"
 import { NavigatorParamList } from "../../navigators"
 import { translate } from "../../i18n"
 
-import { NumericHeader } from "../../components/blocks/numeric-header-block/NumericHeader"
-import { HomeownerDetails } from "../../components/blocks/homeowner-details-block/HomeownerDetails"
-import { Button, Divider } from "../../components"
-import { HomeownerLocation } from "../../components/blocks/homeowner-location-block/HomeownerLocation"
-import { HomeownerPlace } from "../../components/blocks/homeowner-place-block/HomeownerPlace"
+import {
+  HomeownerLocation,
+  HomeownerPlace,
+  Button,
+  Divider,
+  HomeownerDetails,
+  NumericHeader,
+} from "../../components"
 import { color } from "../../theme"
 
 interface FormValues {
@@ -82,6 +85,8 @@ const HomeownerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      <StatusBar barStyle="dark-content" />
+
       <KeyboardAvoidingView behavior="padding">
         <ScrollView
           keyboardShouldPersistTaps="never"

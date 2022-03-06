@@ -1,6 +1,7 @@
 import React from "react"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { translate } from "../i18n"
+import { ParterContactsScreen, PartnerContactDetails } from "../screens"
 
 export type PartnerContactsNavigatorParamList = {
   overview: undefined
@@ -9,19 +10,17 @@ export type PartnerContactsNavigatorParamList = {
 
 const Stack = createNativeStackNavigator<PartnerContactsNavigatorParamList>()
 
-const TempComp = () => null
-
 export const PartnerContactsNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="overview">
       <Stack.Screen
         name="overview"
-        component={TempComp}
+        component={ParterContactsScreen}
         options={{ title: translate("screens.pa-contact-overview.title") }}
       />
       <Stack.Screen
         name="details"
-        component={TempComp}
+        component={PartnerContactDetails}
         options={{ title: translate("screens.pa-contact-details.title") }}
       />
     </Stack.Navigator>

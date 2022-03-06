@@ -1,5 +1,12 @@
 import * as React from "react"
-import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } from "react-native"
+import {
+  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+} from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { withFormik } from "formik"
 
@@ -77,6 +84,8 @@ const PartnerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      <StatusBar barStyle="dark-content" />
+
       <KeyboardAvoidingView behavior="padding">
         <ScrollView
           keyboardShouldPersistTaps="never"

@@ -4,11 +4,12 @@ import { View, StyleSheet, StatusBar } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import MapView from "react-native-maps"
 
-import { HomeownerTabsNavigatorParamList } from "../../navigators"
+import { PartnerContactsNavigatorParamList } from "../../navigators"
 import { shadows } from "../../theme/shadows"
 import { color } from "../../theme"
 import { ContactHeader, Divider, SpaceMarker, TextExplainer } from "../../components"
 import { translate } from "../../i18n"
+import { partnerContacts } from "../pa-contacts/PartnerContacts"
 
 const styles = StyleSheet.create({
   container: {
@@ -38,24 +39,15 @@ const styles = StyleSheet.create({
   },
 })
 
-export const profile = {
-  geo: {
-    latitude: 52.3724599,
-    longitude: 4.8795857,
+export const PartnerContactDetails: React.FC<
+  StackScreenProps<PartnerContactsNavigatorParamList, "details">
+> = ({
+  route: {
+    params: { id: contactId },
   },
-  name: "Johnny Samaritan",
-  phone: "+31612345678",
-  email: "johhny@gmail.com",
-  address: "Rozenstraat 112-III",
-  postal: "1016 NZ",
-  city: "Amsterdam",
-  country: "nl",
-  beds: 1,
-}
+}) => {
+  const profile = partnerContacts.find((contact) => contact.id === contactId)
 
-export const HomeownerProfileScreen: React.FC<
-  StackScreenProps<HomeownerTabsNavigatorParamList, "profile">
-> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -89,9 +81,9 @@ export const HomeownerProfileScreen: React.FC<
           style={styles.secondExplainer}
           icon="bed"
           title={translate("screens.ho-profile.accomodates")}
-          text={`${profile.beds} ${translate("screens.ho-profile.personPhrase", {
+          text={translate("screens.ho-profile.personPhrase", {
             count: profile.beds,
-          })}`}
+          })}
         />
       </View>
     </View>

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { StyleSheet, View } from "react-native"
+import { StatusBar, StyleSheet, View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import Icon from "react-native-vector-icons/Ionicons"
 
@@ -61,6 +61,8 @@ export const ContactRequestDetailsScreen: React.FC<
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+
       <ContactHeader
         name={request?.name}
         phone={request?.phone}

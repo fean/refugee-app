@@ -3,9 +3,7 @@
     "ok": "OK!",
     "cancel": "Cancel",
     "back": "Back",
-    "next": "Next",
-    "person": "person",
-    "people": "people"
+    "next": "Next"
   },
   "errors": {
     "invalidEmail": "Invalid email address."
@@ -43,6 +41,14 @@
   "modals": {
     "country": {
       "title": "Select your country"
+    }
+  },
+  "cards": {
+    "partner-contact": {
+      "cardTitle": {
+        "one": "Space for {{count}} person",
+        "other": "Space for {{count}} people"
+      }
     }
   },
   "blocks": {
@@ -148,7 +154,11 @@
     "ho-profile": {
       "title": "Your profile",
       "addressDetails": "Address details",
-      "accomodates": "Accommodates"
+      "accomodates": "Accommodates",
+      "personPhrase": {
+        "one": "1 person",
+        "other": "{{count}} people"
+      }
     },
     "pa-search": {
 
