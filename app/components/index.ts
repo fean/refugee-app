@@ -10,6 +10,7 @@ export * from "./base/input/formik"
 export * from "./base/modal/Modal"
 export * from "./base/number/Number"
 export * from "./base/tab-bar-icon/TabBarIcon"
+export * from "./base/space-marker/SpaceMarker"
 
 export * from "./cards/contact-request/ContactRequest"
 export * from "./cards/country-card/CountryCard"

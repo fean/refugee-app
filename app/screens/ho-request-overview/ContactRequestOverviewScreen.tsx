@@ -11,9 +11,6 @@ const styles = StyleSheet.create({
   card: {
     marginBottom: 16,
   },
-  lastCard: {
-    marginBottom: 64,
-  },
   list: {
     padding: 16,
   },
@@ -65,11 +62,7 @@ export const ContactRequestOverviewScreen: React.FC<
       style={styles.list}
       data={requests}
       renderItem={({ item, index }) => (
-        <ContactRequest
-          style={[styles.card, requests.length === index + 1 && styles.lastCard]}
-          {...item}
-          onPress={handleDetailNav}
-        />
+        <ContactRequest style={styles.card} {...item} onPress={handleDetailNav} />
       )}
     />
   )

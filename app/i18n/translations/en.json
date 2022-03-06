@@ -3,7 +3,9 @@
     "ok": "OK!",
     "cancel": "Cancel",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "person": "person",
+    "people": "people"
   },
   "errors": {
     "invalidEmail": "Invalid email address."
@@ -142,6 +144,11 @@
       "websiteHeader": "Organization website",
       "approvalHeader": "Shared your details on",
       "approvalButton": "Share your details"
+    },
+    "ho-profile": {
+      "title": "Your profile",
+      "addressDetails": "Address details",
+      "accomodates": "Accommodates"
     }
   },
   "approvalState": {
