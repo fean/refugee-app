@@ -76,6 +76,10 @@ const dividerColor = Platform.select({
 })
 
 const HomeownerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
+  const handleCreate = React.useCallback(() => {
+    navigation.navigate("homeowner")
+  }, [])
+
   return (
     <SafeAreaView>
       <KeyboardAvoidingView behavior="padding">
@@ -117,7 +121,7 @@ const HomeownerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
           <HomeownerPlace blockName="place" style={styles.lastBlock} />
 
-          <Button tx="common.next" style={styles.btn} />
+          <Button tx="common.next" style={styles.btn} onPress={handleCreate} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

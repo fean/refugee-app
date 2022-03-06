@@ -131,6 +131,9 @@
       "2-text": "Tell us about where you are located.",
       "3-title": "Your motivation",
       "3-text": "Tell us why we should approve you."
+    },
+    "ho-contact-requests": {
+      "title": "Contact requests"
     }
   },
   "approvalState": {
