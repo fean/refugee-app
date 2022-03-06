@@ -6,6 +6,7 @@ import { NavigatorParamList } from "../../navigators"
 import { PanelButton, Typography } from "../../components"
 import { translate } from "../../i18n"
 import { NumericHeader } from "../../components/blocks/numeric-header-block/NumericHeader"
+import { color } from "../../theme"
 
 const styles = StyleSheet.create({
   btn: {
@@ -83,12 +84,14 @@ export const IntroScreen: React.FC<StackScreenProps<NavigatorParamList, "intro">
       <View style={styles.btnContainer}>
         <PanelButton
           icon="home"
+          iconColor={color.palette.europe}
           style={styles.btn}
           text={translate("screens.intro.homeowner")}
           onPress={handleSetupHomeowner}
         />
         <PanelButton
-          icon="business"
+          icon="heart"
+          iconColor={color.palette.love}
           text={translate("screens.intro.partner")}
           onPress={handleSetupPartner}
         />

@@ -24,6 +24,8 @@ export * from "./blocks/homeowner-place-block/HomeownerPlace"
 export * from "./blocks/partner-details-block/PartnerDetails"
 export * from "./blocks/partner-motivation-block/PartnerMotivation"
 export * from "./blocks/numeric-header-block/NumericHeader"
+export * from "./blocks/contact-header/ContactHeader"
+export * from "./blocks/text-explainer/TextExplainer"
 
 export * from "./inputs/country-selector"
 export * from "./inputs/value-selector"

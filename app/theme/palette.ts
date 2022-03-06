@@ -11,4 +11,5 @@ export const palette = {
   placeholder: "#CCCCCC",
   accept: "#34C759",
   warn: "#FF9500",
+  love: "rgb(227, 0, 58)",
 }

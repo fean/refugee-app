@@ -11,6 +11,7 @@ import { color } from "../../../theme"
 interface SimpleButtonProps {
   style?: StyleProp<ViewStyle>
   icon?: string
+  iconColor?: string
   text?: string
   tx?: string
   onPress?: () => void
@@ -25,16 +26,17 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 16,
   },
-  text: {
-    flex: 1,
-  },
   nextIcon: {
     marginLeft: 8,
+  },
+  text: {
+    flex: 1,
   },
 })
 
 export const PanelButton: React.FC<SimpleButtonProps> = ({
   icon,
+  iconColor = color.palette.textShade,
   text,
   tx,
   style: styleOverride,
@@ -45,7 +47,7 @@ export const PanelButton: React.FC<SimpleButtonProps> = ({
   return (
     <TouchableOpacity style={styleOverride} onPress={onPress}>
       <Panel style={styles.bar}>
-        <Icon name={icon} size={32} color={color.palette.textShade} style={styles.icon} />
+        <Icon name={icon} size={32} color={iconColor} style={styles.icon} />
         <Typography variant="subheader" style={styles.text}>
           {btnText}
         </Typography>

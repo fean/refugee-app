@@ -12,6 +12,7 @@ import { HomeownerPlace } from "./homeowner-place-block/HomeownerPlace"
 import { PartnerDetails } from "./partner-details-block/PartnerDetails"
 import { PartnerMotivation } from "./partner-motivation-block/PartnerMotivation"
 import { ContactHeader } from "./contact-header/ContactHeader"
+import { TextExplainer } from "./text-explainer/TextExplainer"
 
 declare let module
 
@@ -123,6 +124,24 @@ storiesOf("Blocks", module)
           email="awesome@ngo.com"
           phone="+31612345678"
           website={"https://ngo.com"}
+        />
+      </UseCase>
+    </Story>
+  ))
+  .add("Text explainer", () => (
+    <Story>
+      <UseCase text="Text explainer" usage="A simple explainer.">
+        <TextExplainer
+          icon="rocket"
+          title="Mission statement"
+          text="We are an awesome NGO that helps find refugees a place in Europe to temporarily stay."
+        />
+      </UseCase>
+      <UseCase text="Multiline explainer" usage="A simple explainer with multiline values.">
+        <TextExplainer
+          icon="business"
+          title="Address"
+          text={["Prinsengracht 2", "1722GM Zuid-scharwoude", "The netherlands"]}
         />
       </UseCase>
     </Story>

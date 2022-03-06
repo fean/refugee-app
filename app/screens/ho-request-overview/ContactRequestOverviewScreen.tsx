@@ -25,6 +25,13 @@ export const requests = [
     state: "pending" as "pending",
     date: sub(new Date(), { hours: 2 }),
     name: "Awesome NGO",
+    address: "Prinsengracht 2",
+    postal: "1722GM",
+    city: "Zuid-scharwoude",
+    country: "nl",
+    phone: "+31623833605",
+    email: "leonard@trunkrs.nl",
+    website: "https://samaritan-app.eu",
     mission:
       "We are an awesome NGO that helps find refugees a place in Europe to temporarily stay.",
   },
@@ -33,16 +40,23 @@ export const requests = [
     state: "approved" as "approved",
     date: sub(new Date(), { days: 1 }),
     name: "Awesome NGO 2",
+    address: "Prinsengracht 2",
+    postal: "1722GM",
+    city: "Zuid-scharwoude",
+    country: "nl",
+    phone: "+31623833605",
+    email: "leonard@trunkrs.nl",
+    website: "https://samaritan-app.eu",
     mission:
       "We are an awesome NGO that helps find refugees a place in Europe to temporarily stay.",
   },
 ]
 
 export const ContactRequestOverviewScreen: React.FC<
-  StackScreenProps<HomeownerNavigatorParamList, "contact-overview">
+  StackScreenProps<HomeownerNavigatorParamList, "overview">
 > = ({ navigation }) => {
   const handleDetailNav = React.useCallback(
-    (id: string) => navigation.navigate("contact-details", { id }),
+    (id: string) => navigation.navigate("details", { id }),
     [navigation],
   )
 

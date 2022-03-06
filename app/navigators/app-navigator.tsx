@@ -11,7 +11,7 @@ import { HomeownerSetupScreen, IntroScreen, PartnerSetupScreen, LoginScreen } fr
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
 import { translate } from "../i18n"
 
-import { HomeownerNavigator } from "./homeowner-navigator"
+import { HomeownerTabsNavigator } from "./homeowner-tabs-navigator"
 
 export type NavigatorParamList = {
   intro: undefined
@@ -44,7 +44,7 @@ const AppStack = () => {
         options={{ title: translate("screens.pa-setup.title"), headerShown: true }}
       />
 
-      <Stack.Screen name="homeowner" component={HomeownerNavigator} />
+      <Stack.Screen name="homeowner" component={HomeownerTabsNavigator} />
     </Stack.Navigator>
   )
 }

@@ -134,6 +134,14 @@
     },
     "ho-contact-requests": {
       "title": "Contact requests"
+    },
+    "ho-contact-details": {
+      "title": "Request details",
+      "missionHeader": "Mission statement",
+      "addressHeader": "Organization address",
+      "websiteHeader": "Organization website",
+      "approvalHeader": "Shared your details on",
+      "approvalButton": "Share your details"
     }
   },
   "approvalState": {

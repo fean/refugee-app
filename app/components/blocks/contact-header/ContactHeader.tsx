@@ -24,8 +24,6 @@ const styles = StyleSheet.create({
     width: 64,
   },
   container: {
-    backgroundColor: color.palette.white,
-    borderRadius: 12,
     flexDirection: "row",
   },
   contentContainer: {

@@ -40,7 +40,7 @@ export const Button: React.FC<SimpleButtonProps> = ({
   const colorStyles = React.useMemo(
     () => ({
       backgroundColor: disabled ? color.palette.europeDisabled : color.palette.europe,
-      width: icon && !text ? 32 : undefined,
+      width: icon && !btnText ? 32 : undefined,
     }),
     [disabled, icon, text],
   )

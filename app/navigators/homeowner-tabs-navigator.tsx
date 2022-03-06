@@ -7,29 +7,26 @@
 import React from "react"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
-import { translate } from "../i18n"
-
-import { ContactRequestOverviewScreen } from "../screens"
 import { TabBarIcon } from "../components"
 import { color } from "../theme"
+import { HomeownerContactsNavigator } from "./homeowner-contacts-navigator"
 
-export type HomeownerNavigatorParamList = {
-  "contact-overview": undefined
-  "contact-details": { id: string }
+export type HomeownerTabsNavigatorParamList = {
+  contacts: undefined
 }
 
-const Tab = createBottomTabNavigator<HomeownerNavigatorParamList>()
+const Tab = createBottomTabNavigator<HomeownerTabsNavigatorParamList>()
 
 const tabIcons = {
-  "contact-overview": "chatbubbles-outline",
+  contacts: "chatbubbles-outline",
 }
 
-export const HomeownerNavigator = () => {
+export const HomeownerTabsNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarShowLabel: false,
-        headerShown: true,
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => (
           <TabBarIcon focused={focused} icon={tabIcons[route.name]} color={color} size={size} />
         ),
@@ -37,11 +34,7 @@ export const HomeownerNavigator = () => {
         tabBarInactiveTintColor: color.palette.europeShade,
       })}
     >
-      <Tab.Screen
-        name="contact-overview"
-        component={ContactRequestOverviewScreen}
-        options={{ title: translate("screens.ho-contact-requests.title") }}
-      />
+      <Tab.Screen name="contacts" component={HomeownerContactsNavigator} />
     </Tab.Navigator>
   )
 }
