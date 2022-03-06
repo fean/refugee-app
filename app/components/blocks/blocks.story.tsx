@@ -11,6 +11,7 @@ import { NumericHeader } from "./numeric-header-block/NumericHeader"
 import { HomeownerPlace } from "./homeowner-place-block/HomeownerPlace"
 import { PartnerDetails } from "./partner-details-block/PartnerDetails"
 import { PartnerMotivation } from "./partner-motivation-block/PartnerMotivation"
+import { ContactHeader } from "./contact-header/ContactHeader"
 
 declare let module
 
@@ -101,6 +102,28 @@ storiesOf("Blocks", module)
         <Formik initialValues={{ motivation: { mission: "", motivation: "" } }} onSubmit={() => {}}>
           <PartnerMotivation blockName="motivation" />
         </Formik>
+      </UseCase>
+    </Story>
+  ))
+  .add("Contact header", () => (
+    <Story>
+      <UseCase
+        text="Contact header"
+        usage="A header showing off the contact name and contact options."
+      >
+        <ContactHeader name="Johnny Samaritan" email="johnny@gmail.com" phone="+31612345678" />
+      </UseCase>
+
+      <UseCase
+        text="Contact header"
+        usage="A header showing off the contact name and contact options."
+      >
+        <ContactHeader
+          name="Awesome NGO"
+          email="awesome@ngo.com"
+          phone="+31612345678"
+          website={"https://ngo.com"}
+        />
       </UseCase>
     </Story>
   ))
