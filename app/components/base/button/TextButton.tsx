@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     height: 32,
     justifyContent: "center",
   },
+  noIcon: {
+    marginStart: 0,
+  },
   text: {
     marginStart: 12,
   },
@@ -41,7 +44,7 @@ export const TextButton: React.FC<SimpleButtonProps> = ({
   return (
     <TouchableOpacity disabled={disabled} style={[styles.base, styleOverride]} onPress={onPress}>
       {icon}
-      <Typography variant="button" color={textColor} style={styles.text}>
+      <Typography variant="button" color={textColor} style={[styles.text, !icon && styles.noIcon]}>
         {btnText}
       </Typography>
     </TouchableOpacity>

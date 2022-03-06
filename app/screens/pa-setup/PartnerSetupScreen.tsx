@@ -1,16 +1,14 @@
 import * as React from "react"
-import { Dimensions, Platform, ScrollView, StatusBar, StyleSheet, View } from "react-native"
+import { KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { withFormik } from "formik"
-import Icon from "react-native-vector-icons/Ionicons"
 
 import { NavigatorParamList } from "../../navigators"
 import { translate } from "../../i18n"
 
 import { NumericHeader } from "../../components/blocks/numeric-header-block/NumericHeader"
-import { Button, Divider, TextButton } from "../../components"
+import { Button, Divider } from "../../components"
 import { color } from "../../theme"
-import { Toolbar, toolbarHeight } from "../../components/base/toolbar/Toolbar"
 import { PartnerDetails } from "../../components/blocks/partner-details-block/PartnerDetails"
 import { HomeownerLocation } from "../../components/blocks/homeowner-location-block/HomeownerLocation"
 import { PartnerMotivation } from "../../components/blocks/partner-motivation-block/PartnerMotivation"
@@ -36,13 +34,7 @@ interface FormValues {
   }
 }
 
-type ScreenProps = StackScreenProps<NavigatorParamList, "ho-setup">
-
-const { height } = Dimensions.get("screen")
-const topSafeZone = Platform.select({
-  ios: 40,
-  android: 0,
-})
+type ScreenProps = StackScreenProps<NavigatorParamList, "pa-setup">
 
 const initialValue: FormValues = {
   details: { orgName: "", country: "", contact: "", phone: "", email: "", website: "" },
@@ -51,6 +43,10 @@ const initialValue: FormValues = {
 }
 
 const styles = StyleSheet.create({
+  btn: {
+    height: 40,
+    marginBottom: 64,
+  },
   divider: {
     marginBottom: 24,
     marginTop: 32,
@@ -59,43 +55,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   lastBlock: {
-    marginBottom: 80,
-  },
-  outerContainer: {
-    flexDirection: "column",
+    marginBottom: 40,
   },
   scrollContainer: {
     flexDirection: "column",
-    height: height - toolbarHeight - topSafeZone,
-    left: 0,
     paddingLeft: 32,
     paddingRight: 32,
     paddingTop: 24,
-    position: "absolute",
-    right: 0,
-    top: topSafeZone,
-  },
-  toolbar: {
-    bottom: 0,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    left: 0,
-    paddingLeft: 32,
-    paddingRight: 32,
-    paddingTop: 16,
-    position: "absolute",
-    right: 0,
-  },
-  toolbarBtn: {
-    width: 100,
-  },
-  topCover: {
-    backgroundColor: color.palette.white,
-    height: topSafeZone,
-    left: 0,
-    position: "absolute",
-    right: 0,
-    top: 0,
   },
 })
 
@@ -106,58 +72,48 @@ const dividerColor = Platform.select({
 
 const PartnerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
+    <SafeAreaView>
+      <KeyboardAvoidingView behavior="padding">
+        <ScrollView
+          keyboardShouldPersistTaps="never"
+          scrollToOverflowEnabled
+          style={styles.scrollContainer}
+        >
+          <NumericHeader
+            style={styles.header}
+            option="1"
+            title={translate("screens.pa-setup.1-title")}
+            text={translate("screens.pa-setup.1-text")}
+          />
 
-      <View style={styles.topCover} />
+          <PartnerDetails blockName="details" />
 
-      <ScrollView
-        keyboardShouldPersistTaps="never"
-        scrollToOverflowEnabled
-        style={styles.scrollContainer}
-      >
-        <NumericHeader
-          style={styles.header}
-          option="1"
-          title={translate("screens.pa-setup.1-title")}
-          text={translate("screens.pa-setup.1-text")}
-        />
+          <Divider style={styles.divider} color={dividerColor} />
 
-        <PartnerDetails blockName="details" />
+          <NumericHeader
+            style={styles.header}
+            option="2"
+            title={translate("screens.pa-setup.2-title")}
+            text={translate("screens.pa-setup.2-text")}
+          />
 
-        <Divider style={styles.divider} color={dividerColor} />
+          <HomeownerLocation blockName="location" />
 
-        <NumericHeader
-          style={styles.header}
-          option="2"
-          title={translate("screens.pa-setup.2-title")}
-          text={translate("screens.pa-setup.2-text")}
-        />
+          <Divider style={styles.divider} color={dividerColor} />
 
-        <HomeownerLocation blockName="location" />
+          <NumericHeader
+            style={styles.header}
+            option="3"
+            title={translate("screens.pa-setup.3-title")}
+            text={translate("screens.pa-setup.3-text")}
+          />
 
-        <Divider style={styles.divider} color={dividerColor} />
+          <PartnerMotivation style={styles.lastBlock} blockName="motivation" />
 
-        <NumericHeader
-          style={styles.header}
-          option="3"
-          title={translate("screens.pa-setup.3-title")}
-          text={translate("screens.pa-setup.3-text")}
-        />
-
-        <PartnerMotivation style={styles.lastBlock} blockName="motivation" />
-      </ScrollView>
-
-      <Toolbar style={styles.toolbar}>
-        <TextButton
-          icon={<Icon name="arrow-back" size={16} color={color.palette.text} />}
-          tx="common.back"
-          onPress={navigation.goBack}
-        />
-
-        <Button tx="common.next" style={styles.toolbarBtn} />
-      </Toolbar>
-    </>
+          <Button tx="common.next" style={styles.btn} />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
 

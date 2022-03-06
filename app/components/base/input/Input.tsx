@@ -1,5 +1,6 @@
 import * as React from "react"
 import {
+  View,
   StyleProp,
   TextInput,
   NativeSyntheticEvent,
@@ -8,10 +9,13 @@ import {
   TextInputFocusEventData,
   TextInputProps,
 } from "react-native"
+import Icon from "react-native-vector-icons/Ionicons"
 import { color } from "../../../theme"
 
 interface InputProps {
   style?: StyleProp<TextStyle>
+  disabled?: boolean
+  icon?: string
   autoComplete?: TextInputProps["autoComplete"]
   textContentType?: TextInputProps["textContentType"]
   keyboardType?: TextInputProps["keyboardType"]
@@ -28,12 +32,20 @@ const styles = StyleSheet.create({
   active: {
     backgroundColor: color.palette.control,
   },
+  icon: {
+    left: 8,
+    position: "absolute",
+    top: 8,
+  },
   input: {
     borderRadius: 5,
     color: color.palette.text,
     height: 32,
     paddingLeft: 8,
     paddingRight: 8,
+  },
+  inputIcon: {
+    paddingLeft: 32,
   },
 })
 
@@ -42,6 +54,8 @@ export const Input = React.forwardRef<TextInput, InputProps>(
   (
     {
       style,
+      disabled,
+      icon,
       autoComplete,
       textContentType,
       keyboardType,
@@ -81,21 +95,27 @@ export const Input = React.forwardRef<TextInput, InputProps>(
     }, [nextRef])
 
     return (
-      <TextInput
-        ref={ref}
-        autoComplete={autoComplete}
-        textContentType={textContentType}
-        keyboardType={keyboardType}
-        returnKeyType={returnKeyType}
-        style={[styles.input, isActive && styles.active, style]}
-        value={value}
-        placeholder={placeholder}
-        placeholderTextColor={color.palette.placeholder}
-        onSubmitEditing={handleSubmitEditing}
-        onChangeText={onChange}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-      />
+      <View style={style}>
+        <TextInput
+          ref={ref}
+          blurOnSubmit
+          editable={!disabled}
+          autoComplete={autoComplete}
+          textContentType={textContentType}
+          keyboardType={keyboardType}
+          returnKeyType={returnKeyType}
+          style={[styles.input, isActive && styles.active, icon && styles.inputIcon]}
+          value={value}
+          placeholder={placeholder}
+          placeholderTextColor={color.palette.placeholder}
+          onSubmitEditing={handleSubmitEditing}
+          onChangeText={onChange}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+
+        {icon && <Icon style={styles.icon} name={icon} size={16} color={color.palette.textShade} />}
+      </View>
     )
   },
 )

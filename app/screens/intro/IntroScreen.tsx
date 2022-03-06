@@ -14,14 +14,14 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "column",
   },
+  getStarted: {
+    marginBottom: 32,
+    marginTop: 32,
+  },
   scrollContainer: {
     flexDirection: "column",
     paddingLeft: 32,
     paddingRight: 32,
-  },
-  getStarted: {
-    marginBottom: 32,
-    marginTop: 32,
   },
   textBlock: {
     marginBottom: 16,

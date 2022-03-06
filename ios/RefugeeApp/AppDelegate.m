@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <React/RCTConvert.h>
+#import "RNSplashScreen.h"
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -41,7 +42,7 @@ static void InitializeFlipper(UIApplication *application) {
     // Change this to whatever color you want -- it'll show as
     // your app loads for the first time in the background.
     // You can use the system's background color if you wish
-    rootView.backgroundColor = [UIColor systemBackgroundColor];
+    rootView.backgroundColor = [UIColor whiteColor];
   } else {
     rootView.backgroundColor = [UIColor whiteColor];
   }
@@ -53,6 +54,7 @@ static void InitializeFlipper(UIApplication *application) {
   [self.window makeKeyAndVisible];
 
   [super application:application didFinishLaunchingWithOptions:launchOptions];
+  [RNSplashScreen show];
 
   return YES;
 }

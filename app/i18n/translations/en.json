@@ -94,6 +94,12 @@
     }
   },
   "screens": {
+    "login": {
+      "title": "Login to Samaritan",
+      "emailPlaceholder": "Your account email",
+      "login": "Login",
+      "no-account": "I'm new to Samaritan"
+    },
     "intro": {
       "how-it-works": "How Samaritan works:",
       "option-1-title": "Share your space",
@@ -109,6 +115,7 @@
       "partner": "I'm a non-profit, governmental agency or other partner"
     },
     "ho-setup": {
+      "title": "Register on Samaritan",
       "1-title": "Your details",
       "1-text": "These details let us connect with you.",
       "2-title": "Your location",
@@ -117,6 +124,7 @@
       "3-text": "Tell us a little bit about your place."
     },
     "pa-setup": {
+      "title": "Register on Samaritan",
       "1-title": "Your details",
       "1-text": "These details let us connect with you.",
       "2-title": "Your location",

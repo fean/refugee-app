@@ -7,8 +7,9 @@
 import React from "react"
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { HomeownerSetupScreen, IntroScreen, PartnerSetupScreen } from "../screens"
+import { HomeownerSetupScreen, IntroScreen, PartnerSetupScreen, LoginScreen } from "../screens"
 import { navigationRef, useBackButtonHandler } from "./navigation-utilities"
+import { translate } from "../i18n"
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -26,7 +27,7 @@ export type NavigatorParamList = {
   intro: undefined
   "ho-setup": undefined
   "pa-setup": undefined
-  // 🔥 Your screens go here
+  login: undefined
 }
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
@@ -38,12 +39,21 @@ const AppStack = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName="intro"
+      initialRouteName="login"
     >
       <Stack.Group>
+        <Stack.Screen name="login" component={LoginScreen} />
         <Stack.Screen name="intro" component={IntroScreen} />
-        <Stack.Screen name="ho-setup" component={HomeownerSetupScreen} />
-        <Stack.Screen name="pa-setup" component={PartnerSetupScreen} />
+        <Stack.Screen
+          name="ho-setup"
+          component={HomeownerSetupScreen}
+          options={{ title: translate("screens.ho-setup.title"), headerShown: true }}
+        />
+        <Stack.Screen
+          name="pa-setup"
+          component={PartnerSetupScreen}
+          options={{ title: translate("screens.pa-setup.title"), headerShown: true }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   )

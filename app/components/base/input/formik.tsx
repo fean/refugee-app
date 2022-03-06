@@ -6,6 +6,8 @@ import { Input } from "./Input"
 
 interface FormikInputFieldProps {
   style?: StyleProp<TextStyle>
+  disabled?: boolean
+  icon?: string
   nextRef?: React.RefObject<TextInput>
   autoComplete?: TextInputProps["autoComplete"]
   textContentType?: TextInputProps["textContentType"]
@@ -19,6 +21,8 @@ export const FormikInput = React.forwardRef<TextInput, FormikInputFieldProps>(
   (
     {
       style,
+      disabled,
+      icon,
       nextRef,
       autoComplete,
       textContentType,
@@ -36,6 +40,8 @@ export const FormikInput = React.forwardRef<TextInput, FormikInputFieldProps>(
         ref={ref}
         nextRef={nextRef}
         style={style}
+        disabled={disabled}
+        icon={icon}
         autoComplete={autoComplete}
         textContentType={textContentType}
         keyboardType={keyboardType}
