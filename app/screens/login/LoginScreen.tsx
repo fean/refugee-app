@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     left: 0,
     opacity: 0,
     padding: 32,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingBottom: 48,
     position: "absolute",
     right: 0,

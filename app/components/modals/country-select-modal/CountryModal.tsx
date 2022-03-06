@@ -15,8 +15,8 @@ interface PanelProps {
 const styles = StyleSheet.create({
   card: {
     marginBottom: 8,
-    marginLeft: 32,
-    marginRight: 32,
+    marginLeft: 16,
+    marginRight: 16,
   },
   lastCard: {
     marginBottom: 16,
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     marginBottom: 0,
-    paddingLeft: 32,
-    paddingRight: 32,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
 })
 

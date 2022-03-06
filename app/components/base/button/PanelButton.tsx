@@ -17,16 +17,19 @@ interface SimpleButtonProps {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    marginRight: 16,
-  },
   bar: {
     alignItems: "center",
     flexDirection: "row",
     padding: 16,
   },
+  icon: {
+    marginRight: 16,
+  },
   text: {
     flex: 1,
+  },
+  nextIcon: {
+    marginLeft: 8,
   },
 })
 
@@ -47,7 +50,12 @@ export const PanelButton: React.FC<SimpleButtonProps> = ({
           {btnText}
         </Typography>
 
-        <Icon name="chevron-forward-outline" size={24} color={color.palette.textDisabled} />
+        <Icon
+          name="chevron-forward-outline"
+          size={24}
+          color={color.palette.textDisabled}
+          style={styles.nextIcon}
+        />
       </Panel>
     </TouchableOpacity>
   )

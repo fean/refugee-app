@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexDirection: "column",
-    paddingLeft: 32,
-    paddingRight: 32,
+    paddingLeft: 16,
+    paddingRight: 16,
     paddingTop: 24,
   },
 })
