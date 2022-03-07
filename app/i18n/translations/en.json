@@ -164,7 +164,15 @@
       }
     },
     "pa-search": {
-
+      "persons": {
+        "one": "Space for {{count}} person",
+        "other": "Space for {{count}} people"
+      },
+      "requestPrompt": {
+        "title": "Request space details?",
+        "text": "Do you want to request the contact details of the owner of this space?",
+        "action": "Request"
+      }
     },
     "pa-contact-overview": {
       "title": "Your contacts"

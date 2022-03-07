@@ -20,18 +20,18 @@ const styles = StyleSheet.create({
   address: {
     flex: 1,
   },
+  bar: {
+    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 16,
+  },
   button: {
     height: 40,
     width: 40,
   },
   name: {
     marginBottom: 8,
-  },
-  bar: {
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: 16,
   },
   textContainer: {
     flexDirection: "column",
