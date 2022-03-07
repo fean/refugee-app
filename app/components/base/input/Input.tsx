@@ -14,6 +14,7 @@ import { color } from "../../../theme"
 
 interface InputProps {
   style?: StyleProp<TextStyle>
+  inputStyle?: StyleProp<TextStyle>
   disabled?: boolean
   icon?: string
   autoComplete?: TextInputProps["autoComplete"]
@@ -54,6 +55,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(
   (
     {
       style,
+      inputStyle,
       disabled,
       icon,
       autoComplete,
@@ -104,7 +106,7 @@ export const Input = React.forwardRef<TextInput, InputProps>(
           textContentType={textContentType}
           keyboardType={keyboardType}
           returnKeyType={returnKeyType}
-          style={[styles.input, isActive && styles.active, icon && styles.inputIcon]}
+          style={[styles.input, isActive && styles.active, icon && styles.inputIcon, inputStyle]}
           value={value}
           placeholder={placeholder}
           placeholderTextColor={color.palette.placeholder}

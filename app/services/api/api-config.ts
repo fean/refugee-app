@@ -8,6 +8,11 @@ const API_URL = "http://example.com"
  */
 export interface ApiConfig {
   /**
+   * The optional API token.
+   */
+  token?: string
+
+  /**
    * The URL of the api.
    */
   url: string
@@ -23,5 +28,12 @@ export interface ApiConfig {
  */
 export const DEFAULT_API_CONFIG: ApiConfig = {
   url: API_URL || "https://jsonplaceholder.typicode.com",
+  timeout: 10000,
+}
+
+export const MAPBOX_API_CONFIG: ApiConfig = {
+  token:
+    "pk.eyJ1IjoiZmVhbmFybzEwMSIsImEiOiJjbDBmaWVka2kwc3VwM2psZjU1czlxZGJpIn0.B1aFU0t9vAefwlVEWD8qQg",
+  url: "https://api.mapbox.com",
   timeout: 10000,
 }

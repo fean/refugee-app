@@ -99,6 +99,9 @@
       "missionPlaceholder": "Type a publicly visible statement",
       "motivation": "Motivation",
       "motivationPlaceholder": "Type your approval motivation"
+    },
+    "location-search": {
+      "search-placeholder": "Search for a place"
     }
   },
   "screens": {

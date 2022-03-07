@@ -55,7 +55,7 @@ export const profile = {
 
 export const HomeownerProfileScreen: React.FC<
   StackScreenProps<HomeownerTabsNavigatorParamList, "profile">
-> = ({ navigation }) => {
+> = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />

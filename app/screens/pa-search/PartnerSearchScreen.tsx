@@ -6,14 +6,25 @@ import MapView from "react-native-maps"
 
 import { PartnerTabsTabsNavigatorParamList } from "../../navigators"
 import { getCurrentLocation } from "./helpers"
+import { LocationSearchBlock } from "../../components"
+import { Location } from "../../models/location/location"
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   map: {
     bottom: 0,
     left: 0,
     position: "absolute",
     right: 0,
     top: 0,
+  },
+  search: {
+    left: 16,
+    position: "absolute",
+    right: 16,
+    top: 64,
   },
 })
 
@@ -34,6 +45,14 @@ export const PartnerSearchScreen: React.FC<
   const [camera, setCamera] = React.useState(initialCamera)
   const [isReady, setReady] = React.useState(false)
 
+  const handleSelect = React.useCallback((selection: Location | null) => {
+    if (selection) {
+      setCamera((cam) => ({ ...cam, center: { ...selection.geo } }))
+    } else {
+      setCamera(initialCamera)
+    }
+  }, [])
+
   React.useEffect(() => {
     getCurrentLocation().then((coords) => {
       if (coords) {
@@ -44,11 +63,11 @@ export const PartnerSearchScreen: React.FC<
   }, [])
 
   return (
-    <>
+    <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       {isReady && <MapView style={styles.map} camera={camera} />}
 
-      <View />
-    </>
+      <LocationSearchBlock style={styles.search} onSelect={handleSelect} />
+    </View>
   )
 }

@@ -7,6 +7,7 @@ import { Typography } from "../typography/Typography"
 
 interface SimpleButtonProps {
   style?: StyleProp<ViewStyle>
+  textStyle?: StyleProp<ViewStyle>
   icon?: React.ReactNode
   text?: string
   tx?: string
@@ -36,6 +37,7 @@ export const TextButton: React.FC<SimpleButtonProps> = ({
   text,
   tx,
   style: styleOverride,
+  textStyle,
   onPress,
 }) => {
   const btnText = text || (tx ? translate(tx) : null)
@@ -44,7 +46,11 @@ export const TextButton: React.FC<SimpleButtonProps> = ({
   return (
     <TouchableOpacity disabled={disabled} style={[styles.base, styleOverride]} onPress={onPress}>
       {icon}
-      <Typography variant="button" color={textColor} style={[styles.text, !icon && styles.noIcon]}>
+      <Typography
+        variant="button"
+        color={textColor}
+        style={[styles.text, !icon && styles.noIcon, textStyle]}
+      >
         {btnText}
       </Typography>
     </TouchableOpacity>

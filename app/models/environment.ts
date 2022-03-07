@@ -1,4 +1,5 @@
 import { Api } from "../services/api"
+import { MAPBOX_API_CONFIG } from "../services/api/api-config"
 
 let ReactotronDev
 if (__DEV__) {
@@ -17,7 +18,9 @@ export class Environment {
       // dev-only services
       this.reactotron = new ReactotronDev()
     }
+
     this.api = new Api()
+    this.mapBox = new Api(MAPBOX_API_CONFIG)
   }
 
   async setup() {
@@ -25,7 +28,8 @@ export class Environment {
     if (__DEV__) {
       await this.reactotron.setup()
     }
-    await this.api.setup()
+
+    await Promise.all([this.api.setup(), this.mapBox.setup()])
   }
 
   /**
@@ -37,4 +41,9 @@ export class Environment {
    * Our api.
    */
   api: Api
+
+  /**
+   * The MapBox API
+   */
+  mapBox: Api
 }
