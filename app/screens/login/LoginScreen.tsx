@@ -8,6 +8,7 @@ import {
   Animated,
   KeyboardAvoidingView,
   TextInput,
+  View,
 } from "react-native"
 import { withFormik } from "formik"
 
@@ -56,8 +57,12 @@ const styles = StyleSheet.create({
     right: 0,
     ...shadows.cover,
   },
-  newUserBtn: {
-    marginTop: 16,
+  noAccountSection: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 32,
   },
   root: {
     height,
@@ -65,6 +70,16 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     top: 0,
+  },
+  signupButton: {
+    color: color.palette.europe,
+    fontWeight: "bold",
+    height: 24,
+    paddingLeft: 4,
+  },
+  signupText: {
+    color: color.text,
+    height: 24,
   },
 })
 
@@ -90,7 +105,7 @@ const LoginScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView behavior="height" style={styles.root}>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" translucent backgroundColor={color.primary} />
       <Image source={{ uri: "splash" }} style={styles.background} />
 
       <Animated.View style={[styles.loginPanel, { opacity: opacityAnim }]}>
@@ -108,11 +123,16 @@ const LoginScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
         <Button tx="screens.login.login" onPress={handleLogin} />
 
-        <TextButton
-          tx="screens.login.no-account"
-          style={styles.newUserBtn}
-          onPress={handleNewUser}
-        />
+        <View style={styles.noAccountSection}>
+          <Typography style={styles.signupText} variant="button">
+            {translate("screens.login.no-account")}
+          </Typography>
+          <TextButton
+            textStyle={styles.signupButton}
+            tx="screens.login.signup"
+            onPress={handleNewUser}
+          />
+        </View>
       </Animated.View>
     </KeyboardAvoidingView>
   )
