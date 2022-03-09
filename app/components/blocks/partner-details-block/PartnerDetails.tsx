@@ -6,7 +6,7 @@ import { translate } from "../../../i18n"
 import { Panel } from "../../base/panel"
 import { FormikInput } from "../../base/input/formik"
 import { FormikCountrySelector } from "../../inputs/country-selector/formik"
-import { FieldWithLabel } from "../../inputs/field-with-label"
+import { FieldWithLabel } from "../../inputs/field-with-label/FieldWithLabel"
 
 interface HomeownerDetailsProps {
   style?: StyleProp<ViewStyle>

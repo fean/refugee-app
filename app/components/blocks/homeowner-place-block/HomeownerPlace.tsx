@@ -1,6 +1,5 @@
 import * as React from "react"
 import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
-import Icon from "react-native-vector-icons/Ionicons"
 
 import { color } from "../../../theme"
 import { translate } from "../../../i18n"
@@ -10,7 +9,7 @@ import { Panel } from "../../base/panel"
 import { FormikInput } from "../../base/input/formik"
 import { FormikValueSelector } from "../../inputs/value-selector/formik"
 import { Value } from "../../inputs/value-selector/ValueSelector"
-import { FieldWithLabel } from "../../inputs/field-with-label"
+import { FieldWithLabel } from "../../inputs/field-with-label/FieldWithLabel"
 
 interface HomeownerDetailsProps {
   style?: StyleProp<ViewStyle>
