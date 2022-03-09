@@ -10,6 +10,7 @@ import { Panel } from "../../base/panel"
 import { FormikInput } from "../../base/input/formik"
 import { FormikValueSelector } from "../../inputs/value-selector/formik"
 import { Value } from "../../inputs/value-selector/ValueSelector"
+import { FieldWithLabel } from "../../inputs/field-with-label"
 
 interface HomeownerDetailsProps {
   style?: StyleProp<ViewStyle>
@@ -17,24 +18,12 @@ interface HomeownerDetailsProps {
 }
 
 const styles = StyleSheet.create({
-  containerLabels: {
-    alignItems: "center",
-    flexDirection: "row",
-    height: 32,
-  },
-  input: {
-    flex: 1,
-  },
-  labelText: {
-    marginLeft: 16,
-    marginRight: 16,
-  },
   bar: {
     flexDirection: "column",
     padding: 16,
   },
-  typeLabelText: {
-    marginRight: 24,
+  input: {
+    flex: 1,
   },
   warning: {
     backgroundColor: color.palette.control,
@@ -60,14 +49,9 @@ export const HomeownerPlace: React.FC<HomeownerDetailsProps> = ({
   blockName,
 }) => (
   <Panel style={[styles.bar, styleOverride]}>
-    <View style={styles.containerLabels}>
-      <Icon name="reader" size={16} color={color.palette.textShade} />
-      <Typography variant="text" color="text" style={[styles.labelText, styles.typeLabelText]}>
-        {translate("blocks.ho-space.type")}
-      </Typography>
-
+    <FieldWithLabel iconName="reader" label="blocks.ho-space.type">
       <FormikValueSelector name={`${blockName}.type`} values={typeValues} />
-    </View>
+    </FieldWithLabel>
 
     <View style={styles.warning}>
       <Typography variant="text" color="shade">
@@ -75,18 +59,13 @@ export const HomeownerPlace: React.FC<HomeownerDetailsProps> = ({
       </Typography>
     </View>
 
-    <View style={styles.containerLabels}>
-      <Icon name="bed" size={16} color={color.palette.textShade} />
-      <Typography variant="text" color="text" style={styles.labelText}>
-        {translate("blocks.ho-space.beds")}
-      </Typography>
-
+    <FieldWithLabel iconName="bed" label="blocks.ho-space.beds">
       <FormikInput
         style={styles.input}
         keyboardType="numeric"
         name={`${blockName}.beds`}
         placeholder={translate("blocks.ho-space.bedsPlaceholder")}
       />
-    </View>
+    </FieldWithLabel>
   </Panel>
 )

@@ -1,14 +1,12 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle, StyleSheet, TextInput } from "react-native"
-import Icon from "react-native-vector-icons/Ionicons"
+import { StyleProp, ViewStyle, StyleSheet, TextInput } from "react-native"
 
-import { color } from "../../../theme"
 import { translate } from "../../../i18n"
 
-import { Typography } from "../../base/typography/Typography"
 import { Panel } from "../../base/panel"
 import { FormikInput } from "../../base/input/formik"
 import { FormikCountrySelector } from "../../inputs/country-selector/formik"
+import { FieldWithLabel } from "../../inputs/field-with-label"
 
 interface HomeownerDetailsProps {
   style?: StyleProp<ViewStyle>
@@ -16,26 +14,12 @@ interface HomeownerDetailsProps {
 }
 
 const styles = StyleSheet.create({
-  containerInputs: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  containerLabels: {
-    flexDirection: "column",
-  },
-  inputNLabelSpacing: {},
-  label: {
-    alignItems: "center",
-    flexDirection: "row",
-    height: 32,
-  },
-  labelText: {
-    marginLeft: 16,
-    marginRight: 16,
-  },
   bar: {
-    flexDirection: "row",
+    flexDirection: "column",
     padding: 16,
+  },
+  input: {
+    flex: 1,
   },
 })
 
@@ -48,57 +32,36 @@ export const HomeownerDetails: React.FC<HomeownerDetailsProps> = ({
 
   return (
     <Panel style={[styles.bar, styleOverride]}>
-      <View style={styles.containerLabels}>
-        <View style={[styles.label, styles.inputNLabelSpacing]}>
-          <Icon name="person" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-details.fullName")}
-          </Typography>
-        </View>
-        <View style={[styles.label, styles.inputNLabelSpacing]}>
-          <Icon name="mail" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-details.email")}
-          </Typography>
-        </View>
-        <View style={[styles.label, styles.inputNLabelSpacing]}>
-          <Icon name="flag" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-details.country")}
-          </Typography>
-        </View>
-        <View style={styles.label}>
-          <Icon name="call" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-details.phone")}
-          </Typography>
-        </View>
-      </View>
-
-      <View style={styles.containerInputs}>
+      <FieldWithLabel iconName="person" label="blocks.ho-details.fullName">
         <FormikInput
           nextRef={emailRef}
           textContentType="name"
           returnKeyType="next"
           name={`${blockName}.fullName`}
-          style={styles.inputNLabelSpacing}
           placeholder={translate("blocks.ho-details.fullNamePlaceholder")}
+          style={styles.input}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="mail" label="blocks.ho-details.email">
         <FormikInput
           ref={emailRef}
           textContentType="emailAddress"
           keyboardType="email-address"
           returnKeyType="next"
           name={`${blockName}.email`}
-          style={styles.inputNLabelSpacing}
           placeholder={translate("blocks.ho-details.emailPlaceholder")}
+          style={styles.input}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="flag" label="blocks.ho-details.country">
         <FormikCountrySelector
           nextRef={phoneRef}
           name={`${blockName}.country`}
-          style={styles.inputNLabelSpacing}
           placeholder={translate("blocks.ho-details.countryPlaceholder")}
+          style={styles.input}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="call" label="blocks.ho-details.phone">
         <FormikInput
           ref={phoneRef}
           textContentType="telephoneNumber"
@@ -106,8 +69,9 @@ export const HomeownerDetails: React.FC<HomeownerDetailsProps> = ({
           returnKeyType="next"
           name={`${blockName}.phone`}
           placeholder={translate("blocks.ho-details.phonePlaceholder")}
+          style={styles.input}
         />
-      </View>
+      </FieldWithLabel>
     </Panel>
   )
 }

@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     fontSize: 14,
     minHeight: 32,
+    paddingLeft: 8,
   },
   inputIcon: {
     marginLeft: 8,

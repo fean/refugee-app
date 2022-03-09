@@ -1,14 +1,12 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle, StyleSheet, TextInput } from "react-native"
-import Icon from "react-native-vector-icons/Ionicons"
+import { StyleProp, ViewStyle, StyleSheet, TextInput } from "react-native"
 
-import { color } from "../../../theme"
 import { translate } from "../../../i18n"
 
-import { Typography } from "../../base/typography/Typography"
 import { Panel } from "../../base/panel"
 import { FormikInput } from "../../base/input/formik"
 import { FormikCountrySelector } from "../../inputs/country-selector/formik"
+import { FieldWithLabel } from "../../inputs/field-with-label"
 
 interface HomeownerDetailsProps {
   style?: StyleProp<ViewStyle>
@@ -16,26 +14,12 @@ interface HomeownerDetailsProps {
 }
 
 const styles = StyleSheet.create({
-  containerInputs: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  containerLabels: {
-    flexDirection: "column",
-  },
-  inputNLabelSpacing: {},
-  label: {
-    alignItems: "center",
-    flexDirection: "row",
-    height: 32,
-  },
-  labelText: {
-    marginLeft: 16,
-    marginRight: 16,
-  },
   bar: {
-    flexDirection: "row",
+    flexDirection: "column",
     padding: 16,
+  },
+  input: {
+    flex: 1,
   },
 })
 
@@ -50,77 +34,47 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
 
   return (
     <Panel style={[styles.bar, styleOverride]}>
-      <View style={styles.containerLabels}>
-        <View style={[styles.label, styles.inputNLabelSpacing]}>
-          <Icon name="person" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.pa-details.contact")}
-          </Typography>
-        </View>
-        <View style={[styles.label, styles.inputNLabelSpacing]}>
-          <Icon name="business" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.pa-details.orgName")}
-          </Typography>
-        </View>
-        <View style={[styles.label, styles.inputNLabelSpacing]}>
-          <Icon name="mail" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.pa-details.email")}
-          </Typography>
-        </View>
-        <View style={styles.label}>
-          <Icon name="flag" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.pa-details.country")}
-          </Typography>
-        </View>
-        <View style={styles.label}>
-          <Icon name="call" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.pa-details.phone")}
-          </Typography>
-        </View>
-        <View style={styles.label}>
-          <Icon name="earth" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.pa-details.website")}
-          </Typography>
-        </View>
-      </View>
-
-      <View style={styles.containerInputs}>
+      <FieldWithLabel iconName="person" label="blocks.pa-details.contact">
         <FormikInput
           nextRef={nameRef}
           textContentType="name"
           returnKeyType="next"
           name={`${blockName}.contactName`}
-          style={styles.inputNLabelSpacing}
+          style={styles.input}
           placeholder={translate("blocks.pa-details.contactPlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="business" label="blocks.pa-details.orgName">
         <FormikInput
           ref={nameRef}
           nextRef={emailRef}
           textContentType="organizationName"
           returnKeyType="next"
           name={`${blockName}.orgName`}
-          style={styles.inputNLabelSpacing}
+          style={styles.input}
           placeholder={translate("blocks.pa-details.orgNamePlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="mail" label="blocks.pa-details.email">
         <FormikInput
           ref={emailRef}
           textContentType="emailAddress"
           keyboardType="email-address"
           returnKeyType="next"
           name={`${blockName}.email`}
+          style={styles.input}
           placeholder={translate("blocks.pa-details.emailPlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="flag" label="blocks.pa-details.country">
         <FormikCountrySelector
           nextRef={phoneRef}
           name={`${blockName}.country`}
-          style={styles.inputNLabelSpacing}
+          style={styles.input}
           placeholder={translate("blocks.pa-details.countryPlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="call" label="blocks.pa-details.phone">
         <FormikInput
           ref={phoneRef}
           nextRef={webRef}
@@ -128,17 +82,21 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
           keyboardType="phone-pad"
           returnKeyType="next"
           name={`${blockName}.phone`}
+          style={styles.input}
           placeholder={translate("blocks.pa-details.phonePlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="earth" label="blocks.pa-details.website">
         <FormikInput
           ref={webRef}
           textContentType="URL"
           keyboardType="url"
           returnKeyType="next"
           name={`${blockName}.website`}
+          style={styles.input}
           placeholder={translate("blocks.pa-details.websitePlaceholder")}
         />
-      </View>
+      </FieldWithLabel>
     </Panel>
   )
 }
