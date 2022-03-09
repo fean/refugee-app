@@ -34,19 +34,26 @@ const styles = StyleSheet.create({
     backgroundColor: color.palette.control,
   },
   icon: {
-    left: 8,
-    position: "absolute",
-    top: 8,
+    height: 16,
   },
   input: {
     borderRadius: 5,
     color: color.palette.text,
-    height: 32,
+    flexGrow: 1,
+    fontSize: 14,
+    minHeight: 32,
     paddingLeft: 8,
-    paddingRight: 8,
   },
   inputIcon: {
-    paddingLeft: 32,
+    marginLeft: 8,
+  },
+  root: {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    paddingLeft: 16,
+    paddingRight: 8,
+    paddingVertical: 8,
   },
 })
 
@@ -97,7 +104,8 @@ export const Input = React.forwardRef<TextInput, InputProps>(
     }, [nextRef])
 
     return (
-      <View style={style}>
+      <View style={[icon && styles.root, style]}>
+        {icon && <Icon style={styles.icon} name={icon} size={16} color={color.palette.textShade} />}
         <TextInput
           ref={ref}
           blurOnSubmit
@@ -115,8 +123,6 @@ export const Input = React.forwardRef<TextInput, InputProps>(
           onFocus={handleFocus}
           onBlur={handleBlur}
         />
-
-        {icon && <Icon style={styles.icon} name={icon} size={16} color={color.palette.textShade} />}
       </View>
     )
   },

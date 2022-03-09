@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 5,
     flexDirection: "row",
-    height: 32,
+    height: 48,
     justifyContent: "center",
   },
   icon: {

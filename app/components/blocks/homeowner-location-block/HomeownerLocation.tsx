@@ -1,14 +1,12 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle, StyleSheet, TextInput } from "react-native"
-import Icon from "react-native-vector-icons/Ionicons"
+import { StyleProp, ViewStyle, StyleSheet, TextInput } from "react-native"
 
-import { color } from "../../../theme"
 import { translate } from "../../../i18n"
 
-import { Typography } from "../../base/typography/Typography"
 import { Panel } from "../../base/panel"
 import { FormikInput } from "../../base/input/formik"
 import { FormikCountrySelector } from "../../inputs/country-selector/formik"
+import { FieldWithLabel } from "../../inputs/field-with-label/FieldWithLabel"
 
 interface HomeownerDetailsProps {
   style?: StyleProp<ViewStyle>
@@ -16,28 +14,12 @@ interface HomeownerDetailsProps {
 }
 
 const styles = StyleSheet.create({
-  containerInputs: {
-    flex: 1,
-    flexDirection: "column",
-  },
-  containerLabels: {
-    flexDirection: "column",
-  },
-  label: {
-    alignItems: "center",
-    flexDirection: "row",
-    height: 32,
-  },
-  labelText: {
-    marginLeft: 16,
-    marginRight: 16,
-  },
-  noIcon: {
-    paddingLeft: 16,
-  },
   bar: {
-    flexDirection: "row",
+    flexDirection: "column",
     padding: 16,
+  },
+  input: {
+    flex: 1,
   },
 })
 
@@ -50,59 +32,44 @@ export const HomeownerLocation: React.FC<HomeownerDetailsProps> = ({
 
   return (
     <Panel style={[styles.bar, styleOverride]}>
-      <View style={styles.containerLabels}>
-        <View style={styles.label}>
-          <Icon name="home" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-location.address")}
-          </Typography>
-        </View>
-        <View style={[styles.label, styles.noIcon]}>
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-location.postal")}
-          </Typography>
-        </View>
-        <View style={[styles.label, styles.noIcon]}>
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-location.city")}
-          </Typography>
-        </View>
-        <View style={styles.label}>
-          <Icon name="flag" size={16} color={color.palette.textShade} />
-          <Typography variant="text" color="text" style={styles.labelText}>
-            {translate("blocks.ho-location.country")}
-          </Typography>
-        </View>
-      </View>
-
-      <View style={styles.containerInputs}>
+      <FieldWithLabel iconName="home" label="blocks.ho-location.address">
         <FormikInput
           nextRef={postalRef}
           textContentType="streetAddressLine1"
           returnKeyType="next"
           name={`${blockName}.addressLine`}
+          style={styles.input}
           placeholder={translate("blocks.ho-location.addressPlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel label="blocks.ho-location.postal">
         <FormikInput
           ref={postalRef}
           nextRef={cityRef}
           textContentType="postalCode"
           returnKeyType="next"
           name={`${blockName}.postal`}
+          style={styles.input}
           placeholder={translate("blocks.ho-location.postalPlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel label="blocks.ho-location.city">
         <FormikInput
           ref={cityRef}
           textContentType="addressCity"
           returnKeyType="next"
           name={`${blockName}.phone`}
+          style={styles.input}
           placeholder={translate("blocks.ho-location.cityPlaceholder")}
         />
+      </FieldWithLabel>
+      <FieldWithLabel iconName="flag" label="blocks.ho-location.country">
         <FormikCountrySelector
           name={`${blockName}.country`}
+          style={styles.input}
           placeholder={translate("blocks.ho-location.countryPlaceholder")}
         />
-      </View>
+      </FieldWithLabel>
     </Panel>
   )
 }
