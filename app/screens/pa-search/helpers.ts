@@ -2,6 +2,11 @@ import { LatLng } from "react-native-maps"
 import Geolocation from "react-native-geolocation-service"
 import { Platform } from "react-native"
 
+export interface MapBoundingBox {
+  northEast: LatLng
+  southWest: LatLng
+}
+
 export const getCurrentLocation = (): Promise<LatLng | null> => {
   return new Promise<LatLng>((resolve) => {
     const doRequestLocation = () => {
@@ -33,4 +38,19 @@ export const getCurrentLocation = (): Promise<LatLng | null> => {
       doRequestLocation()
     }
   })
+}
+
+export const isOutsideBoundingBox = (
+  currentBox: MapBoundingBox,
+  newBox: MapBoundingBox,
+): boolean => {
+  const isOutsideHorizontal =
+    newBox.southWest.latitude < currentBox.southWest.latitude ||
+    newBox.northEast.latitude > currentBox.northEast.latitude
+
+  const isOutsideVertical =
+    newBox.southWest.longitude < currentBox.southWest.longitude ||
+    newBox.northEast.longitude > currentBox.northEast.longitude
+
+  return isOutsideHorizontal || isOutsideVertical
 }

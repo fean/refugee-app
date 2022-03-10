@@ -21,7 +21,7 @@ interface InputProps {
   disabled?: boolean
   icon?: string
   error?: string
-  autoCapitalize: TextInputProps["autoCapitalize"]
+  autoCapitalize?: TextInputProps["autoCapitalize"]
   autoComplete?: TextInputProps["autoComplete"]
   textContentType?: TextInputProps["textContentType"]
   keyboardType?: TextInputProps["keyboardType"]
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   errorText: {
-    marginTop: 2,
     flex: 1,
+    marginTop: 2,
   },
   icon: {
     height: 16,

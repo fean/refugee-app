@@ -4,6 +4,7 @@ import { GeocodingApi } from "../services/api/geocoding-api"
 import { UserApi } from "../services/api/user-api"
 import { ContactsApi } from "../services/api/contacts-api"
 import { RootStore } from "./root-store/root-store"
+import { RoomsApi } from "../services/api/rooms-api"
 
 let ReactotronDev
 if (__DEV__) {
@@ -42,6 +43,7 @@ export class Environment {
     this.geocodingApi = new GeocodingApi(this.mapBox)
     this.userApi = new UserApi(this.api)
     this.contactsApi = new ContactsApi(this.api)
+    this.roomsApi = new RoomsApi(this.api)
   }
 
   reactotron: typeof ReactotronDev
@@ -55,4 +57,6 @@ export class Environment {
   userApi: UserApi
 
   contactsApi: ContactsApi
+
+  roomsApi: RoomsApi
 }

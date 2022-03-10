@@ -1,4 +1,5 @@
 import { ApiResponse } from "apisauce"
+import { ErrorCode } from "./ErrorCode"
 
 export type GeneralApiProblem =
   /**
@@ -37,6 +38,7 @@ export type GeneralApiProblem =
    * The data we received is not in the expected format.
    */
   | { kind: "bad-data" }
+  | { kind: ErrorCode }
 
 /**
  * Attempts to get a common cause of problems from an api response.
@@ -52,10 +54,22 @@ export function getGeneralApiProblem(response: ApiResponse<any>): GeneralApiProb
     case "TIMEOUT_ERROR":
       return { kind: "timeout", temporary: true }
     case "SERVER_ERROR":
+      if (response.data?.code) {
+        return { kind: response.data?.code }
+      }
+
       return { kind: "server" }
     case "UNKNOWN_ERROR":
+      if (response.data?.code) {
+        return { kind: response.data?.code }
+      }
+
       return { kind: "unknown", temporary: true }
     case "CLIENT_ERROR":
+      if (response.data?.code) {
+        return { kind: response.data?.code }
+      }
+
       switch (response.status) {
         case 401:
           return { kind: "unauthorized" }

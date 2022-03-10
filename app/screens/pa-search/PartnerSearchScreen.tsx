@@ -1,14 +1,26 @@
 /* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { Alert, StatusBar, StyleSheet, View } from "react-native"
+import { ActivityIndicator, Alert, StatusBar, StyleSheet, View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import MapView from "react-native-maps"
+import { observer } from "mobx-react-lite"
+import Icon from "react-native-vector-icons/Ionicons"
 
 import { PartnerTabsTabsNavigatorParamList } from "../../navigators"
-import { getCurrentLocation } from "./helpers"
-import { LocationSearchBlock, MapSpace, SpaceMarker } from "../../components"
+import { getCurrentLocation, isOutsideBoundingBox, MapBoundingBox } from "./helpers"
+import {
+  LocationSearchBlock,
+  MapSpace,
+  Panel,
+  SpaceMarker,
+  Typography,
+  Button,
+} from "../../components"
 import { Location } from "../../models/location/location"
 import { translate } from "../../i18n"
+import { useStores } from "../../models"
+import { Room } from "../../models/Room"
+import { color } from "../../theme"
 
 const styles = StyleSheet.create({
   activeContainer: {
@@ -20,6 +32,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  floatingContainer: {
+    elevation: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    left: 16,
+    position: "absolute",
+    right: 16,
+    top: 120,
+  },
+  loadingPanel: {
+    alignItems: "center",
+    flexDirection: "row",
+    padding: 4,
+    width: 96,
+  },
+  loadingText: {
+    flex: 0,
+  },
   map: {
     bottom: 0,
     left: 0,
@@ -27,11 +57,23 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
   },
+  reload: {
+    marginRight: 8,
+  },
   search: {
+    elevation: 2,
     left: 16,
     position: "absolute",
     right: 16,
     top: 64,
+  },
+  searchBtn: {
+    height: 28,
+    paddingLeft: 8,
+    paddingRight: 8,
+  },
+  spinner: {
+    marginRight: 8,
   },
 })
 
@@ -46,92 +88,34 @@ const initialCamera = {
   altitude: 8000,
 }
 
-const locations = [
-  {
-    id: "1234",
-    geo: {
-      latitude: 52.3724599,
-      longitude: 4.8795857,
-    },
-    address: "Rozenstraat 112-III",
-    postal: "1016 NZ",
-    city: "Amsterdam",
-    country: "nl",
-    beds: 2,
-  },
-  {
-    id: "4321",
-    geo: {
-      latitude: 52.3790557,
-      longitude: 4.6348468,
-    },
-    address: "Frankestraat 42",
-    postal: "2011 HV",
-    city: "Haarlem",
-    country: "nl",
-    beds: 1,
-  },
-  {
-    id: "12345",
-    geo: {
-      latitude: 52.3124588,
-      longitude: 5.0315648,
-    },
-    address: "Aertjanssenstraat 6",
-    postal: "1382 EE",
-    city: "Weesp",
-    country: "nl",
-    beds: 3,
-  },
-  {
-    id: "123456",
-    geo: {
-      latitude: 52.3634711,
-      longitude: 4.9014324,
-    },
-    address: "Kerkstraat 461-383",
-    postal: "1017 HZ",
-    city: "Amsterdam",
-    country: "nl",
-    beds: 2,
-  },
-  {
-    id: "1234567",
-    geo: {
-      latitude: 52.6971515,
-      longitude: 4.8099313,
-    },
-    address: "Prinsengracht 2",
-    postal: "1722 GM",
-    city: "Zuid-scharwoude",
-    country: "nl",
-    beds: 2,
-  },
-]
-
 export const PartnerSearchScreen: React.FC<
   StackScreenProps<PartnerTabsTabsNavigatorParamList, "search">
-> = () => {
+> = observer(() => {
+  const boxRef = React.useRef<MapBoundingBox>()
+  const mapRef = React.useRef<MapView>()
+
   const [camera, setCamera] = React.useState(initialCamera)
   const [isReady, setReady] = React.useState(false)
-  const [activeMarker, setActiveMarker] = React.useState<typeof locations[0]>()
+  const [isLoading, setLoading] = React.useState(false)
+  const [isRegionChanged, setRegionChanged] = React.useState(true)
+  const [activeMarker, setActiveMarker] = React.useState<Room>()
 
-  const handleSelect = React.useCallback((selection: Location | null) => {
-    if (selection) {
-      setCamera((cam) => ({ ...cam, center: { ...selection.geo } }))
-    } else {
-      setCamera(initialCamera)
-    }
-  }, [])
+  const { roomStore } = useStores()
+  const { rooms } = roomStore
 
   const handleFocusMarker = React.useCallback(
-    (location: typeof locations[0]) => {
+    (location: Room) => {
       if (activeMarker?.id === location.id) {
         setActiveMarker(null)
         return
       }
 
-      setCamera((current) => ({ ...current, center: location.geo }))
+      mapRef.current.animateCamera({
+        center: {
+          longitude: location.coords[0],
+          latitude: location.coords[1],
+        },
+      })
       setActiveMarker(location)
     },
     [activeMarker],
@@ -151,6 +135,53 @@ export const PartnerSearchScreen: React.FC<
     )
   }, [activeMarker])
 
+  const handleViewChanged = React.useCallback(() => {
+    if (isRegionChanged) return
+
+    mapRef.current.getMapBoundaries().then((boundaries) => {
+      if (!boxRef.current || isOutsideBoundingBox(boxRef.current, boundaries)) {
+        setRegionChanged(true)
+      }
+    })
+  }, [isRegionChanged])
+
+  const handleLoadRooms = React.useCallback(() => {
+    const { current: map } = mapRef
+
+    setLoading(true)
+    map.getCamera().then((actualCamera) => {
+      roomStore
+        .loadRooms(
+          [actualCamera.center.longitude, actualCamera.center.latitude],
+          Math.min(actualCamera.altitude * 0.1, 20000),
+        )
+        .then(() => {
+          setLoading(false)
+          setRegionChanged(false)
+          map.getMapBoundaries().then((boundaries) => (boxRef.current = boundaries))
+        })
+        .catch((error) => {
+          setLoading(false)
+          setRegionChanged(false)
+          console.error(error)
+        })
+    })
+  }, [])
+
+  const handleSelect = React.useCallback((selection: Location | null) => {
+    if (selection) {
+      mapRef.current.setCamera({
+        center: { ...selection.geo },
+      })
+
+      handleLoadRooms()
+    } else {
+      mapRef.current.setCamera({
+        center: initialCamera.center,
+      })
+    }
+  }, [])
+
   React.useEffect(() => {
     getCurrentLocation().then((coords) => {
       if (coords) {
@@ -160,22 +191,68 @@ export const PartnerSearchScreen: React.FC<
     })
   }, [])
 
+  React.useEffect(() => {
+    if (isReady) handleLoadRooms()
+  }, [isReady, handleLoadRooms])
+
+  const roomMarkers = React.useMemo(
+    () =>
+      rooms.map((location) => (
+        <SpaceMarker
+          key={location.id}
+          active={activeMarker?.id === location.id}
+          location={{ longitude: location.coords[0], latitude: location.coords[1] }}
+          nrBeds={location.beds}
+          onPress={() => handleFocusMarker(location)}
+        />
+      )),
+    [rooms, activeMarker],
+  )
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
 
       {isReady && (
-        <MapView style={styles.map} camera={camera}>
-          {locations.map((location) => (
-            <SpaceMarker
-              key={location.id}
-              active={activeMarker?.id === location.id}
-              location={location.geo}
-              nrBeds={location.beds}
-              onPress={() => handleFocusMarker(location)}
-            />
-          ))}
+        <MapView
+          ref={mapRef}
+          loadingEnabled={!isReady}
+          style={styles.map}
+          userInterfaceStyle="light"
+          camera={camera}
+          onRegionChangeComplete={handleViewChanged}
+        >
+          {roomMarkers}
         </MapView>
+      )}
+
+      {isLoading && (
+        <View style={styles.floatingContainer}>
+          <Panel style={styles.loadingPanel}>
+            <ActivityIndicator style={styles.spinner} />
+            <Typography variant="note" style={styles.loadingText}>
+              {translate("common.loading")}
+            </Typography>
+          </Panel>
+        </View>
+      )}
+
+      {isRegionChanged && !isLoading && (
+        <View style={styles.floatingContainer}>
+          <Button
+            style={styles.searchBtn}
+            tx="screens.pa-search.load-rooms"
+            icon={
+              <Icon
+                name="refresh-outline"
+                style={styles.reload}
+                size={16}
+                color={color.palette.white}
+              />
+            }
+            onPress={handleLoadRooms}
+          />
+        </View>
       )}
 
       <LocationSearchBlock style={styles.search} onSelect={handleSelect} />
@@ -193,4 +270,4 @@ export const PartnerSearchScreen: React.FC<
       )}
     </View>
   )
-}
+})

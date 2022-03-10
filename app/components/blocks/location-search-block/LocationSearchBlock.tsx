@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  TextInput,
 } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 import { observer } from "mobx-react-lite"
@@ -79,6 +80,7 @@ const LocationSearchBlockComp: React.FC<LocationSearchBlockProps> = ({
   style: styleOverride,
   onSelect,
 }) => {
+  const inputRef = React.useRef<TextInput>()
   const [isLoading, setLoading] = React.useState(false)
   const [isCollapsed, setCollapsed] = React.useState(true)
   const [tmpLocation, setTmpLocation] = React.useState<string>()
@@ -93,11 +95,18 @@ const LocationSearchBlockComp: React.FC<LocationSearchBlockProps> = ({
   const handleSelect = React.useCallback((selection: Location) => {
     onSelect(selection)
     setCollapsed(true)
+    inputRef.current?.blur()
   }, [])
 
   const handleBlur = React.useCallback(() => {
     setCollapsed(true)
   }, [])
+
+  const handleFocusInput = React.useCallback(() => {
+    if (locationStore.locations?.length) {
+      setCollapsed(false)
+    }
+  }, [locationStore.locations])
 
   React.useEffect(() => {
     if (!locationQuery) return
@@ -122,11 +131,13 @@ const LocationSearchBlockComp: React.FC<LocationSearchBlockProps> = ({
             <Icon name="search-outline" size={24} color={color.palette.text} />
 
             <Input
+              ref={inputRef}
               disabled={isLoading}
               style={styles.inputContainer}
               inputStyle={styles.input}
               value={tmpLocation}
               placeholder={translate("blocks.location-search.search-placeholder")}
+              onFocus={handleFocusInput}
               onChange={setTmpLocation}
             />
 

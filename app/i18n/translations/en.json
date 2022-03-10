@@ -3,7 +3,8 @@
     "ok": "OK!",
     "cancel": "Cancel",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "loading": "Loading..."
   },
   "errors": {
     "invalidEmail": "Invalid email address."
@@ -183,7 +184,8 @@
         "title": "Request space details?",
         "text": "Do you want to request the contact details of the owner of this space?",
         "action": "Request"
-      }
+      },
+      "load-rooms": "Reload"
     },
     "pa-contact-overview": {
       "title": "Your contacts"
