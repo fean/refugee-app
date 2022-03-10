@@ -3,6 +3,7 @@ import { Instance, SnapshotOut, types } from "mobx-state-tree"
 export const ContactModel = types.model("Contact").props({
   id: types.identifier,
   state: types.string,
+  origin: types.maybe(types.string),
   name: types.maybe(types.string),
   date: types.maybe(types.Date),
   approvalDate: types.maybe(types.Date),

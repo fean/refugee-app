@@ -1,7 +1,7 @@
 import { GeneralApiProblem } from "./api-problem"
 import { Location } from "../../models/location/location"
 import { User } from "../../models/User"
-import { Contact } from "../../models/Contact"
+import { Contact, ContactSnapshot } from "../../models/Contact"
 import { Room } from "../../models/Room"
 
 export interface RequestResult {
@@ -14,6 +14,7 @@ export type GetUserResult = (RequestResult & { user: User }) | GeneralApiProblem
 export type GetMapPlacesResult = (RequestResult & { locations: Location[] }) | GeneralApiProblem
 export type GetContactsResult = (RequestResult & { contacts: Contact[] }) | GeneralApiProblem
 export type GetRoomsResult = (RequestResult & { rooms: Room[] }) | GeneralApiProblem
+export type PostContactResult = (RequestResult & { contact: ContactSnapshot }) | GeneralApiProblem
 
 export type PostTokenResult =
   | (RequestResult & { accessToken: string; refreshToken: string })

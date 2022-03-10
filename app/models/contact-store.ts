@@ -7,11 +7,13 @@ export const ContactStoreModel = types
   .model("ContactStore")
   .props({
     contacts: types.array(ContactModel),
+    originIds: types.optional(types.array(types.string), []),
   })
   .extend(withEnvironment)
   .actions((self) => ({
     saveContacts: (contacts: ContactSnapshot[]) => {
-      self.contacts = contacts as any
+      self.contacts.replace(contacts as any)
+      self.originIds.replace(contacts.map((contact) => contact.origin))
     },
     saveContactApproval: (contactId: string) => {
       const contact = self.contacts.find((entry) => entry.id === contactId)
@@ -19,6 +21,10 @@ export const ContactStoreModel = types
         state: "Approval",
         approvalDate: new Date(),
       })
+    },
+    appendContact: (contact: ContactSnapshot) => {
+      self.contacts.unshift(contact)
+      self.originIds.push(contact.origin)
     },
   }))
   .actions((self) => ({

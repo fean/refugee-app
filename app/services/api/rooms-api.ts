@@ -1,7 +1,7 @@
 import { ApiResponse } from "apisauce"
 
 import { Api } from "./api"
-import { GetRoomsResult } from "./api.types"
+import { GetRoomsResult, PostContactResult } from "./api.types"
 import { getGeneralApiProblem } from "./api-problem"
 
 export class RoomsApi {
@@ -24,6 +24,23 @@ export class RoomsApi {
       }
 
       return { kind: "ok", rooms: response.data }
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return { kind: "bad-data" }
+    }
+  }
+
+  async requestDetails(roomId: string): Promise<PostContactResult> {
+    try {
+      const response: ApiResponse<any> = await this.api.apisauce.post(`contacts`, {
+        roomId,
+      })
+      if (!response.ok) {
+        const problem = getGeneralApiProblem(response)
+        if (problem) return problem
+      }
+
+      return { kind: "ok", contact: response.data }
     } catch (e) {
       __DEV__ && console.tron.log(e.message)
       return { kind: "bad-data" }

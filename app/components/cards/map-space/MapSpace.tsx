@@ -1,5 +1,5 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, StyleSheet, View } from "react-native"
+import { StyleProp, ViewStyle, StyleSheet, View, ActivityIndicator } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
 import { Typography } from "../../base/typography/Typography"
@@ -9,6 +9,7 @@ import { color } from "../../../theme"
 
 interface PanelProps {
   style?: StyleProp<ViewStyle>
+  isLoading?: boolean
   id: string
   name: string
   address: string
@@ -40,6 +41,7 @@ const styles = StyleSheet.create({
 
 export const MapSpace: React.FC<PanelProps> = ({
   style: styleOverride,
+  isLoading,
   id,
   name,
   address,
@@ -65,7 +67,14 @@ export const MapSpace: React.FC<PanelProps> = ({
 
       <Button
         style={styles.button}
-        icon={<Icon name="link" size={16} color={color.palette.white} />}
+        disabled={isLoading}
+        icon={
+          isLoading ? (
+            <ActivityIndicator size="small" />
+          ) : (
+            <Icon name="link" size={16} color={color.palette.white} />
+          )
+        }
         onPress={handlePress}
       />
     </Panel>

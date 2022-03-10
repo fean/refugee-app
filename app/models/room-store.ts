@@ -11,7 +11,7 @@ export const RoomStoreModel = types
   .extend(withEnvironment)
   .actions((self) => ({
     saveRooms: (rooms: RoomSnapshot[]) => {
-      self.rooms = rooms as any
+      self.rooms.replace(rooms as any)
     },
   }))
   .actions((self) => ({
@@ -22,7 +22,26 @@ export const RoomStoreModel = types
         throw new Error(result.kind)
       }
 
-      self.saveRooms(result.rooms as any)
+      const {
+        contactStore: { originIds },
+      } = self.environment.rootStore
+
+      const filteredRooms = result.rooms.filter((room) => !originIds.includes(room.id))
+      self.saveRooms(filteredRooms)
+    },
+    requestRoomDetails: async (roomId: string): Promise<void> => {
+      const result = await self.environment.roomsApi.requestDetails(roomId)
+      if (result.kind !== "ok") {
+        console.warn("Request failed contacts: ", result.kind)
+        throw new Error(result.kind)
+      }
+
+      self.environment.rootStore.contactStore.appendContact(result.contact)
+      const {
+        contactStore: { originIds },
+      } = self.environment.rootStore
+      const filteredRooms = self.rooms.filter((room) => !originIds.includes(room.id))
+      self.saveRooms(filteredRooms)
     },
   }))
 

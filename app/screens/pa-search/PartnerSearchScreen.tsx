@@ -97,6 +97,7 @@ export const PartnerSearchScreen: React.FC<
   const [camera, setCamera] = React.useState(initialCamera)
   const [isReady, setReady] = React.useState(false)
   const [isLoading, setLoading] = React.useState(false)
+  const [isRequesting, setRequesting] = React.useState(false)
   const [isRegionChanged, setRegionChanged] = React.useState(true)
   const [activeMarker, setActiveMarker] = React.useState<Room>()
 
@@ -127,7 +128,17 @@ export const PartnerSearchScreen: React.FC<
       translate("screens.pa-search.requestPrompt.text"),
       [
         { text: translate("common.cancel") },
-        { text: translate("screens.pa-search.requestPrompt.action") },
+        {
+          text: translate("screens.pa-search.requestPrompt.action"),
+          onPress: () => {
+            setRequesting(true)
+
+            roomStore.requestRoomDetails(activeMarker.id).then(() => {
+              setRequesting(false)
+              setActiveMarker(null)
+            })
+          },
+        },
       ],
       {
         cancelable: true,
@@ -153,7 +164,7 @@ export const PartnerSearchScreen: React.FC<
       roomStore
         .loadRooms(
           [actualCamera.center.longitude, actualCamera.center.latitude],
-          Math.min(actualCamera.altitude * 0.1, 20000),
+          Math.min(actualCamera.altitude * 0.1, 12000),
         )
         .then(() => {
           setLoading(false)
@@ -260,6 +271,7 @@ export const PartnerSearchScreen: React.FC<
       {activeMarker && (
         <View style={styles.activeContainer}>
           <MapSpace
+            isLoading={isRequesting}
             id={activeMarker.id}
             name={translate("screens.pa-search.persons", { count: activeMarker.beds })}
             address={activeMarker.address}
