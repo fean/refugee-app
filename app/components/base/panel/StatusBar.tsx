@@ -5,7 +5,7 @@ import { shadows } from "../../../theme/shadows"
 
 interface PanelProps {
   style?: StyleProp<ViewStyle>
-  status: "approved" | "pending"
+  status: string
 }
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 export const StatusBar: React.FC<PanelProps> = ({ style: styleOverride, status }) => {
   const statusStyles: ViewStyle = React.useMemo(() => {
-    const statusColor = status === "approved" ? color.palette.accept : color.palette.warn
+    const statusColor = status === "Approved" ? color.palette.accept : color.palette.warn
     return {
       backgroundColor: statusColor,
       shadowColor: statusColor,

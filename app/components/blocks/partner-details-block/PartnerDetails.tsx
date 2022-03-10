@@ -58,6 +58,7 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
       <FieldWithLabel iconName="mail" label="blocks.pa-details.email">
         <FormikInput
           ref={emailRef}
+          autoCapitalize="none"
           textContentType="emailAddress"
           keyboardType="email-address"
           returnKeyType="next"
@@ -89,6 +90,7 @@ export const PartnerDetails: React.FC<HomeownerDetailsProps> = ({
       <FieldWithLabel iconName="earth" label="blocks.pa-details.website">
         <FormikInput
           ref={webRef}
+          autoCapitalize="none"
           textContentType="URL"
           keyboardType="url"
           returnKeyType="next"

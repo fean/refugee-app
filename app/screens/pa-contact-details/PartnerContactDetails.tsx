@@ -9,7 +9,7 @@ import { shadows } from "../../theme/shadows"
 import { color } from "../../theme"
 import { ContactHeader, Divider, SpaceMarker, TextExplainer } from "../../components"
 import { translate } from "../../i18n"
-import { partnerContacts } from "../pa-contacts/PartnerContacts"
+import { useStores } from "../../models"
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +46,20 @@ export const PartnerContactDetails: React.FC<
     params: { id: contactId },
   },
 }) => {
-  const profile = partnerContacts.find((contact) => contact.id === contactId)
+  const {
+    contactStore: { contacts },
+  } = useStores()
+  const profile = React.useMemo(() => contacts.find((contact) => contact.id === contactId), [
+    contactId,
+  ])
+
+  const geo = React.useMemo(
+    () => ({
+      longitude: profile.location.coords[0],
+      latitude: profile.location.coords[1],
+    }),
+    [profile.location.coords],
+  )
 
   return (
     <View style={styles.container}>
@@ -55,26 +68,30 @@ export const PartnerContactDetails: React.FC<
       <MapView
         style={styles.map}
         initialCamera={{
-          center: profile.geo,
+          center: geo,
           zoom: 8,
           pitch: 1,
           heading: 1,
           altitude: 4000,
         }}
       >
-        <SpaceMarker active location={profile.geo} nrBeds={profile.beds} />
+        <SpaceMarker active location={geo} nrBeds={profile.location.nrBeds} />
       </MapView>
 
       <View style={styles.panel}>
-        <ContactHeader name={profile.name} phone={profile.phone} email={profile.email} />
+        <ContactHeader
+          name={profile.name}
+          phone={profile.contact.phone}
+          email={profile.contact.email}
+        />
         <Divider style={styles.divider} />
         <TextExplainer
           icon="home"
           title={translate("screens.ho-profile.addressDetails")}
           text={[
-            profile.address,
-            `${profile.postal} ${profile.city}`,
-            translate(`countries.${profile.country}`),
+            profile.location.address,
+            `${profile.location.postal} ${profile.location.city}`,
+            translate(`countries.${profile.location.country}`),
           ]}
         />
         <TextExplainer
@@ -82,7 +99,7 @@ export const PartnerContactDetails: React.FC<
           icon="bed"
           title={translate("screens.ho-profile.accomodates")}
           text={translate("screens.ho-profile.personPhrase", {
-            count: profile.beds,
+            count: profile.location.nrBeds,
           })}
         />
       </View>

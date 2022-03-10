@@ -17,7 +17,6 @@ const ROOT_STATE_STORAGE_KEY = "root"
  */
 export async function createEnvironment() {
   const env = new Environment()
-  await env.setup()
   return env
 }
 
@@ -42,6 +41,8 @@ export async function setupRootStore() {
     // but please inform us what happened
     __DEV__ && console.tron.error(e.message, null)
   }
+
+  await env.setup(rootStore)
 
   // reactotron logging
   if (__DEV__) {

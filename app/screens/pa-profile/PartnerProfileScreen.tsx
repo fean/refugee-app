@@ -9,7 +9,7 @@ import { PartnerTabsTabsNavigatorParamList } from "../../navigators"
 import { shadows } from "../../theme/shadows"
 import { color } from "../../theme"
 import { translate } from "../../i18n"
-import sub from "date-fns/sub"
+import { useStores } from "../../models"
 
 const styles = StyleSheet.create({
   container: {
@@ -36,59 +36,50 @@ const styles = StyleSheet.create({
   },
 })
 
-const profile = {
-  id: "1234",
-  state: "pending" as "pending",
-  date: sub(new Date(), { hours: 2 }),
-  name: "Awesome NGO",
-  address: "Prinsengracht 2",
-  postal: "1722GM",
-  city: "Zuid-scharwoude",
-  country: "nl",
-  phone: "+31623833605",
-  email: "leonard@trunkrs.nl",
-  website: "https://samaritan-app.eu",
-  mission: "We are an awesome NGO that helps find refugees a place in Europe to temporarily stay.",
-}
-
 export const PartnerProfileScreen: React.FC<
   StackScreenProps<PartnerTabsTabsNavigatorParamList, "profile">
-> = () => (
-  <View style={styles.container}>
-    <StatusBar barStyle="dark-content" />
+> = () => {
+  const {
+    userStore: { user: profile },
+  } = useStores()
 
-    <ContactHeader
-      name={profile?.name}
-      phone={profile?.phone}
-      email={profile?.email}
-      website={profile?.website}
-    />
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
 
-    <View style={styles.panel}>
-      <TextExplainer
-        icon="rocket"
-        style={styles.explainer}
-        title={translate("screens.ho-contact-details.missionHeader")}
-        text={profile?.mission}
+      <ContactHeader
+        name={profile?.orgName}
+        phone={profile?.contact.phone}
+        email={profile?.contact.email}
+        website={profile?.contact.website}
       />
 
-      <TextExplainer
-        icon="business"
-        style={styles.explainer}
-        title={translate("screens.ho-contact-details.addressHeader")}
-        text={[
-          profile?.address,
-          `${profile?.postal} ${profile?.city}`,
-          translate(`countries.${profile?.country}`),
-        ]}
-      />
+      <View style={styles.panel}>
+        <TextExplainer
+          icon="rocket"
+          style={styles.explainer}
+          title={translate("screens.ho-contact-details.missionHeader")}
+          text={profile?.mission}
+        />
 
-      <TextExplainer
-        icon="earth"
-        style={styles.explainer}
-        title={translate("screens.ho-contact-details.websiteHeader")}
-        text={profile?.website}
-      />
+        <TextExplainer
+          icon="business"
+          style={styles.explainer}
+          title={translate("screens.ho-contact-details.addressHeader")}
+          text={[
+            profile?.location.address,
+            `${profile?.location.postal} ${profile?.location.city}`,
+            translate(`countries.${profile?.location.country}`),
+          ]}
+        />
+
+        <TextExplainer
+          icon="earth"
+          style={styles.explainer}
+          title={translate("screens.ho-contact-details.websiteHeader")}
+          text={profile?.contact.website}
+        />
+      </View>
     </View>
-  </View>
-)
+  )
+}

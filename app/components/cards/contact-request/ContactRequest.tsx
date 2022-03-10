@@ -10,7 +10,7 @@ import { Avatar } from "../../base/avatar/Avatar"
 interface PanelProps {
   style?: StyleProp<ViewStyle>
   id: string
-  state: "approved" | "pending"
+  state: string
   date: Date
   name: string
   mission: string

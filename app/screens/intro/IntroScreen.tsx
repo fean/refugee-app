@@ -3,9 +3,8 @@ import { ScrollView, StatusBar, StyleSheet, View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 
 import { NavigatorParamList } from "../../navigators"
-import { PanelButton, Typography } from "../../components"
+import { PanelButton, Typography, NumericHeader } from "../../components"
 import { translate } from "../../i18n"
-import { NumericHeader } from "../../components/blocks/numeric-header-block/NumericHeader"
 import { color } from "../../theme"
 
 const styles = StyleSheet.create({
@@ -14,6 +13,7 @@ const styles = StyleSheet.create({
   },
   btnContainer: {
     flexDirection: "column",
+    marginBottom: 32,
   },
   getStarted: {
     marginBottom: 32,

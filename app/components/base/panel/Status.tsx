@@ -11,12 +11,12 @@ import { StatusBar } from "./StatusBar"
 interface StatusPanelProps {
   panelStyle?: StyleProp<ViewStyle>
   date?: Date
-  status: "approved" | "pending"
+  status: string
 }
 
 const STATUSCOLORS = {
-  approved: "accepted",
-  pending: "warn",
+  Approved: "accepted",
+  Pending: "warn",
 }
 
 const styles = StyleSheet.create({

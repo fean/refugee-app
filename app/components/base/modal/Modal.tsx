@@ -6,7 +6,7 @@ import {
   ViewStyle,
   View,
   Dimensions,
-  Platform,
+  SafeAreaView,
 } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
@@ -37,13 +37,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     height: screen.height * 0.6,
     left: 0,
-    paddingBottom: Platform.select({
-      ios: 34 + 8,
-      android: 16,
-    }),
     paddingLeft: 16,
     paddingRight: 16,
-    paddingTop: 16,
     position: "absolute",
     width: screen.width,
     ...shadows.cover,
@@ -56,6 +51,7 @@ const styles = StyleSheet.create({
   title: {
     flexDirection: "column",
     marginBottom: 16,
+    marginTop: 16,
   },
 })
 
@@ -74,7 +70,7 @@ export const Modal: React.FC<ModalProps> = ({
     visible={open}
     onRequestClose={onClose}
   >
-    <View style={[styles.modal, overrideStyle]}>
+    <SafeAreaView style={[styles.modal, overrideStyle]}>
       <View style={[styles.title, headerOverrideStyle]}>
         <View style={styles.textContainer}>
           <Typography variant="header">{title}</Typography>
@@ -88,6 +84,6 @@ export const Modal: React.FC<ModalProps> = ({
       </View>
 
       {children}
-    </View>
+    </SafeAreaView>
   </ModalEx>
 )

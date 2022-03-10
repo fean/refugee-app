@@ -3,7 +3,7 @@ import i18n from "i18n-js"
 
 import { Location } from "../../models/location/location"
 import { Api } from "./api"
-import { GetCharactersResult } from "./api.types"
+import { GetMapPlacesResult } from "./api.types"
 import { getGeneralApiProblem } from "./api-problem"
 
 export class GeocodingApi {
@@ -13,7 +13,7 @@ export class GeocodingApi {
     this.api = api
   }
 
-  async queryLocations(query: string, limit = 5): Promise<GetCharactersResult> {
+  async queryLocations(query: string, limit = 5): Promise<GetMapPlacesResult> {
     try {
       const urlQuery = encodeURI(query)
       const response: ApiResponse<any> = await this.api.apisauce.get(

@@ -11,5 +11,6 @@ export * from "./pa-contacts/PartnerContacts"
 export * from "./pa-search/PartnerSearchScreen"
 export * from "./pa-contact-details/PartnerContactDetails"
 export * from "./pa-profile/PartnerProfileScreen"
+export * from "./pa-approval/PartnerApprovalScreen"
 
 export * from "./error/error-boundary"

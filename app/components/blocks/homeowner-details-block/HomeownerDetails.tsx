@@ -45,6 +45,7 @@ export const HomeownerDetails: React.FC<HomeownerDetailsProps> = ({
       <FieldWithLabel iconName="mail" label="blocks.ho-details.email">
         <FormikInput
           ref={emailRef}
+          autoCapitalize="none"
           textContentType="emailAddress"
           keyboardType="email-address"
           returnKeyType="next"

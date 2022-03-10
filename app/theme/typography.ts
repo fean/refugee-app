@@ -61,6 +61,11 @@ export const typography = {
     fontWeight: "normal",
   } as TextStyle,
 
+  note: {
+    fontFamily,
+    fontSize: 12,
+  },
+
   chip: {
     fontFamily,
     fontSize: 10,

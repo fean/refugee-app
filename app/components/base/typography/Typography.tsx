@@ -4,8 +4,17 @@ import { color, typography } from "../../../theme"
 import { PropsWithChildren } from "react"
 
 interface TypographyProps {
-  variant: "title" | "header" | "subheader" | "text" | "chip" | "button"
-  color?: "text" | "disabled" | "placeholder" | "shade" | "warn" | "accepted" | "europe" | "white"
+  variant: "title" | "header" | "subheader" | "text" | "chip" | "button" | "note"
+  color?:
+    | "text"
+    | "disabled"
+    | "placeholder"
+    | "shade"
+    | "warn"
+    | "accepted"
+    | "europe"
+    | "white"
+    | "error"
   ellipsizeMode?: TextProps["ellipsizeMode"]
   numberOfLines?: TextProps["numberOfLines"]
   align?: "left" | "center" | "right" | "justify"
@@ -22,6 +31,7 @@ const COLORS = {
   accepted: color.palette.accept,
   europe: color.palette.europe,
   white: color.palette.white,
+  error: color.palette.error,
 }
 
 export const Typography = React.forwardRef<Text, PropsWithChildren<TypographyProps>>(

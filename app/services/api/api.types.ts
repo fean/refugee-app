@@ -1,12 +1,18 @@
 import { GeneralApiProblem } from "./api-problem"
 import { Location } from "../../models/location/location"
+import { User } from "../../models/User"
+import { Contact } from "../../models/Contact"
 
-export interface User {
-  id: number
-  name: string
+export interface RequestResult {
+  kind: "ok"
 }
 
-export type GetUsersResult = { kind: "ok"; users: User[] } | GeneralApiProblem
-export type GetUserResult = { kind: "ok"; user: User } | GeneralApiProblem
+export type GenericRequestResult = RequestResult | GeneralApiProblem
 
-export type GetCharactersResult = { kind: "ok"; locations: Location[] } | GeneralApiProblem
+export type GetUserResult = (RequestResult & { user: User }) | GeneralApiProblem
+export type GetMapPlacesResult = (RequestResult & { locations: Location[] }) | GeneralApiProblem
+export type GetContactsResult = (RequestResult & { contacts: Contact[] }) | GeneralApiProblem
+
+export type PostTokenResult =
+  | (RequestResult & { accessToken: string; refreshToken: string })
+  | GeneralApiProblem

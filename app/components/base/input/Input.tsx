@@ -8,15 +8,20 @@ import {
   StyleSheet,
   TextInputFocusEventData,
   TextInputProps,
+  ViewStyle,
 } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 import { color } from "../../../theme"
+import { Typography } from "../typography/Typography"
 
 interface InputProps {
   style?: StyleProp<TextStyle>
+  inputContainerStyle?: StyleProp<ViewStyle>
   inputStyle?: StyleProp<TextStyle>
   disabled?: boolean
   icon?: string
+  error?: string
+  autoCapitalize: TextInputProps["autoCapitalize"]
   autoComplete?: TextInputProps["autoComplete"]
   textContentType?: TextInputProps["textContentType"]
   keyboardType?: TextInputProps["keyboardType"]
@@ -33,12 +38,21 @@ const styles = StyleSheet.create({
   active: {
     backgroundColor: color.palette.control,
   },
+  error: {
+    borderColor: color.palette.error,
+  },
+  errorContainer: {
+    flexDirection: "column",
+  },
+  errorText: {
+    marginTop: 2,
+    flex: 1,
+  },
   icon: {
     height: 16,
   },
   input: {
     borderRadius: 5,
-    color: color.palette.text,
     flexGrow: 1,
     fontSize: 14,
     minHeight: 32,
@@ -49,6 +63,9 @@ const styles = StyleSheet.create({
   },
   root: {
     alignItems: "center",
+    borderColor: color.transparent,
+    borderWidth: 1,
+    color: color.palette.text,
     display: "flex",
     flexDirection: "row",
     paddingLeft: 16,
@@ -62,9 +79,12 @@ export const Input = React.forwardRef<TextInput, InputProps>(
   (
     {
       style,
+      inputContainerStyle,
       inputStyle,
       disabled,
       icon,
+      error,
+      autoCapitalize,
       autoComplete,
       textContentType,
       keyboardType,
@@ -104,25 +124,36 @@ export const Input = React.forwardRef<TextInput, InputProps>(
     }, [nextRef])
 
     return (
-      <View style={[icon && styles.root, style]}>
-        {icon && <Icon style={styles.icon} name={icon} size={16} color={color.palette.textShade} />}
-        <TextInput
-          ref={ref}
-          blurOnSubmit
-          editable={!disabled}
-          autoComplete={autoComplete}
-          textContentType={textContentType}
-          keyboardType={keyboardType}
-          returnKeyType={returnKeyType}
-          style={[styles.input, isActive && styles.active, icon && styles.inputIcon, inputStyle]}
-          value={value}
-          placeholder={placeholder}
-          placeholderTextColor={color.palette.placeholder}
-          onSubmitEditing={handleSubmitEditing}
-          onChangeText={onChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        />
+      <View style={[styles.errorContainer, style]}>
+        <View style={[icon && styles.root, inputContainerStyle, !!error && styles.error]}>
+          {icon && (
+            <Icon style={styles.icon} name={icon} size={16} color={color.palette.textShade} />
+          )}
+          <TextInput
+            ref={ref}
+            blurOnSubmit
+            autoCapitalize={autoCapitalize}
+            editable={!disabled}
+            autoComplete={autoComplete}
+            textContentType={textContentType}
+            keyboardType={keyboardType}
+            returnKeyType={returnKeyType}
+            style={[styles.input, isActive && styles.active, icon && styles.inputIcon, inputStyle]}
+            value={value}
+            placeholder={placeholder}
+            placeholderTextColor={color.palette.placeholder}
+            onSubmitEditing={handleSubmitEditing}
+            onChangeText={onChange}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
+        </View>
+
+        {error && (
+          <Typography style={styles.errorText} variant="note" color="error">
+            {error}
+          </Typography>
+        )}
       </View>
     )
   },

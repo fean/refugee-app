@@ -1,5 +1,6 @@
 import * as React from "react"
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -8,21 +9,26 @@ import {
   StyleSheet,
 } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import { withFormik } from "formik"
+import { FormikProps, withFormik } from "formik"
+import * as Yup from "yup"
 
 import { NavigatorParamList } from "../../navigators"
 import { translate } from "../../i18n"
 
-import { NumericHeader } from "../../components/blocks/numeric-header-block/NumericHeader"
-import { Button, Divider } from "../../components"
+import {
+  Button,
+  Divider,
+  PartnerMotivation,
+  NumericHeader,
+  HomeownerLocation,
+  PartnerDetails,
+} from "../../components"
 import { color } from "../../theme"
-import { PartnerDetails } from "../../components/blocks/partner-details-block/PartnerDetails"
-import { HomeownerLocation } from "../../components/blocks/homeowner-location-block/HomeownerLocation"
-import { PartnerMotivation } from "../../components/blocks/partner-motivation-block/PartnerMotivation"
+import { useStores } from "../../models"
 
-interface FormValues {
+export interface PartnerFormValues {
   details: {
-    contact: string
+    contactName: string
     orgName: string
     email: string
     country: string
@@ -30,7 +36,7 @@ interface FormValues {
     website: string
   }
   location: {
-    addressLine: string
+    address: string
     postal: string
     city: string
     country: string
@@ -43,9 +49,9 @@ interface FormValues {
 
 type ScreenProps = StackScreenProps<NavigatorParamList, "pa-setup">
 
-const initialValue: FormValues = {
-  details: { orgName: "", country: "", contact: "", phone: "", email: "", website: "" },
-  location: { addressLine: "", postal: "", city: "", country: "" },
+const initialValue: PartnerFormValues = {
+  details: { orgName: "", country: "", contactName: "", phone: "", email: "", website: "" },
+  location: { address: "", postal: "", city: "", country: "" },
   motivation: { mission: "", motivation: "" },
 }
 
@@ -70,6 +76,9 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingTop: 24,
   },
+  spinner: {
+    marginRight: 8,
+  },
 })
 
 const dividerColor = Platform.select({
@@ -77,10 +86,24 @@ const dividerColor = Platform.select({
   android: color.palette.control,
 })
 
-const PartnerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
-  const handleCreate = React.useCallback(() => {
-    navigation.navigate("partner")
-  }, [navigation])
+const PartnerSetupScreenComp: React.FC<ScreenProps & FormikProps<PartnerFormValues>> = ({
+  navigation,
+  isValid,
+  values,
+}) => {
+  const [isWorking, setWorking] = React.useState(false)
+  const { userStore } = useStores()
+  const handleCreate = React.useCallback(async () => {
+    setWorking(true)
+    try {
+      await userStore.createPartner(values)
+      await userStore.doSendEmail(values.details.email)
+
+      navigation.navigate("otp")
+    } catch (error) {
+      setWorking(false)
+    }
+  }, [navigation, userStore, values])
 
   return (
     <SafeAreaView>
@@ -123,14 +146,41 @@ const PartnerSetupScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
           <PartnerMotivation style={styles.lastBlock} blockName="motivation" />
 
-          <Button tx="common.next" style={styles.btn} onPress={handleCreate} />
+          <Button
+            disabled={!isValid || isWorking}
+            tx="common.next"
+            icon={isWorking && <ActivityIndicator style={styles.spinner} size="small" />}
+            style={styles.btn}
+            onPress={handleCreate}
+          />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
 
-export const PartnerSetupScreen = withFormik<ScreenProps, FormValues>({
+export const PartnerSetupScreen = withFormik<ScreenProps, PartnerFormValues>({
+  validateOnMount: true,
+  validationSchema: Yup.object({
+    details: Yup.object({
+      contactName: Yup.string().required(),
+      orgName: Yup.string().required(),
+      email: Yup.string().email().required(),
+      country: Yup.string().required(),
+      phone: Yup.string().required(),
+      website: Yup.string().required(),
+    }),
+    location: Yup.object({
+      address: Yup.string().required(),
+      postal: Yup.string().required(),
+      city: Yup.string().required(),
+      country: Yup.string().required(),
+    }),
+    motivation: Yup.object({
+      mission: Yup.string().max(90).required(),
+      motivation: Yup.string().required(),
+    }),
+  }),
   handleSubmit: (values) => {
     /**/
   },

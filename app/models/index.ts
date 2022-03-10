@@ -6,3 +6,4 @@ export * from "./root-store/root-store-context"
 export * from "./root-store/setup-root-store"
 
 export * from "./location-store/location-store"
+export * from "./user-store"

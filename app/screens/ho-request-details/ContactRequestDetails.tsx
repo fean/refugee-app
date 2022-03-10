@@ -1,17 +1,16 @@
-/* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { StatusBar, StyleSheet, View } from "react-native"
+import { ActivityIndicator, StatusBar, StyleSheet, View } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import Icon from "react-native-vector-icons/Ionicons"
 
 import { Button, ContactHeader, TextExplainer } from "../../components"
 import { HomeownerNavigatorParamList } from "../../navigators"
 
-import { requests } from "../ho-request-overview/ContactRequestOverviewScreen"
 import { shadows } from "../../theme/shadows"
 import { color } from "../../theme"
 import { translate } from "../../i18n"
 import { formatDate } from "../../utils/date"
+import { useStores } from "../../models"
 
 const styles = StyleSheet.create({
   approvalBtn: {
@@ -52,7 +51,15 @@ export const ContactRequestDetailsScreen: React.FC<
     params: { id: detailsId },
   },
 }) => {
-  const request = React.useMemo(() => requests.find((item) => item.id === detailsId), [detailsId])
+  const [isApproving, setApproving] = React.useState(false)
+  const { contactStore } = useStores()
+  const { contacts } = contactStore
+  const request = React.useMemo(() => contacts.find((item) => item.id === detailsId), [detailsId])
+
+  const handleApproval = React.useCallback(() => {
+    setApproving(true)
+    contactStore.approveContact(request.id).then(() => setApproving(false))
+  }, [request])
 
   const approvalDate = React.useMemo(
     () => (request?.date ? formatDate(request?.date, "PPPPpp") : "No date"),
@@ -65,9 +72,9 @@ export const ContactRequestDetailsScreen: React.FC<
 
       <ContactHeader
         name={request?.name}
-        phone={request?.phone}
-        email={request?.email}
-        website={request?.website}
+        phone={request?.contact.phone}
+        email={request?.contact.email}
+        website={request?.contact.website}
       />
 
       <View style={styles.panel}>
@@ -83,9 +90,9 @@ export const ContactRequestDetailsScreen: React.FC<
           style={styles.explainer}
           title={translate("screens.ho-contact-details.addressHeader")}
           text={[
-            request?.address,
-            `${request?.postal} ${request?.city}`,
-            translate(`countries.${request?.country}`),
+            request?.location.address,
+            `${request?.location.postal} ${request?.location.city}`,
+            translate(`countries.${request?.location.country}`),
           ]}
         />
 
@@ -93,10 +100,10 @@ export const ContactRequestDetailsScreen: React.FC<
           icon="earth"
           style={styles.explainer}
           title={translate("screens.ho-contact-details.websiteHeader")}
-          text={request?.website}
+          text={request?.contact.website}
         />
 
-        {request?.state === "approved" ? (
+        {request?.state === "Approved" ? (
           <TextExplainer
             icon="checkmark"
             title={translate("screens.ho-contact-details.approvalHeader")}
@@ -104,11 +111,22 @@ export const ContactRequestDetailsScreen: React.FC<
           />
         ) : (
           <Button
+            disabled={isApproving}
             style={styles.approvalBtn}
             tx="screens.ho-contact-details.approvalButton"
             icon={
-              <Icon style={styles.btnIcon} name="checkmark" size={24} color={color.palette.white} />
+              isApproving ? (
+                <ActivityIndicator style={styles.btnIcon} size="small" />
+              ) : (
+                <Icon
+                  style={styles.btnIcon}
+                  name="checkmark"
+                  size={24}
+                  color={color.palette.white}
+                />
+              )
             }
+            onPress={handleApproval}
           />
         )}
       </View>

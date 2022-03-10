@@ -1,4 +1,5 @@
 import * as React from "react"
+import * as Yup from "yup"
 import { StackScreenProps } from "@react-navigation/stack"
 import {
   Image,
@@ -9,8 +10,9 @@ import {
   KeyboardAvoidingView,
   TextInput,
   View,
+  ActivityIndicator,
 } from "react-native"
-import { withFormik } from "formik"
+import { FormikProps, withFormik } from "formik"
 
 import { color } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
@@ -19,6 +21,7 @@ import { shadows } from "../../theme/shadows"
 import { Button, FormikInput, TextButton, Typography } from "../../components"
 
 import { translate } from "../../i18n"
+import { useStores } from "../../models"
 
 type ScreenProps = StackScreenProps<NavigatorParamList, "login">
 
@@ -39,6 +42,8 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: color.palette.control,
     borderRadius: 5,
+  },
+  inputContainer: {
     marginBottom: 32,
     marginTop: 16,
   },
@@ -49,7 +54,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     opacity: 0,
-    paddingBottom: 48,
+    paddingBottom: 32,
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 32,
@@ -81,15 +86,39 @@ const styles = StyleSheet.create({
     color: color.text,
     height: 24,
   },
+  spinner: {
+    marginRight: 8,
+  },
 })
 
-const LoginScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
+const LoginScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
+  navigation,
+  isValid,
+  values: { email },
+}) => {
+  const { userStore } = useStores()
   const emailRef = React.useRef<TextInput>()
   const { current: opacityAnim } = React.useRef(new Animated.Value(0))
 
+  const [errorMessage, setError] = React.useState<string>(null)
+  const [isLoading, setLoading] = React.useState(false)
+
   const handleLogin = React.useCallback(() => {
     emailRef.current?.blur()
-  }, [])
+    setError(null)
+    setLoading(true)
+
+    userStore
+      .doSendEmail(email)
+      .then(() => {
+        setLoading(false)
+        navigation.navigate("otp")
+      })
+      .catch(() => {
+        setLoading(false)
+        setError(translate("screens.login.account-not-exists"))
+      })
+  }, [userStore, email])
 
   const handleNewUser = React.useCallback(() => {
     navigation.navigate("intro")
@@ -113,15 +142,24 @@ const LoginScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 
         <FormikInput
           ref={emailRef}
+          autoCapitalize="none"
           autoComplete="email"
           keyboardType="email-address"
+          textContentType="emailAddress"
           name="email"
           icon="mail"
-          style={styles.input}
+          error={errorMessage}
+          style={styles.inputContainer}
+          inputContainerStyle={styles.input}
           placeholder={translate("screens.login.emailPlaceholder")}
         />
 
-        <Button tx="screens.login.login" onPress={handleLogin} />
+        <Button
+          disabled={isLoading || !isValid}
+          tx="screens.login.login"
+          icon={isLoading && <ActivityIndicator style={styles.spinner} size="small" />}
+          onPress={handleLogin}
+        />
 
         <View style={styles.noAccountSection}>
           <Typography style={styles.signupText} variant="button">
@@ -139,6 +177,10 @@ const LoginScreenComp: React.FC<ScreenProps> = ({ navigation }) => {
 }
 
 export const LoginScreen = withFormik<ScreenProps, LoginValues>({
+  validateOnMount: true,
+  validationSchema: Yup.object({
+    email: Yup.string().email().required(),
+  }),
   mapPropsToValues() {
     return { email: "" }
   },

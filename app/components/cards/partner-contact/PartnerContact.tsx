@@ -9,7 +9,7 @@ interface PartnerContactProps {
   style?: StyleProp<ViewStyle>
   disabled?: boolean
   id: string
-  state: "approved" | "pending"
+  state: string
   date: Date
   name: string
   address: string

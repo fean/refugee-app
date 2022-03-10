@@ -9,6 +9,8 @@ import { shadows } from "../../theme/shadows"
 import { color } from "../../theme"
 import { ContactHeader, Divider, SpaceMarker, TextExplainer } from "../../components"
 import { translate } from "../../i18n"
+import { useStores } from "../../models"
+import { observer } from "mobx-react-lite"
 
 const styles = StyleSheet.create({
   container: {
@@ -38,24 +40,21 @@ const styles = StyleSheet.create({
   },
 })
 
-export const profile = {
-  geo: {
-    latitude: 52.3724599,
-    longitude: 4.8795857,
-  },
-  name: "Johnny Samaritan",
-  phone: "+31612345678",
-  email: "johhny@gmail.com",
-  address: "Rozenstraat 112-III",
-  postal: "1016 NZ",
-  city: "Amsterdam",
-  country: "nl",
-  beds: 1,
-}
-
 export const HomeownerProfileScreen: React.FC<
   StackScreenProps<HomeownerTabsNavigatorParamList, "profile">
-> = () => {
+> = observer(() => {
+  const {
+    userStore: { user },
+  } = useStores()
+
+  const geo = React.useMemo(
+    () => ({
+      longitude: user.location.coords[0],
+      latitude: user.location.coords[1],
+    }),
+    [user.location.coords],
+  )
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -63,37 +62,37 @@ export const HomeownerProfileScreen: React.FC<
       <MapView
         style={styles.map}
         initialCamera={{
-          center: profile.geo,
+          center: geo,
           zoom: 8,
           pitch: 1,
           heading: 1,
-          altitude: 4000,
+          altitude: 3000,
         }}
       >
-        <SpaceMarker active location={profile.geo} nrBeds={profile.beds} />
+        <SpaceMarker active location={geo} nrBeds={user.location.nrBeds || 1} />
       </MapView>
 
       <View style={styles.panel}>
-        <ContactHeader name={profile.name} phone={profile.phone} email={profile.email} />
+        <ContactHeader name={user.name} phone={user.contact.phone} email={user.contact.email} />
         <Divider style={styles.divider} />
         <TextExplainer
           icon="home"
           title={translate("screens.ho-profile.addressDetails")}
           text={[
-            profile.address,
-            `${profile.postal} ${profile.city}`,
-            translate(`countries.${profile.country}`),
+            user.location.address,
+            `${user.location.postal} ${user.location.city}`,
+            translate(`countries.${user.location.country}`),
           ]}
         />
         <TextExplainer
           style={styles.secondExplainer}
           icon="bed"
           title={translate("screens.ho-profile.accomodates")}
-          text={`${profile.beds} ${translate("screens.ho-profile.personPhrase", {
-            count: profile.beds,
-          })}`}
+          text={translate("screens.ho-profile.personPhrase", {
+            count: user.location.nrBeds || 1,
+          })}
         />
       </View>
     </View>
   )
-}
+})

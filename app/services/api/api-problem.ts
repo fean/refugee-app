@@ -64,7 +64,7 @@ export function getGeneralApiProblem(response: ApiResponse<any>): GeneralApiProb
         case 404:
           return { kind: "not-found" }
         default:
-          return { kind: "rejected" }
+          return { kind: `rejected` }
       }
     case "CANCEL_ERROR":
       return null

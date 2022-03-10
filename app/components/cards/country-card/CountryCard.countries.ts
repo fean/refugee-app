@@ -5,213 +5,213 @@ export interface CountryDetails {
 }
 
 export const countries: { [key: string]: CountryDetails } = {
-  al: {
-    code: "al",
+  AL: {
+    code: "AL",
     flag: "albania",
     phone: "+355",
   },
-  ad: {
-    code: "ad",
+  AD: {
+    code: "AD",
     flag: "andorra",
     phone: "+376",
   },
-  at: {
-    code: "at",
+  AT: {
+    code: "AT",
     flag: "austria",
     phone: "+43",
   },
-  by: {
-    code: "by",
+  BY: {
+    code: "BY",
     flag: "belarus",
     phone: "+375",
   },
-  be: {
-    code: "be",
+  BE: {
+    code: "BE",
     flag: "belgium",
     phone: "+32",
   },
-  ba: {
-    code: "ba",
+  BA: {
+    code: "BA",
     flag: "bosnia",
     phone: "+387",
   },
-  bg: {
-    code: "bg",
+  BG: {
+    code: "BG",
     flag: "bulgaria",
     phone: "+359",
   },
-  hr: {
-    code: "hr",
+  HR: {
+    code: "HR",
     flag: "croatia",
     phone: "+385",
   },
-  cz: {
-    code: "cz",
+  CZ: {
+    code: "CZ",
     flag: "czech",
     phone: "+420",
   },
-  dk: {
-    code: "dk",
+  DK: {
+    code: "DK",
     flag: "denmark",
     phone: "+45",
   },
-  ee: {
-    code: "ee",
+  EE: {
+    code: "EE",
     flag: "estonia",
     phone: "+372",
   },
-  fi: {
-    code: "fi",
+  FI: {
+    code: "FI",
     flag: "finland",
     phone: "+358",
   },
-  fr: {
-    code: "fr",
+  FR: {
+    code: "FR",
     flag: "france",
     phone: "+33",
   },
-  de: {
-    code: "de",
+  DE: {
+    code: "DE",
     flag: "germany",
     phone: "+49",
   },
-  gr: {
-    code: "gr",
+  GR: {
+    code: "GR",
     flag: "greece",
     phone: "+30",
   },
-  hu: {
-    code: "hu",
+  HU: {
+    code: "HU",
     flag: "hungary",
     phone: "+36",
   },
-  is: {
-    code: "is",
+  IS: {
+    code: "IS",
     flag: "iceland",
     phone: "+354",
   },
-  ie: {
-    code: "ie",
+  IE: {
+    code: "IE",
     flag: "ireland",
     phone: "+353",
   },
-  it: {
-    code: "it",
+  IT: {
+    code: "IT",
     flag: "italy",
     phone: "+39",
   },
-  lv: {
-    code: "lv",
+  LV: {
+    code: "LV",
     flag: "latvia",
     phone: "+371",
   },
-  li: {
-    code: "li",
+  LI: {
+    code: "LI",
     flag: "liechtenstein",
     phone: "+423",
   },
-  lt: {
-    code: "lt",
+  LT: {
+    code: "LT",
     flag: "lithuania",
     phone: "+370",
   },
-  lu: {
-    code: "lu",
+  LU: {
+    code: "LU",
     flag: "luxembourg",
     phone: "+352",
   },
-  mt: {
-    code: "mt",
+  MT: {
+    code: "MT",
     flag: "malta",
     phone: "+356",
   },
-  md: {
-    code: "md",
+  MD: {
+    code: "MD",
     flag: "moldova",
     phone: "+373",
   },
-  mc: {
-    code: "mc",
+  MC: {
+    code: "MC",
     flag: "monaco",
     phone: "+377",
   },
-  me: {
-    code: "me",
+  ME: {
+    code: "ME",
     flag: "montenegro",
     phone: "+382",
   },
-  nl: {
-    code: "nl",
+  NL: {
+    code: "NL",
     flag: "netherlands",
     phone: "+31",
   },
-  mk: {
-    code: "mk",
+  MK: {
+    code: "MK",
     flag: "macedonia",
     phone: "+389",
   },
-  no: {
-    code: "no",
+  NO: {
+    code: "NO",
     flag: "norway",
     phone: "+47",
   },
-  pl: {
-    code: "pl",
+  PL: {
+    code: "PL",
     flag: "poland",
     phone: "+48",
   },
-  pt: {
-    code: "pt",
+  PT: {
+    code: "PT",
     flag: "portugal",
     phone: "+351",
   },
-  ro: {
-    code: "ro",
+  RO: {
+    code: "RO",
     flag: "romania",
     phone: "+40",
   },
-  ru: {
-    code: "ru",
+  RU: {
+    code: "RU",
     flag: "russia",
     phone: "+7",
   },
-  rs: {
-    code: "rs",
+  RS: {
+    code: "RS",
     flag: "serbia",
     phone: "+381",
   },
-  sk: {
-    code: "sk",
+  SK: {
+    code: "SK",
     flag: "slovakia",
     phone: "+421",
   },
-  si: {
-    code: "si",
+  SI: {
+    code: "SI",
     flag: "slovenia",
     phone: "+386",
   },
-  es: {
-    code: "es",
+  ES: {
+    code: "ES",
     flag: "spain",
     phone: "+31",
   },
-  se: {
-    code: "se",
+  SE: {
+    code: "SE",
     flag: "sweden",
     phone: "+34",
   },
-  ch: {
-    code: "ch",
+  CH: {
+    code: "CH",
     flag: "switzerland",
     phone: "+41",
   },
-  ua: {
-    code: "ua",
+  UA: {
+    code: "UA",
     flag: "ukraine",
     phone: "+380",
   },
-  uk: {
-    code: "uk",
+  UK: {
+    code: "UK",
     flag: "uk",
     phone: "+44",
   },

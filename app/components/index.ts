@@ -31,3 +31,4 @@ export * from "./blocks/location-search-block/LocationSearchBlock"
 
 export * from "./inputs/country-selector"
 export * from "./inputs/value-selector"
+export * from "./inputs/otp-input"

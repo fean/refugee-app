@@ -1,11 +1,7 @@
 import { Instance, SnapshotOut, types } from "mobx-state-tree"
 import { LocationModel, LocationSnapshot } from "../location/location"
-import { GeocodingApi } from "../../services/api/geocoding-api"
 import { withEnvironment } from "../extensions/with-environment"
 
-/**
- * Example store containing Rick and Morty characters
- */
 export const LocationStoreModel = types
   .model("LocationStore")
   .props({
@@ -19,8 +15,7 @@ export const LocationStoreModel = types
   }))
   .actions((self) => ({
     queryLocations: async (query: string) => {
-      const geocodingApi = new GeocodingApi(self.environment.mapBox)
-      const result = await geocodingApi.queryLocations(query)
+      const result = await self.environment.geocodingApi.queryLocations(query)
 
       if (result.kind === "ok") {
         self.saveLocations(result.locations)

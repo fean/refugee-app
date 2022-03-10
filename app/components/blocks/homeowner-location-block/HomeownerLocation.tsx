@@ -37,7 +37,7 @@ export const HomeownerLocation: React.FC<HomeownerDetailsProps> = ({
           nextRef={postalRef}
           textContentType="streetAddressLine1"
           returnKeyType="next"
-          name={`${blockName}.addressLine`}
+          name={`${blockName}.address`}
           style={styles.input}
           placeholder={translate("blocks.ho-location.addressPlaceholder")}
         />
@@ -58,7 +58,7 @@ export const HomeownerLocation: React.FC<HomeownerDetailsProps> = ({
           ref={cityRef}
           textContentType="addressCity"
           returnKeyType="next"
-          name={`${blockName}.phone`}
+          name={`${blockName}.city`}
           style={styles.input}
           placeholder={translate("blocks.ho-location.cityPlaceholder")}
         />
