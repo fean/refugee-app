@@ -101,7 +101,7 @@ export const PartnerSearchScreen: React.FC<
   const [isRegionChanged, setRegionChanged] = React.useState(true)
   const [activeMarker, setActiveMarker] = React.useState<Room>()
 
-  const { roomStore } = useStores()
+  const { roomStore, contactStore } = useStores()
   const { rooms } = roomStore
 
   const handleFocusMarker = React.useCallback(
@@ -177,21 +177,24 @@ export const PartnerSearchScreen: React.FC<
           console.error(error)
         })
     })
-  }, [])
+  }, [contactStore, roomStore])
 
-  const handleSelect = React.useCallback((selection: Location | null) => {
-    if (selection) {
-      mapRef.current.setCamera({
-        center: { ...selection.geo },
-      })
+  const handleSelect = React.useCallback(
+    (selection: Location | null) => {
+      if (selection) {
+        mapRef.current.setCamera({
+          center: { ...selection.geo },
+        })
 
-      handleLoadRooms()
-    } else {
-      mapRef.current.setCamera({
-        center: initialCamera.center,
-      })
-    }
-  }, [])
+        handleLoadRooms()
+      } else {
+        mapRef.current.setCamera({
+          center: initialCamera.center,
+        })
+      }
+    },
+    [handleLoadRooms],
+  )
 
   React.useEffect(() => {
     getCurrentLocation().then((coords) => {
@@ -206,20 +209,6 @@ export const PartnerSearchScreen: React.FC<
     if (isReady) handleLoadRooms()
   }, [isReady, handleLoadRooms])
 
-  const roomMarkers = React.useMemo(
-    () =>
-      rooms.map((location) => (
-        <SpaceMarker
-          key={location.id}
-          active={activeMarker?.id === location.id}
-          location={{ longitude: location.coords[0], latitude: location.coords[1] }}
-          nrBeds={location.beds}
-          onPress={() => handleFocusMarker(location)}
-        />
-      )),
-    [rooms, activeMarker],
-  )
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -233,7 +222,15 @@ export const PartnerSearchScreen: React.FC<
           camera={camera}
           onRegionChangeComplete={handleViewChanged}
         >
-          {roomMarkers}
+          {rooms.map((location) => (
+            <SpaceMarker
+              key={location.id}
+              active={activeMarker?.id === location.id}
+              location={{ longitude: location.coords[0], latitude: location.coords[1] }}
+              nrBeds={location.beds}
+              onPress={() => handleFocusMarker(location)}
+            />
+          ))}
         </MapView>
       )}
 

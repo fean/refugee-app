@@ -4,6 +4,7 @@ import { StyleProp, ViewStyle, TouchableOpacity, StyleSheet } from "react-native
 import { translate } from "../../../i18n"
 
 import { Typography } from "../typography/Typography"
+import { borderRadius } from "../../../theme"
 
 interface SimpleButtonProps {
   style?: StyleProp<ViewStyle>
@@ -18,7 +19,7 @@ interface SimpleButtonProps {
 const styles = StyleSheet.create({
   base: {
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     flexDirection: "row",
     height: 32,
     justifyContent: "center",

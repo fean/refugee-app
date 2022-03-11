@@ -2,7 +2,7 @@ import * as React from "react"
 import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 
 interface TabBarIconProps {
   style?: StyleProp<ViewStyle>
@@ -15,7 +15,7 @@ interface TabBarIconProps {
 const styles = StyleSheet.create({
   dot: {
     backgroundColor: color.transparent,
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     height: 5,
     marginTop: 6,
     width: 5,

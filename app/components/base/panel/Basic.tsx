@@ -1,6 +1,6 @@
 import * as React from "react"
 import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { shadows } from "../../../theme/shadows"
 
 interface PanelProps {
@@ -10,7 +10,7 @@ interface PanelProps {
 const styles = StyleSheet.create({
   bar: {
     backgroundColor: color.palette.white,
-    borderRadius: 12,
+    borderRadius: borderRadius.big,
     ...shadows.block,
   },
 })

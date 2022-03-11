@@ -9,7 +9,7 @@ import {
   TextStyle,
   View,
 } from "react-native"
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { Typography } from "../typography/Typography"
 
 interface TextAreaProps {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: color.palette.control,
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     minHeight: 128,
     paddingBottom: 4,
     paddingLeft: 8,

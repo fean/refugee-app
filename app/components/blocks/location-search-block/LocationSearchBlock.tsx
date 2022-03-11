@@ -12,7 +12,7 @@ import {
 import Icon from "react-native-vector-icons/Ionicons"
 import { observer } from "mobx-react-lite"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { shadows } from "../../../theme/shadows"
 import { useDebounce } from "../../../utils/hooks"
 
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   panel: {
     alignItems: "flex-start",
     backgroundColor: color.palette.white,
-    borderRadius: 12,
+    borderRadius: borderRadius.big,
     flexDirection: "column",
     paddingBottom: 8,
     paddingLeft: 16,

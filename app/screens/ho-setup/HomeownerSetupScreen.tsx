@@ -25,6 +25,7 @@ import {
 } from "../../components"
 import { color } from "../../theme"
 import { useStores } from "../../models"
+import { handleError } from "./helpers"
 
 export interface HomeownerFormValues {
   details: {
@@ -99,6 +100,7 @@ const HomeownerSetupScreenComp: React.FC<ScreenProps & FormikProps<HomeownerForm
 
       navigation.navigate("otp")
     } catch (error) {
+      handleError(error.message)
       setWorking(false)
     }
   }, [navigation, userStore, values])

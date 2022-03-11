@@ -10,7 +10,7 @@ import {
 } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { shadows } from "../../../theme/shadows"
 
 import { Typography } from "../typography/Typography"
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: color.palette.white,
-    borderRadius: 12,
+    borderRadius: borderRadius.big,
     bottom: 0,
     height: screen.height * 0.6,
     left: 0,

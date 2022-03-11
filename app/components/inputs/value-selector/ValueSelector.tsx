@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { Typography } from "../../base/typography/Typography"
 import { shadows } from "../../../theme/shadows"
 
@@ -28,7 +28,7 @@ interface ValueSelectorProps {
 const styles = StyleSheet.create({
   bar: {
     backgroundColor: color.palette.control,
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     flex: 1,
     height: 32,
     overflow: "hidden",
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   selectedBox: {
     backgroundColor: color.palette.white,
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     height: 28,
     left: 0,
     position: "absolute",

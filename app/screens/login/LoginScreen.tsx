@@ -14,7 +14,7 @@ import {
 } from "react-native"
 import { FormikProps, withFormik } from "formik"
 
-import { color } from "../../theme"
+import { borderRadius, color } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
 import { shadows } from "../../theme/shadows"
 
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: color.palette.control,
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
   },
   inputContainer: {
     marginBottom: 32,

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { StyleProp, ViewStyle, TouchableOpacity, StyleSheet } from "react-native"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 
 interface SimpleButtonProps {
   disabled?: boolean
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   base: {
     alignItems: "center",
     backgroundColor: color.palette.europeShade,
-    borderRadius: 16,
+    borderRadius: borderRadius.huge,
     height: 24,
     justifyContent: "center",
     width: 24,

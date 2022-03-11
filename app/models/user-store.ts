@@ -94,7 +94,7 @@ export const UserStoreModel = types
 
       if (result.kind !== "ok") {
         console.warn("Request failed me: ", result.kind)
-        throw new Error()
+        throw new Error(result.kind)
       }
     },
     createHomeowner: async (details: HomeownerFormValues): Promise<void> => {
@@ -114,8 +114,11 @@ export const UserStoreModel = types
 
       if (result.kind !== "ok") {
         console.warn("Request failed me: ", result.kind)
-        throw new Error()
+        throw new Error(result.kind)
       }
+    },
+    setPushToken: async (token: string): Promise<void> => {
+      await self.environment.userApi.savePushToken(token)
     },
   }))
 

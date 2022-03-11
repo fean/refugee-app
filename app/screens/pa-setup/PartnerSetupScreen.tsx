@@ -25,6 +25,7 @@ import {
 } from "../../components"
 import { color } from "../../theme"
 import { useStores } from "../../models"
+import { handleError } from "./helpers"
 
 export interface PartnerFormValues {
   details: {
@@ -101,6 +102,7 @@ const PartnerSetupScreenComp: React.FC<ScreenProps & FormikProps<PartnerFormValu
 
       navigation.navigate("otp")
     } catch (error) {
+      handleError(error.message)
       setWorking(false)
     }
   }, [navigation, userStore, values])

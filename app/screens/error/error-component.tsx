@@ -1,6 +1,6 @@
 import React, { ErrorInfo } from "react"
 import { TextStyle, View, ViewStyle, ScrollView } from "react-native"
-import { color } from "../../theme"
+import { borderRadius, color } from "../../theme"
 import { Button, Typography } from "../../components"
 import { translate } from "../../i18n"
 
@@ -19,7 +19,7 @@ const ERROR_DETAILS_CONTAINER: ViewStyle = {
   marginVertical: 15,
   paddingHorizontal: 10,
   paddingBottom: 15,
-  borderRadius: 6,
+  borderRadius: borderRadius.small,
 }
 
 const BTN_RESET: ViewStyle = {

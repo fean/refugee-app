@@ -1,7 +1,7 @@
 import * as React from "react"
 import { StyleProp, ViewStyle, TouchableOpacity, View, StyleSheet } from "react-native"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { translate } from "../../../i18n"
 
 import { Typography } from "../typography/Typography"
@@ -18,7 +18,7 @@ interface SimpleButtonProps {
 const styles = StyleSheet.create({
   base: {
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     flexDirection: "row",
     height: 48,
     justifyContent: "center",

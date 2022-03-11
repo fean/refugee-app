@@ -1,6 +1,6 @@
 import * as React from "react"
 import { View, StyleProp, ViewStyle, StyleSheet, TextInput } from "react-native"
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 
 interface OTPInputProps {
   style?: StyleProp<ViewStyle>
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: color.palette.control,
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     fontSize: 28,
     minHeight: 48,
     minWidth: 48,

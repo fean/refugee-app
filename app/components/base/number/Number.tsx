@@ -2,7 +2,7 @@ import * as React from "react"
 import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { Typography } from "../typography/Typography"
 
 interface PanelProps {
@@ -13,7 +13,7 @@ interface PanelProps {
 const styles = StyleSheet.create({
   number: {
     alignItems: "center",
-    borderRadius: 16,
+    borderRadius: borderRadius.huge,
     height: 32,
     justifyContent: "center",
     width: 32,

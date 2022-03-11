@@ -11,7 +11,7 @@ import {
   ViewStyle,
 } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { Typography } from "../typography/Typography"
 
 interface InputProps {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     height: 16,
   },
   input: {
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     flexGrow: 1,
     fontSize: 14,
     minHeight: 32,

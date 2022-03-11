@@ -11,6 +11,7 @@ import {
   Alert,
 } from "react-native"
 import { FormikProps, withFormik } from "formik"
+import messaging from "@react-native-firebase/messaging"
 
 import { color } from "../../theme"
 import { NavigatorParamList } from "../../navigators"
@@ -83,6 +84,21 @@ const OTPScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
     userStore
       .doAuthenticate(otp)
       .then(() => {
+        messaging()
+          .requestPermission({
+            badge: true,
+            alert: true,
+          })
+          .then((status) => {
+            const isGiven =
+              status === messaging.AuthorizationStatus.AUTHORIZED ||
+              status === messaging.AuthorizationStatus.PROVISIONAL
+
+            if (isGiven) {
+              messaging().getToken().then(userStore.setPushToken)
+            }
+          })
+
         userStore
           .loadProfile()
           .then((profile) => {

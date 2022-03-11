@@ -13,9 +13,9 @@ export class RoomsApi {
 
   async loadRooms(center: number[], distance: number): Promise<GetRoomsResult> {
     try {
-      const response: ApiResponse<any> = await this.api.apisauce.get(`rooms`, {
-        lng: center[0],
-        lat: center[1],
+      const response: ApiResponse<any> = await this.api.apisauce.put(`rooms`, {
+        lng: Number(center[0]),
+        lat: Number(center[1]),
         distance: Math.round(distance),
       })
       if (!response.ok) {

@@ -11,7 +11,7 @@ import {
 import Icon from "react-native-vector-icons/Ionicons"
 
 import { translate } from "../../../i18n"
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 
 import { Typography } from "../../base/typography/Typography"
 import { countries, CountryDetails } from "../../cards/country-card/CountryCard.countries"
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   inner: {
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     flexDirection: "row",
     height: 32,
     justifyContent: "space-between",

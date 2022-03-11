@@ -1,7 +1,7 @@
 import * as React from "react"
 import { View, StyleProp, ViewStyle, StyleSheet } from "react-native"
 
-import { color } from "../../../theme"
+import { borderRadius, color } from "../../../theme"
 import { Typography } from "../typography/Typography"
 
 interface AvatarProps {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   avatar: {
     alignItems: "center",
     backgroundColor: color.palette.europeShade,
-    borderRadius: 5,
+    borderRadius: borderRadius.small,
     height: 48,
     justifyContent: "center",
     width: 48,
