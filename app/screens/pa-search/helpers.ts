@@ -1,6 +1,5 @@
 import { LatLng } from "react-native-maps"
-import Geolocation from "react-native-geolocation-service"
-import { Platform } from "react-native"
+import Geolocation from "@react-native-community/geolocation"
 
 export interface MapBoundingBox {
   northEast: LatLng
@@ -9,34 +8,18 @@ export interface MapBoundingBox {
 
 export const getCurrentLocation = (): Promise<LatLng | null> => {
   return new Promise<LatLng>((resolve) => {
-    const doRequestLocation = () => {
-      Geolocation.getCurrentPosition(
-        (pos) => {
-          if (pos.mocked) {
-            resolve(null)
-          }
-
-          resolve({
-            latitude: pos.coords.latitude,
-            longitude: pos.coords.longitude,
-          })
-        },
-        () => resolve(null),
-        { enableHighAccuracy: false },
-      )
-    }
-
-    if (Platform.OS === "ios") {
-      Geolocation.requestAuthorization("whenInUse").then((value) => {
-        if (value === "granted") {
-          doRequestLocation()
-        } else {
-          resolve(null)
-        }
-      })
-    } else {
-      doRequestLocation()
-    }
+    Geolocation.getCurrentPosition(
+      (pos) => {
+        resolve({
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+        })
+      },
+      (error) => {
+        console.warn("No location picked up", error)
+        resolve(null)
+      },
+    )
   })
 }
 
@@ -55,8 +38,8 @@ export const isOutsideBoundingBox = (
   return isOutsideHorizontal || isOutsideVertical
 }
 
-export const getDistance = (from: number[], to: number[]): number => {
-  const R = 6371 // km
+export const getBoxDiameter = (from: number[], to: number[]): number => {
+  const R = 6371000 // In Meters
   const dLat = toRad(to[1] - from[1])
   const dLon = toRad(to[0] - from[0])
   const lat1 = toRad(from[1])
@@ -66,14 +49,13 @@ export const getDistance = (from: number[], to: number[]): number => {
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2)
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-  const d = R * c
 
-  return d * 1000
+  return R * c
 }
 
 const toRad = (degreeValue: number) => (degreeValue * Math.PI) / 180
 
-export const getCenter = (from: number[], to: number[]): number[] => [
+export const getBoxCenter = (from: number[], to: number[]): number[] => [
   (from[0] + to[0]) / 2,
   (from[1] + to[1]) / 2,
 ]

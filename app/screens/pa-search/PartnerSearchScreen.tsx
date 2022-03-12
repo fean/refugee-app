@@ -16,9 +16,9 @@ import Icon from "react-native-vector-icons/Ionicons"
 
 import { PartnerTabsTabsNavigatorParamList } from "../../navigators"
 import {
-  getCenter,
+  getBoxCenter,
   getCurrentLocation,
-  getDistance,
+  getBoxDiameter,
   isOutsideBoundingBox,
   MapBoundingBox,
 } from "./helpers"
@@ -199,11 +199,17 @@ export const PartnerSearchScreen: React.FC<
       const from = [northEast.longitude, northEast.latitude]
       const to = [southWest.longitude, southWest.latitude]
 
-      const center = getCenter(from, to)
-      const distance = getDistance(from, to)
+      const center = getBoxCenter(from, to)
+      const boxDiameter = getBoxDiameter(from, to)
 
       roomStore
-        .loadRooms(center, Math.min(distance * 0.6, 12000))
+        .loadRooms(
+          center,
+          Math.min(
+            boxDiameter * 0.6 /* Distance === radius -> half of diameter + ~10% margin */,
+            10000,
+          ),
+        )
         .then(() => {
           setLoading(false)
           setRegionChanged(false)
@@ -217,7 +223,7 @@ export const PartnerSearchScreen: React.FC<
     })
   }, [contactStore, roomStore])
 
-  const handleSelect = React.useCallback(
+  const handleSelectLocation = React.useCallback(
     (selection: Location | null) => {
       if (selection) {
         mapRef.current.setCamera({
@@ -234,17 +240,15 @@ export const PartnerSearchScreen: React.FC<
     [handleLoadRooms],
   )
 
-  const handleMapReady = React.useCallback(() => {
-    handleLoadRooms()
-  }, [])
-
   React.useEffect(() => {
-    getCurrentLocation().then((coords) => {
-      if (coords) {
-        setRegion((current) => ({ ...current, center: coords }))
-      }
-      setReady(true)
-    })
+    getCurrentLocation()
+      .then((coords) => {
+        if (coords) {
+          setRegion((current) => ({ ...current, ...coords }))
+        }
+        setReady(true)
+      })
+      .catch(console.error)
   }, [])
 
   return (
@@ -260,9 +264,9 @@ export const PartnerSearchScreen: React.FC<
           loadingEnabled={!isReady}
           style={styles.map}
           userInterfaceStyle="light"
-          region={region}
+          initialRegion={region}
           onRegionChangeComplete={handleViewChanged}
-          onMapReady={handleMapReady}
+          onMapReady={handleLoadRooms}
         >
           {rooms.map((location) => (
             <SpaceMarker
@@ -305,7 +309,7 @@ export const PartnerSearchScreen: React.FC<
         </View>
       )}
 
-      <LocationSearchBlock style={styles.search} onSelect={handleSelect} />
+      <LocationSearchBlock style={styles.search} onSelect={handleSelectLocation} />
 
       {activeMarker && (
         <View style={styles.activeContainer}>

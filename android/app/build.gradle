@@ -138,7 +138,7 @@ android {
         applicationId "org.samaritan.refugee_helper"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 101
+        versionCode 100
         versionName "1.0"
     }
     splits {
@@ -151,10 +151,17 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file("samaritan.keystore")
-            storePassword "uyyXPPJW9OMiD1jLT5Y1@3XJK!8gn7q"
-            keyAlias "samaritan"
-            keyPassword "uyyXPPJW9OMiD1jLT5Y1@3XJK!8gn7q"
+            if (!project.hasProperty("SAMARITAN_UPLOAD_STORE_FILE")) {
+                storeFile file('debug.keystore')
+                storePassword 'android'
+                keyAlias 'androiddebugkey'
+                keyPassword 'android'
+            } else {
+                storeFile file(SAMARITAN_UPLOAD_STORE_FILE)
+                storePassword SAMARITAN_UPLOAD_STORE_FILE
+                keyAlias SAMARITAN_UPLOAD_KEY_ALIAS
+                keyPassword SAMARITAN_UPLOAD_KEY_PASSWORD
+            }
         }
         debug {
             storeFile file('debug.keystore')
