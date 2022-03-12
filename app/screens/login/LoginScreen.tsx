@@ -12,6 +12,7 @@ import {
   View,
   ActivityIndicator,
   Platform,
+  KeyboardAvoidingViewProps,
 } from "react-native"
 import { FormikProps, withFormik } from "formik"
 
@@ -58,15 +59,10 @@ const styles = StyleSheet.create({
     backgroundColor: theme.color.palette.white,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
-    bottom: 0,
-    left: 0,
-    opacity: 0,
     paddingBottom: 32,
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 32,
-    position: "absolute",
-    right: 0,
     ...theme.shadows.cover,
   },
   noAccountSection: {
@@ -77,6 +73,7 @@ const styles = StyleSheet.create({
     marginVertical: 32,
   },
   root: {
+    flexDirection: "column-reverse",
     height,
     left: 0,
     position: "absolute",
@@ -96,6 +93,11 @@ const styles = StyleSheet.create({
   spinner: {
     marginRight: 8,
   },
+})
+
+const avoidanceBehavior: KeyboardAvoidingViewProps["behavior"] = Platform.select({
+  ios: "padding",
+  android: "height",
 })
 
 const LoginScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
@@ -140,54 +142,56 @@ const LoginScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
   }, [])
 
   return (
-    <KeyboardAvoidingView behavior="height" style={styles.root}>
+    <>
       <StatusBar barStyle="light-content" animated translucent backgroundColor="#005099" />
-      <Image source={{ uri: "splash" }} style={styles.background} />
+      <KeyboardAvoidingView behavior={avoidanceBehavior} style={styles.root}>
+        <Image source={{ uri: "splash" }} style={styles.background} />
 
-      <Animated.View style={[styles.loginPanel, { opacity: opacityAnim }]}>
-        <Typography variant="title">{translate("screens.login.title")}</Typography>
+        <Animated.View style={[styles.loginPanel, { opacity: opacityAnim }]}>
+          <Typography variant="title">{translate("screens.login.title")}</Typography>
 
-        <FormikInput
-          ref={emailRef}
-          autoCapitalize="none"
-          autoComplete="email"
-          keyboardType="email-address"
-          textContentType="emailAddress"
-          name="email"
-          icon="mail"
-          error={errorMessage}
-          style={styles.inputContainer}
-          inputContainerStyle={styles.input}
-          placeholder={translate("screens.login.emailPlaceholder")}
-        />
-
-        <Button
-          disabled={isLoading || !isValid}
-          tx="screens.login.login"
-          icon={
-            isLoading && (
-              <ActivityIndicator
-                style={styles.spinner}
-                size="small"
-                color={theme.color.palette.white}
-              />
-            )
-          }
-          onPress={handleLogin}
-        />
-
-        <View style={styles.noAccountSection}>
-          <Typography style={styles.signupText} variant="button">
-            {translate("screens.login.no-account")}
-          </Typography>
-          <TextButton
-            textStyle={styles.signupButton}
-            tx="screens.login.signup"
-            onPress={handleNewUser}
+          <FormikInput
+            ref={emailRef}
+            autoCapitalize="none"
+            autoComplete="email"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+            name="email"
+            icon="mail"
+            error={errorMessage}
+            style={styles.inputContainer}
+            inputContainerStyle={styles.input}
+            placeholder={translate("screens.login.emailPlaceholder")}
           />
-        </View>
-      </Animated.View>
-    </KeyboardAvoidingView>
+
+          <Button
+            disabled={isLoading || !isValid}
+            tx="screens.login.login"
+            icon={
+              isLoading && (
+                <ActivityIndicator
+                  style={styles.spinner}
+                  size="small"
+                  color={theme.color.palette.white}
+                />
+              )
+            }
+            onPress={handleLogin}
+          />
+
+          <View style={styles.noAccountSection}>
+            <Typography style={styles.signupText} variant="button">
+              {translate("screens.login.no-account")}
+            </Typography>
+            <TextButton
+              textStyle={styles.signupButton}
+              tx="screens.login.signup"
+              onPress={handleNewUser}
+            />
+          </View>
+        </Animated.View>
+      </KeyboardAvoidingView>
+    </>
   )
 }
 

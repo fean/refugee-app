@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
 import {
   ActivityIndicator,
