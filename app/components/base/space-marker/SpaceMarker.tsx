@@ -10,7 +10,13 @@ interface PanelProps {
   onPress?: () => void
 }
 
-export const SpaceMarker: React.FC<PanelProps> = ({ active, nrBeds, location, onPress }) => {
-  const markerResourceUri = createMarkerUri(active, nrBeds)
-  return <Marker coordinate={location} image={{ uri: markerResourceUri }} onPress={onPress} />
-}
+const anchor = { x: 0.5, y: 0.5 }
+
+export const SpaceMarker: React.FC<PanelProps> = ({ active, nrBeds, location, onPress }) => (
+  <Marker
+    coordinate={location}
+    anchor={anchor}
+    icon={{ uri: createMarkerUri(active, nrBeds) }}
+    onPress={onPress}
+  />
+)

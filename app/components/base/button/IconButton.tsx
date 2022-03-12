@@ -27,7 +27,12 @@ export const IconButton: React.FC<SimpleButtonProps> = ({
   style: styleOverride,
   onPress,
 }) => (
-  <TouchableOpacity disabled={disabled} style={[styles.base, styleOverride]} onPress={onPress}>
+  <TouchableOpacity
+    disabled={disabled}
+    style={[styles.base, styleOverride]}
+    onPress={onPress}
+    hitSlop={{ top: 30, bottom: 30, left: 30, right: 30 }}
+  >
     {icon}
   </TouchableOpacity>
 )

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { View, StyleSheet, StatusBar } from "react-native"
+import { View, StyleSheet, StatusBar, Platform } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import MapView from "react-native-maps"
 
@@ -66,7 +66,7 @@ export const HomeownerProfileScreen: React.FC<
           zoom: 8,
           pitch: 1,
           heading: 1,
-          altitude: 3000,
+          altitude: Platform.select({ ios: 4000, android: 1000 }),
         }}
       >
         <SpaceMarker active location={geo} nrBeds={user.location.nrBeds || 1} />

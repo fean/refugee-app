@@ -33,7 +33,8 @@ const styles = StyleSheet.create({
   },
   modal: {
     backgroundColor: color.palette.white,
-    borderRadius: borderRadius.big,
+    borderTopLeftRadius: borderRadius.big,
+    borderTopRightRadius: borderRadius.big,
     bottom: 0,
     height: screen.height * 0.6,
     left: 0,

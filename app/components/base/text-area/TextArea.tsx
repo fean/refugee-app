@@ -69,6 +69,7 @@ export const TextArea = React.forwardRef<TextInput, TextAreaProps>(
           onSubmitEditing={handleSubmitEditing}
           onChangeText={onChange}
           underlineColorAndroid="transparent"
+          numberOfLines={6}
           {...restProps}
         />
 

@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { FlatList, RefreshControl, StatusBar, StyleSheet } from "react-native"
+import { FlatList, Platform, RefreshControl, StatusBar, StyleSheet } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 
 import { PartnerContact } from "../../components"
 import { PartnerContactsNavigatorParamList } from "../../navigators"
 import { useStores } from "../../models"
+import * as theme from "../../theme"
 
 const styles = StyleSheet.create({
   card: {
@@ -14,6 +15,11 @@ const styles = StyleSheet.create({
   list: {
     padding: 16,
   },
+})
+
+const refreshControlColor = Platform.select({
+  ios: undefined,
+  android: theme.color.palette.europe,
 })
 
 export const ParterContactsScreen: React.FC<
@@ -42,8 +48,14 @@ export const ParterContactsScreen: React.FC<
       <StatusBar barStyle="dark-content" />
 
       <FlatList
-        refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
-        style={styles.list}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={handleRefresh}
+            tintColor={refreshControlColor}
+          />
+        }
+        contentContainerStyle={styles.list}
         data={contacts}
         renderItem={({ item }) => (
           <PartnerContact

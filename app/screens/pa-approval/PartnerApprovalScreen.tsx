@@ -1,7 +1,16 @@
 import * as React from "react"
-import { Image, RefreshControl, ScrollView, StatusBar, StyleSheet, View } from "react-native"
+import {
+  Image,
+  Platform,
+  RefreshControl,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 
+import * as theme from "../../theme"
 import { NavigatorParamList } from "../../navigators"
 import { Typography } from "../../components"
 import { translate } from "../../i18n"
@@ -12,6 +21,9 @@ const styles = StyleSheet.create({
     height: 300,
     marginTop: 80,
     width: 300,
+  },
+  lastBlock: {
+    marginTop: 16,
   },
   scrollContainer: {
     alignItems: "center",
@@ -26,9 +38,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginTop: 8,
   },
-  lastBlock: {
-    marginTop: 16,
-  },
+})
+
+const refreshControlColor = Platform.select({
+  ios: undefined,
+  android: theme.color.palette.europe,
 })
 
 export const PartnerApprovalScreen: React.FC<StackScreenProps<NavigatorParamList, "approval">> = ({
@@ -47,7 +61,11 @@ export const PartnerApprovalScreen: React.FC<StackScreenProps<NavigatorParamList
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />
+      <RefreshControl
+        refreshing={isLoading}
+        onRefresh={handleRefresh}
+        tintColor={refreshControlColor}
+      />
 
       <StatusBar barStyle="dark-content" />
 

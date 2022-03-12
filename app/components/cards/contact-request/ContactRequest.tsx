@@ -1,14 +1,24 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle, StyleSheet, TouchableOpacity } from "react-native"
+import {
+  View,
+  StyleProp,
+  ViewStyle,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  TouchableHighlight,
+} from "react-native"
 
 import { getAvatarSimplification } from "../../../utils/avatar"
 
 import { Typography } from "../../base/typography/Typography"
 import { StatusPanel } from "../../base/panel"
 import { Avatar } from "../../base/avatar/Avatar"
+import * as theme from "../../../theme"
 
 interface PanelProps {
   style?: StyleProp<ViewStyle>
+  cardStyle?: StyleProp<ViewStyle>
   id: string
   state: string
   date: Date
@@ -21,6 +31,9 @@ const styles = StyleSheet.create({
   avatar: {
     marginRight: 8,
   },
+  bar: {
+    flexDirection: "column",
+  },
   content: {
     flexDirection: "row",
     marginTop: 8,
@@ -28,13 +41,21 @@ const styles = StyleSheet.create({
   mission: {
     flex: 1,
   },
-  bar: {
-    flexDirection: "column",
+  touchable: {
+    borderRadius: theme.borderRadius.big,
   },
+})
+
+const Touchable = Platform.select({
+  ios: TouchableOpacity,
+  android: ((props) => (
+    <TouchableHighlight activeOpacity={0.7} underlayColor={theme.color.palette.white} {...props} />
+  )) as any,
 })
 
 export const ContactRequest: React.FC<PanelProps> = ({
   style: styleOverride,
+  cardStyle,
   id,
   name,
   state,
@@ -46,8 +67,8 @@ export const ContactRequest: React.FC<PanelProps> = ({
   const avatarSimp = React.useMemo(() => getAvatarSimplification(name), [name])
 
   return (
-    <TouchableOpacity onPress={handlePress}>
-      <StatusPanel panelStyle={[styles.bar, styleOverride]} status={state} date={date}>
+    <Touchable style={[styles.touchable, styleOverride]} onPress={handlePress}>
+      <StatusPanel panelStyle={[styles.bar, cardStyle]} status={state} date={date}>
         <Typography variant="header">{name}</Typography>
 
         <View style={styles.content}>
@@ -58,6 +79,6 @@ export const ContactRequest: React.FC<PanelProps> = ({
           </Typography>
         </View>
       </StatusPanel>
-    </TouchableOpacity>
+    </Touchable>
   )
 }

@@ -54,3 +54,26 @@ export const isOutsideBoundingBox = (
 
   return isOutsideHorizontal || isOutsideVertical
 }
+
+export const getDistance = (from: number[], to: number[]): number => {
+  const R = 6371 // km
+  const dLat = toRad(to[1] - from[1])
+  const dLon = toRad(to[0] - from[0])
+  const lat1 = toRad(from[1])
+  const lat2 = toRad(to[1])
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2)
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  const d = R * c
+
+  return d * 1000
+}
+
+const toRad = (degreeValue: number) => (degreeValue * Math.PI) / 180
+
+export const getCenter = (from: number[], to: number[]): number[] => [
+  (from[0] + to[0]) / 2,
+  (from[1] + to[1]) / 2,
+]

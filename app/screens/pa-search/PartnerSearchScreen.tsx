@@ -1,13 +1,27 @@
 /* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { ActivityIndicator, Alert, StatusBar, StyleSheet, View } from "react-native"
+import {
+  ActivityIndicator,
+  Alert,
+  Dimensions,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
+} from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
-import MapView from "react-native-maps"
+import MapView, { Camera, Region } from "react-native-maps"
 import { observer } from "mobx-react-lite"
 import Icon from "react-native-vector-icons/Ionicons"
 
 import { PartnerTabsTabsNavigatorParamList } from "../../navigators"
-import { getCurrentLocation, isOutsideBoundingBox, MapBoundingBox } from "./helpers"
+import {
+  getCenter,
+  getCurrentLocation,
+  getDistance,
+  isOutsideBoundingBox,
+  MapBoundingBox,
+} from "./helpers"
 import {
   LocationSearchBlock,
   MapSpace,
@@ -21,6 +35,7 @@ import { translate } from "../../i18n"
 import { useStores } from "../../models"
 import { Room } from "../../models/Room"
 import { color } from "../../theme"
+import * as theme from "../../theme"
 
 const styles = StyleSheet.create({
   activeContainer: {
@@ -39,7 +54,10 @@ const styles = StyleSheet.create({
     left: 16,
     position: "absolute",
     right: 16,
-    top: 120,
+    top: Platform.select({
+      ios: 120,
+      android: 96,
+    }),
   },
   loadingPanel: {
     alignItems: "center",
@@ -65,7 +83,10 @@ const styles = StyleSheet.create({
     left: 16,
     position: "absolute",
     right: 16,
-    top: 64,
+    top: Platform.select({
+      ios: 64,
+      android: 40,
+    }),
   },
   searchBtn: {
     height: 28,
@@ -77,7 +98,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const initialCamera = {
+const initialCamera: Camera = {
   center: {
     latitude: 52.3675734,
     longitude: 4.9041389,
@@ -88,13 +109,27 @@ const initialCamera = {
   altitude: 8000,
 }
 
+const { width, height } = Dimensions.get("window")
+const intialLatitudeDelta = 0.1
+const initialRegion: Region = {
+  latitude: 52.3675734,
+  longitude: 4.9041389,
+  latitudeDelta: intialLatitudeDelta,
+  longitudeDelta: intialLatitudeDelta * (width / height),
+}
+
+const refreshControlColor = Platform.select({
+  ios: undefined,
+  android: theme.color.palette.europe,
+})
+
 export const PartnerSearchScreen: React.FC<
   StackScreenProps<PartnerTabsTabsNavigatorParamList, "search">
 > = observer(() => {
   const boxRef = React.useRef<MapBoundingBox>()
   const mapRef = React.useRef<MapView>()
 
-  const [camera, setCamera] = React.useState(initialCamera)
+  const [region, setRegion] = React.useState<Region>(initialRegion)
   const [isReady, setReady] = React.useState(false)
   const [isLoading, setLoading] = React.useState(false)
   const [isRequesting, setRequesting] = React.useState(false)
@@ -160,16 +195,19 @@ export const PartnerSearchScreen: React.FC<
     const { current: map } = mapRef
 
     setLoading(true)
-    map.getCamera().then((actualCamera) => {
+    map.getMapBoundaries().then(({ northEast, southWest }) => {
+      const from = [northEast.longitude, northEast.latitude]
+      const to = [southWest.longitude, southWest.latitude]
+
+      const center = getCenter(from, to)
+      const distance = getDistance(from, to)
+
       roomStore
-        .loadRooms(
-          [actualCamera.center.longitude, actualCamera.center.latitude],
-          Math.min(actualCamera.altitude * 0.1, 12000),
-        )
+        .loadRooms(center, Math.min(distance * 0.6, 12000))
         .then(() => {
           setLoading(false)
           setRegionChanged(false)
-          map.getMapBoundaries().then((boundaries) => (boxRef.current = boundaries))
+          boxRef.current = { northEast, southWest }
         })
         .catch((error) => {
           setLoading(false)
@@ -196,18 +234,18 @@ export const PartnerSearchScreen: React.FC<
     [handleLoadRooms],
   )
 
+  const handleMapReady = React.useCallback(() => {
+    handleLoadRooms()
+  }, [])
+
   React.useEffect(() => {
     getCurrentLocation().then((coords) => {
       if (coords) {
-        setCamera((current) => ({ ...current, center: coords }))
+        setRegion((current) => ({ ...current, center: coords }))
       }
       setReady(true)
     })
   }, [])
-
-  React.useEffect(() => {
-    if (isReady) handleLoadRooms()
-  }, [isReady, handleLoadRooms])
 
   return (
     <View style={styles.container}>
@@ -216,11 +254,15 @@ export const PartnerSearchScreen: React.FC<
       {isReady && (
         <MapView
           ref={mapRef}
+          showsCompass={false}
+          showsScale={false}
+          rotateEnabled={false}
           loadingEnabled={!isReady}
           style={styles.map}
           userInterfaceStyle="light"
-          camera={camera}
+          region={region}
           onRegionChangeComplete={handleViewChanged}
+          onMapReady={handleMapReady}
         >
           {rooms.map((location) => (
             <SpaceMarker
@@ -237,7 +279,7 @@ export const PartnerSearchScreen: React.FC<
       {isLoading && (
         <View style={styles.floatingContainer}>
           <Panel style={styles.loadingPanel}>
-            <ActivityIndicator style={styles.spinner} />
+            <ActivityIndicator style={styles.spinner} color={refreshControlColor} />
             <Typography variant="note" style={styles.loadingText}>
               {translate("common.loading")}
             </Typography>

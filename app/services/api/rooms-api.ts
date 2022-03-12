@@ -16,7 +16,7 @@ export class RoomsApi {
       const response: ApiResponse<any> = await this.api.apisauce.put(`rooms`, {
         lng: Number(center[0]),
         lat: Number(center[1]),
-        distance: Math.round(distance),
+        distance: Math.round(distance || 1000),
       })
       if (!response.ok) {
         const problem = getGeneralApiProblem(response)

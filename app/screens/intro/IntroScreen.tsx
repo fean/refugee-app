@@ -5,7 +5,7 @@ import { StackScreenProps } from "@react-navigation/stack"
 import { NavigatorParamList } from "../../navigators"
 import { PanelButton, Typography, NumericHeader } from "../../components"
 import { translate } from "../../i18n"
-import { color } from "../../theme"
+import * as theme from "../../theme"
 
 const styles = StyleSheet.create({
   btn: {
@@ -43,8 +43,8 @@ export const IntroScreen: React.FC<StackScreenProps<NavigatorParamList, "intro">
   const handleSetupPartner = React.useCallback(() => navigation.navigate("pa-setup"), [navigation])
 
   return (
-    <ScrollView style={styles.scrollContainer}>
-      <StatusBar barStyle="dark-content" />
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <StatusBar barStyle="dark-content" animated backgroundColor={theme.color.palette.white} />
 
       <Typography variant="title" style={styles.title}>
         {translate("screens.intro.how-it-works")}
@@ -84,14 +84,14 @@ export const IntroScreen: React.FC<StackScreenProps<NavigatorParamList, "intro">
       <View style={styles.btnContainer}>
         <PanelButton
           icon="home"
-          iconColor={color.palette.europe}
+          iconColor={theme.color.palette.europe}
           style={styles.btn}
           text={translate("screens.intro.homeowner")}
           onPress={handleSetupHomeowner}
         />
         <PanelButton
           icon="heart"
-          iconColor={color.palette.love}
+          iconColor={theme.color.palette.love}
           text={translate("screens.intro.partner")}
           onPress={handleSetupPartner}
         />

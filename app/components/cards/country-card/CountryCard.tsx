@@ -1,5 +1,14 @@
 import * as React from "react"
-import { View, StyleProp, ViewStyle, StyleSheet, Image, TouchableOpacity } from "react-native"
+import {
+  View,
+  StyleProp,
+  ViewStyle,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Platform,
+  TouchableHighlight,
+} from "react-native"
 
 import { translate } from "../../../i18n"
 
@@ -7,6 +16,7 @@ import { Typography } from "../../base/typography/Typography"
 import { Panel } from "../../base/panel"
 
 import { countries, CountryDetails } from "./CountryCard.countries"
+import * as theme from "../../../theme"
 
 interface PanelProps {
   style?: StyleProp<ViewStyle>
@@ -15,10 +25,6 @@ interface PanelProps {
 }
 
 const styles = StyleSheet.create({
-  flag: {
-    height: 32,
-    width: 32,
-  },
   bar: {
     alignItems: "center",
     flexDirection: "row",
@@ -27,6 +33,10 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     paddingRight: 8,
   },
+  flag: {
+    height: 32,
+    width: 32,
+  },
   title: {
     marginLeft: 16,
   },
@@ -34,6 +44,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
   },
+  touchable: {
+    borderRadius: theme.borderRadius.big,
+  },
+})
+
+const Touchable = Platform.select({
+  ios: TouchableOpacity,
+  android: ((props) => (
+    <TouchableHighlight activeOpacity={0.7} underlayColor={theme.color.palette.white} {...props} />
+  )) as any,
 })
 
 export const CountryCard: React.FC<PanelProps> = ({
@@ -46,7 +66,7 @@ export const CountryCard: React.FC<PanelProps> = ({
   const handlePress = React.useCallback(() => onPress(country), [country, onPress])
 
   return (
-    <TouchableOpacity onPress={handlePress}>
+    <Touchable styles={styles.touchable} onPress={handlePress}>
       <Panel style={[styles.bar, styleOverride]}>
         <View style={styles.titleFlagContainer}>
           <Image style={styles.flag} source={{ uri: country.flag }} />
@@ -59,6 +79,6 @@ export const CountryCard: React.FC<PanelProps> = ({
           {country.phone}
         </Typography>
       </Panel>
-    </TouchableOpacity>
+    </Touchable>
   )
 }

@@ -74,7 +74,7 @@ export const ContactRequestOverviewScreen: React.FC<
         </ScrollView>
       ) : (
         <FlatList
-          style={styles.list}
+          contentContainerStyle={styles.list}
           data={contacts}
           refreshControl={<RefreshControl refreshing={isLoading} onRefresh={handleRefresh} />}
           renderItem={({ item }) => (

@@ -1,16 +1,9 @@
 import * as React from "react"
-import {
-  ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-} from "react-native"
+import { ActivityIndicator, Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import { FormikProps, withFormik } from "formik"
 import * as Yup from "yup"
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view"
 
 import { NavigatorParamList } from "../../navigators"
 import { translate } from "../../i18n"
@@ -108,15 +101,13 @@ const PartnerSetupScreenComp: React.FC<ScreenProps & FormikProps<PartnerFormValu
   }, [navigation, userStore, values])
 
   return (
-    <SafeAreaView>
+    <>
       <StatusBar barStyle="dark-content" />
-
-      <KeyboardAvoidingView behavior="padding">
-        <ScrollView
-          keyboardShouldPersistTaps="never"
-          scrollToOverflowEnabled
-          style={styles.scrollContainer}
-        >
+      <KeyboardAwareScrollView
+        contentContainerStyle={styles.scrollContainer}
+        keyboardShouldPersistTaps="never"
+      >
+        <SafeAreaView>
           <NumericHeader
             style={styles.header}
             option="1"
@@ -155,9 +146,9 @@ const PartnerSetupScreenComp: React.FC<ScreenProps & FormikProps<PartnerFormValu
             style={styles.btn}
             onPress={handleCreate}
           />
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </SafeAreaView>
+      </KeyboardAwareScrollView>
+    </>
   )
 }
 

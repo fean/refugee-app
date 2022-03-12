@@ -18,7 +18,7 @@ export const RoomStoreModel = types
     loadRooms: async (center: number[], distance: number): Promise<void> => {
       const result = await self.environment.roomsApi.loadRooms(center, distance)
       if (result.kind !== "ok") {
-        console.warn("Request failed contacts: ", result.kind)
+        console.warn("Request failed rooms: ", result.kind)
         throw new Error(result.kind)
       }
 
@@ -32,7 +32,7 @@ export const RoomStoreModel = types
     requestRoomDetails: async (roomId: string): Promise<void> => {
       const result = await self.environment.roomsApi.requestDetails(roomId)
       if (result.kind !== "ok") {
-        console.warn("Request failed contacts: ", result.kind)
+        console.warn("Request failed rooms: ", result.kind)
         throw new Error(result.kind)
       }
 

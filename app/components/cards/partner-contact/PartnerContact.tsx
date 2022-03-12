@@ -1,12 +1,21 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, StyleSheet, TouchableOpacity } from "react-native"
+import {
+  StyleProp,
+  ViewStyle,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  TouchableHighlight,
+} from "react-native"
 
 import { Typography } from "../../base/typography/Typography"
 import { StatusPanel } from "../../base/panel"
 import { translate } from "../../../i18n"
+import * as theme from "../../../theme"
 
 interface PartnerContactProps {
   style?: StyleProp<ViewStyle>
+  cardStyle?: StyleProp<ViewStyle>
   disabled?: boolean
   id: string
   state: string
@@ -29,10 +38,21 @@ const styles = StyleSheet.create({
   name: {
     marginBottom: 8,
   },
+  touchable: {
+    borderRadius: theme.borderRadius.big,
+  },
+})
+
+const Touchable = Platform.select({
+  ios: TouchableOpacity,
+  android: ((props) => (
+    <TouchableHighlight activeOpacity={0.7} underlayColor={theme.color.palette.white} {...props} />
+  )) as any,
 })
 
 export const PartnerContact: React.FC<PartnerContactProps> = ({
   style: styleOverride,
+  cardStyle,
   disabled,
   id,
   name,
@@ -47,8 +67,8 @@ export const PartnerContact: React.FC<PartnerContactProps> = ({
   const handlePress = React.useCallback(() => onPress(id), [id, onPress])
 
   return (
-    <TouchableOpacity onPress={handlePress} disabled={disabled}>
-      <StatusPanel panelStyle={[styles.bar, styleOverride]} status={state} date={date}>
+    <Touchable style={[styles.touchable, styleOverride]} onPress={handlePress} disabled={disabled}>
+      <StatusPanel panelStyle={[styles.bar, cardStyle]} status={state} date={date}>
         <Typography variant="header" style={styles.name}>
           {state === "approved"
             ? name
@@ -62,6 +82,6 @@ export const PartnerContact: React.FC<PartnerContactProps> = ({
           {`${postal} ${city}`}
         </Typography>
       </StatusPanel>
-    </TouchableOpacity>
+    </Touchable>
   )
 }

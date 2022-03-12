@@ -1,5 +1,13 @@
 import * as React from "react"
-import { StyleProp, ViewStyle, TouchableOpacity, View, StyleSheet } from "react-native"
+import {
+  StyleProp,
+  ViewStyle,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Platform,
+  TouchableHighlight,
+} from "react-native"
 
 import { borderRadius, color } from "../../../theme"
 import { translate } from "../../../i18n"
@@ -17,15 +25,25 @@ interface SimpleButtonProps {
 
 const styles = StyleSheet.create({
   base: {
-    alignItems: "center",
     borderRadius: borderRadius.small,
-    flexDirection: "row",
     height: 48,
-    justifyContent: "center",
   },
   icon: {
     marginEnd: 8,
   },
+  inner: {
+    alignItems: "center",
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+})
+
+const Touchable = Platform.select({
+  ios: TouchableOpacity,
+  android: ((props) => (
+    <TouchableHighlight activeOpacity={0.9} underlayColor={color.palette.europeShade} {...props} />
+  )) as any,
 })
 
 export const Button: React.FC<SimpleButtonProps> = ({
@@ -47,17 +65,19 @@ export const Button: React.FC<SimpleButtonProps> = ({
   const textColor = disabled ? "disabled" : "white"
 
   return (
-    <TouchableOpacity
+    <Touchable
       disabled={disabled}
       style={[styles.base, colorStyles, styleOverride]}
       onPress={onPress}
     >
-      {icon && <View style={text && styles.icon}>{icon}</View>}
-      {btnText && (
-        <Typography variant="button" color={textColor}>
-          {btnText}
-        </Typography>
-      )}
-    </TouchableOpacity>
+      <View style={styles.inner}>
+        {icon && <View style={text && styles.icon}>{icon}</View>}
+        {btnText && (
+          <Typography variant="button" color={textColor}>
+            {btnText}
+          </Typography>
+        )}
+      </View>
+    </Touchable>
   )
 }

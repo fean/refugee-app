@@ -11,12 +11,12 @@ import {
   TextInput,
   View,
   ActivityIndicator,
+  Platform,
 } from "react-native"
 import { FormikProps, withFormik } from "formik"
 
-import { borderRadius, color } from "../../theme"
+import * as theme from "../../theme"
 import { NavigatorParamList } from "../../navigators"
-import { shadows } from "../../theme/shadows"
 
 import { Button, FormikInput, TextButton, Typography } from "../../components"
 
@@ -40,15 +40,22 @@ const styles = StyleSheet.create({
     top: 0,
   },
   input: {
-    backgroundColor: color.palette.control,
-    borderRadius: borderRadius.small,
+    ...Platform.select({
+      ios: {},
+      android: {
+        paddingTop: 0,
+        paddingBottom: 0,
+      },
+    }),
+    backgroundColor: theme.color.palette.control,
+    borderRadius: theme.borderRadius.small,
   },
   inputContainer: {
     marginBottom: 32,
     marginTop: 16,
   },
   loginPanel: {
-    backgroundColor: color.palette.white,
+    backgroundColor: theme.color.palette.white,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
     bottom: 0,
@@ -60,7 +67,7 @@ const styles = StyleSheet.create({
     paddingTop: 32,
     position: "absolute",
     right: 0,
-    ...shadows.cover,
+    ...theme.shadows.cover,
   },
   noAccountSection: {
     alignItems: "center",
@@ -77,13 +84,13 @@ const styles = StyleSheet.create({
     top: 0,
   },
   signupButton: {
-    color: color.palette.europe,
+    color: theme.color.palette.europe,
     fontWeight: "bold",
     height: 24,
     paddingLeft: 4,
   },
   signupText: {
-    color: color.text,
+    color: theme.color.text,
     height: 24,
   },
   spinner: {
@@ -134,7 +141,7 @@ const LoginScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
 
   return (
     <KeyboardAvoidingView behavior="height" style={styles.root}>
-      <StatusBar barStyle="light-content" translucent backgroundColor={color.primary} />
+      <StatusBar barStyle="light-content" animated translucent backgroundColor="#005099" />
       <Image source={{ uri: "splash" }} style={styles.background} />
 
       <Animated.View style={[styles.loginPanel, { opacity: opacityAnim }]}>
@@ -157,7 +164,15 @@ const LoginScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
         <Button
           disabled={isLoading || !isValid}
           tx="screens.login.login"
-          icon={isLoading && <ActivityIndicator style={styles.spinner} size="small" />}
+          icon={
+            isLoading && (
+              <ActivityIndicator
+                style={styles.spinner}
+                size="small"
+                color={theme.color.palette.white}
+              />
+            )
+          }
           onPress={handleLogin}
         />
 

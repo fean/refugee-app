@@ -13,7 +13,7 @@ import {
 import { FormikProps, withFormik } from "formik"
 import messaging from "@react-native-firebase/messaging"
 
-import { color } from "../../theme"
+import * as theme from "../../theme"
 import { NavigatorParamList } from "../../navigators"
 
 import { Button, FormikOTPInput, Typography } from "../../components"
@@ -124,7 +124,7 @@ const OTPScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
 
   return (
     <KeyboardAvoidingView behavior="height" style={styles.root}>
-      <StatusBar barStyle="dark-content" translucent backgroundColor={color.primary} />
+      <StatusBar barStyle="dark-content" animated backgroundColor={theme.color.palette.white} />
 
       <View style={styles.titleContainer}>
         <Typography variant="text" align="center">
@@ -144,7 +144,15 @@ const OTPScreenComp: React.FC<ScreenProps & FormikProps<LoginValues>> = ({
       <Button
         disabled={!isValid || isLoading}
         tx="screens.otp.verify"
-        icon={isLoading && <ActivityIndicator style={styles.spinner} size="small" />}
+        icon={
+          isLoading && (
+            <ActivityIndicator
+              style={styles.spinner}
+              size="small"
+              color={theme.color.palette.white}
+            />
+          )
+        }
         style={styles.verifyButton}
         onPress={handleLogin}
       />

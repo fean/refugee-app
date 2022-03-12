@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   TextInput,
+  Platform,
 } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 import { observer } from "mobx-react-lite"
@@ -49,6 +50,13 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: color.palette.white,
     paddingLeft: 8,
+    ...Platform.select({
+      ios: {},
+      android: {
+        paddingTop: 0,
+        paddingBottom: 0,
+      },
+    }),
   },
   inputContainer: {
     flex: 1,
