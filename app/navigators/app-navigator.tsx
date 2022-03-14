@@ -49,7 +49,11 @@ const AppStack = observer(() => {
             component={OTPScreen}
             options={{ title: translate("screens.otp.title"), headerShown: true }}
           />
-          <Stack.Screen name="intro" component={IntroScreen} />
+          <Stack.Screen 
+            name="intro" 
+            component={IntroScreen} 
+            options={{ headerShown: true }}
+          />
           <Stack.Screen
             name="ho-setup"
             component={HomeownerSetupScreen}
