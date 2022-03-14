@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
-import { View, StyleSheet, StatusBar, Platform } from "react-native"
+import { View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
 import MapView from "react-native-maps"
 
@@ -20,6 +20,10 @@ const styles = StyleSheet.create({
   divider: {
     marginBottom: 32,
     marginTop: 32,
+  },
+  logoutText: {
+    color: color.palette.warn,
+    marginTop: 15,
   },
   map: {
     flex: 1,
@@ -45,6 +49,7 @@ export const HomeownerProfileScreen: React.FC<
 > = observer(() => {
   const {
     userStore: { user },
+    userStore,
   } = useStores()
 
   const geo = React.useMemo(
@@ -54,6 +59,10 @@ export const HomeownerProfileScreen: React.FC<
     }),
     [user.location.coords],
   )
+
+  const handleLogoutPress = React.useCallback(() => {
+    userStore.saveIsLoggedIn(false)
+  }, [userStore])
 
   return (
     <View style={styles.container}>
@@ -92,6 +101,11 @@ export const HomeownerProfileScreen: React.FC<
             count: user.location.nrBeds || 1,
           })}
         />
+        {__DEV__ && (
+          <TouchableOpacity onPress={handleLogoutPress}>
+            <Text style={styles.logoutText}>Logout</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   )
