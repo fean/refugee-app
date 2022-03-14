@@ -7,7 +7,13 @@ import MapView from "react-native-maps"
 import { HomeownerTabsNavigatorParamList } from "../../navigators"
 import { shadows } from "../../theme/shadows"
 import { color } from "../../theme"
-import { ContactHeader, Divider, SpaceMarker, TextExplainer } from "../../components"
+import {
+  ContactHeaderSelf,
+  ContactHeader,
+  Divider,
+  SpaceMarker,
+  TextExplainer,
+} from "../../components"
 import { translate } from "../../i18n"
 import { useStores } from "../../models"
 import { observer } from "mobx-react-lite"
@@ -82,7 +88,7 @@ export const HomeownerProfileScreen: React.FC<
       </MapView>
 
       <View style={styles.panel}>
-        <ContactHeader name={user.name} phone={user.contact.phone} email={user.contact.email} />
+        <ContactHeaderSelf name={user.name} phone={user.contact.phone} email={user.contact.email} />
         <Divider style={styles.divider} />
         <TextExplainer
           icon="home"
