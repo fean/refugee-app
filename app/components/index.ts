@@ -26,6 +26,7 @@ export * from "./blocks/partner-details-block/PartnerDetails"
 export * from "./blocks/partner-motivation-block/PartnerMotivation"
 export * from "./blocks/numeric-header-block/NumericHeader"
 export * from "./blocks/contact-header/ContactHeader"
+export * from "./blocks/contact-header-self/ContactHeaderSelf"
 export * from "./blocks/text-explainer/TextExplainer"
 export * from "./blocks/location-search-block/LocationSearchBlock"
 
