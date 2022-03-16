@@ -18,10 +18,12 @@ import * as Sentry from "@sentry/react-native"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
-Sentry.init({
-  dsn: "https://48b0c67a06a44259a975f003ca95ed38@o1169339.ingest.sentry.io/6262071",
-  tracesSampleRate: 0.5,
-})
+if (!__DEV__) {
+  Sentry.init({
+    dsn: "https://48b0c67a06a44259a975f003ca95ed38@o1169339.ingest.sentry.io/6262071",
+    tracesSampleRate: 0.5,
+  })
+}
 
 /**
  * This is the root component of our app.
