@@ -121,10 +121,17 @@ export const UserStoreModel = types
     setPushToken: async (token: string): Promise<void> => {
       await self.environment.userApi.savePushToken(token)
     },
-    logout: () => {
+    deleteMe: async (): Promise<void> => {
+      await self.environment.userApi.deleteMe()
+
+      self.saveIsLoggedIn(false)
       self.saveUser(undefined)
       self.saveTokens("", "")
+    },
+    logout: () => {
       self.saveIsLoggedIn(false)
+      self.saveUser(undefined)
+      self.saveTokens("", "")
     },
   }))
 

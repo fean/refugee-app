@@ -13,7 +13,7 @@ export const ContactStoreModel = types
   .actions((self) => ({
     saveContacts: (contacts: ContactSnapshot[]) => {
       self.contacts.replace(contacts as any)
-      self.originIds.replace(contacts.map((contact) => contact.origin))
+      self.originIds.replace(contacts.map((contact) => contact.origin).filter(Boolean))
     },
     saveContactApproval: (contactId: string) => {
       const contact = self.contacts.find((entry) => entry.id === contactId)

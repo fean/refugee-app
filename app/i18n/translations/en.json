@@ -187,7 +187,10 @@
       "personPhrase": {
         "one": "1 person",
         "other": "{{count}} people"
-      }
+      },
+      "deleteTitle": "Delete your samaritan profile?",
+      "deleteMessage": "Are you sure you want to delete all your details from Samaritan?\n\nNote: This action is permanent and can't be undone!",
+      "deleteAction": "Delete my profile"
     },
     "pa-search": {
       "persons": {

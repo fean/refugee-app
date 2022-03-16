@@ -82,6 +82,21 @@ export class UserApi {
     }
   }
 
+  async deleteMe(): Promise<GenericRequestResult> {
+    try {
+      const response: ApiResponse<any> = await this.api.apisauce.delete(`me`)
+      if (!response.ok) {
+        const problem = getGeneralApiProblem(response)
+        if (problem) return problem
+      }
+
+      return { kind: "ok" }
+    } catch (e) {
+      __DEV__ && console.tron.log(e.message)
+      return { kind: "bad-data" }
+    }
+  }
+
   async savePushToken(token: string): Promise<GenericRequestResult> {
     try {
       const response: ApiResponse<any> = await this.api.apisauce.post(`me/push-token`, { token })

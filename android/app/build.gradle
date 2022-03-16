@@ -157,7 +157,7 @@ android {
                 keyAlias 'androiddebugkey'
                 keyPassword 'android'
             } else {
-                storeFile file(SAMARITAN_UPLOAD_STORE_FILE)
+                storeFile file(SAMARITAN_UPLOAD_STORE_FILE)deleteAction
                 storePassword SAMARITAN_UPLOAD_STORE_PASSWORD
                 keyAlias SAMARITAN_UPLOAD_KEY_ALIAS
                 keyPassword SAMARITAN_UPLOAD_KEY_PASSWORD

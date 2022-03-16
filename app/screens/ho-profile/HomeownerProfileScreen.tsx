@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-as-const */
 import * as React from "react"
 import { View, StyleSheet, StatusBar, Platform, Text, TouchableOpacity } from "react-native"
 import { StackScreenProps } from "@react-navigation/stack"
