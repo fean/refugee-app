@@ -37,6 +37,7 @@
     "@react-navigation/native": "~6.0.1",
     "@react-navigation/native-stack": "^6.0.2",
     "@react-navigation/stack": "~6.0.1",
+    "@sentry/react-native": "^3.3.2",
     "apisauce": "2.0.0",
     "axios": "^0.26.1",
     "date-fns": "^2.28.0",

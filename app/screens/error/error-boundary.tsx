@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from "react"
+import * as Sentry from "@sentry/react-native"
 import { ErrorComponent } from "./error-component"
 
 interface Props {
@@ -11,21 +12,13 @@ interface State {
   errorInfo: ErrorInfo | null
 }
 
-/**
- * This component handles whenever the user encounters a JS error in the
- * app. It follows the "error boundary" pattern in React. We're using a
- * class component because according to the documentation, only class
- * components can be error boundaries.
- *
- * Read more here:
- *
- * @link: https://reactjs.org/docs/error-boundaries.html
- */
 export class ErrorBoundary extends Component<Props, State> {
   state = { error: null, errorInfo: null }
 
   // If an error in a child is encountered, this will run
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    Sentry.captureException(error)
+
     // Catch errors in any components below and re-render with error message
     this.setState({
       error,

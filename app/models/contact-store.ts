@@ -32,7 +32,7 @@ export const ContactStoreModel = types
       const result = await self.environment.contactsApi.findContacts()
       if (result.kind !== "ok") {
         console.warn("Request failed contacts: ", result.kind)
-        throw new Error()
+        throw new Error(result.kind)
       }
 
       self.saveContacts(result.contacts as any)
@@ -41,7 +41,7 @@ export const ContactStoreModel = types
       const result = await self.environment.contactsApi.approveContact(contactId)
       if (result.kind !== "ok") {
         console.warn("Request failed contacts: ", result.kind)
-        throw new Error()
+        throw new Error(result.kind)
       }
 
       self.saveContactApproval(contactId)

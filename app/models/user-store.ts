@@ -40,7 +40,7 @@ export const UserStoreModel = types
       const result = await self.environment.userApi.sendAuthEmail(email)
       if (result.kind !== "ok") {
         console.warn("Request failed: ", result.kind)
-        throw new Error()
+        throw new Error(result.kind)
       }
     },
     doAuthenticate: async (otp: string): Promise<void> => {
@@ -50,7 +50,7 @@ export const UserStoreModel = types
         self.saveTokens(result.accessToken, result.refreshToken)
       } else {
         console.warn("Request failed otp: ", result.kind)
-        throw new Error()
+        throw new Error(result.kind)
       }
     },
     doRefresh: async (): Promise<void> => {
@@ -73,7 +73,7 @@ export const UserStoreModel = types
         return result.user
       } else {
         console.warn("Request failed me: ", result.kind)
-        throw new Error()
+        throw new Error(result.kind)
       }
     },
     createPartner: async (details: PartnerFormValues): Promise<void> => {

@@ -5,15 +5,8 @@ import { StackScreenProps } from "@react-navigation/stack"
 import MapView from "react-native-maps"
 
 import { HomeownerTabsNavigatorParamList } from "../../navigators"
-import { shadows } from "../../theme/shadows"
-import { color } from "../../theme"
-import {
-  ContactHeaderSelf,
-  ContactHeader,
-  Divider,
-  SpaceMarker,
-  TextExplainer,
-} from "../../components"
+import { shadows, color } from "../../theme"
+import { ContactHeaderSelf, Divider, SpaceMarker, TextExplainer } from "../../components"
 import { translate } from "../../i18n"
 import { useStores } from "../../models"
 import { observer } from "mobx-react-lite"
@@ -66,10 +59,6 @@ export const HomeownerProfileScreen: React.FC<
     [user.location.coords],
   )
 
-  const handleLogoutPress = React.useCallback(() => {
-    userStore.saveIsLoggedIn(false)
-  }, [userStore])
-
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -108,7 +97,7 @@ export const HomeownerProfileScreen: React.FC<
           })}
         />
         {__DEV__ && (
-          <TouchableOpacity onPress={handleLogoutPress}>
+          <TouchableOpacity onPress={userStore.logout}>
             <Text style={styles.logoutText}>Logout</Text>
           </TouchableOpacity>
         )}
