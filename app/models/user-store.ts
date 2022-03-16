@@ -4,6 +4,7 @@ import { withEnvironment } from "./extensions/with-environment"
 import { User, UserModel, UserSnapshot } from "./User"
 import { HomeownerFormValues, PartnerFormValues } from "../screens"
 import { countries } from "../components/cards/country-card/CountryCard.countries"
+import { NoRefreshTokenOnRefreshError } from "./errors"
 
 export const UserStoreModel = types
   .model("AuthStore")
@@ -54,7 +55,7 @@ export const UserStoreModel = types
     },
     doRefresh: async (): Promise<void> => {
       if (!self.refreshToken) {
-        throw new Error()
+        throw new NoRefreshTokenOnRefreshError()
       }
 
       const result = await self.environment.userApi.refreshToken(self.refreshToken)
@@ -119,6 +120,11 @@ export const UserStoreModel = types
     },
     setPushToken: async (token: string): Promise<void> => {
       await self.environment.userApi.savePushToken(token)
+    },
+    logout: () => {
+      self.saveUser(undefined)
+      self.saveTokens("", "")
+      self.saveIsLoggedIn(false)
     },
   }))
 

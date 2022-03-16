@@ -65,6 +65,7 @@ export class Api {
           response.data = secondResponse.data
         } catch (error) {
           // TODO: Handle error
+          console.warn(error)
         }
       }
 
@@ -73,7 +74,10 @@ export class Api {
         await handleRedoRequest()
       }
 
-      refreshPromise = this.environment.rootStore.userStore.doRefresh()
+      refreshPromise = this.environment.rootStore.userStore.doRefresh().catch((error) => {
+        this.environment.rootStore.userStore.logout()
+        throw error
+      })
       await refreshPromise
       await handleRedoRequest()
     })
